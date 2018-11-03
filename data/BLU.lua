@@ -183,6 +183,8 @@ function job_setup()
 
 	update_melee_groups()
 	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","LearningMode","CastingMode","TreasureMode"})
+	lockstyleset = 1
+	set_lockstyle()
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -453,4 +455,8 @@ function update_melee_groups()
 				classes.CustomMeleeGroups:append('AM')
 		end
 	end	
+end
+
+function set_lockstyle()
+    send_command('wait 2; input /lockstyleset ' .. lockstyleset)
 end
