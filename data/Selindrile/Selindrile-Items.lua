@@ -1,14 +1,3 @@
---Gearsets your character will use among multiple jobs.
-
-sets.Sheltered = {ring2="Sheltered Ring"}
-sets.Capacity = {back="Mecisto. Mantle"}
-
-sets.buff.Doom = {waist="Gishdubar Sash",ring1="Eshmun's Ring",ring2="Eshmun's Ring"}
-sets.TreasureHunter = {head="Wh. Rarab Cap +1",waist="Chaac Belt"}
-
-sets.precast.Item['Hallowed Water'] = {}
-sets.precast.Item['Holy Water'] = {}
-
 --Augmented items that you'll use among multiple jobs.
 
 gear.gada_enhancing_club = {name="Gada",augments={'Enh. Mag. eff. dur. +6','STR+3','Mag. Acc.+8','"Mag.Atk.Bns."+17','DMG:+7',}}
@@ -70,3 +59,14 @@ gear.valorous_physical_pet_legs = {name="Valor. Hose",augments={'Pet: Attack+29 
 gear.valorous_magical_pet_legs = { name="Valor. Hose",augments={'Pet: "Mag.Atk.Bns."+28','Pet: "Regen"+3','Pet: INT+13','Pet: Attack+2 Pet: Rng.Atk.+2',}}
 gear.valorous_magical_pet_feet = {name="Valorous Greaves",augments={'Pet: "Mag.Atk.Bns."+29','Pet: "Dbl.Atk."+1 Pet: Crit.hit rate +1','Pet: INT+9','Pet: Accuracy+1 Pet: Rng. Acc.+1','Pet: Attack+4 Pet: Rng.Atk.+4',}}
 gear.valorous_wsd_feet = {name="Valorous Greaves",augments={'Accuracy+25','Weapon skill damage +4%','STR+5',}}
+
+--Gearsets your character will use among multiple jobs.
+
+sets.Sheltered = {ring2="Sheltered Ring"}
+sets.Capacity = {back="Mecisto. Mantle"}
+
+sets.buff.Doom = {waist="Gishdubar Sash",ring1="Eshmun's Ring",ring2="Eshmun's Ring"}
+sets.TreasureHunter = {head="Wh. Rarab Cap +1",waist="Chaac Belt"}
+
+sets.precast.Item['Hallowed Water'] = {}
+sets.precast.Item['Holy Water'] = {}
