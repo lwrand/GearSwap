@@ -812,41 +812,110 @@ function init_gear_sets()
 		legs="Shedir Seraweels"
 	})
 
-	sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {ear2="Earthcry Earring",waist="Siegel Sash",legs="Shedir Seraweels"})
+	sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {
+		ear2="Earthcry Earring",
+		waist="Siegel Sash",
+		legs="Shedir Seraweels"
+	})
 
-	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {legs="Shedir Seraweels"})
+	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {
+		legs="Shedir Seraweels"
+	})
 	
-	sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
-	sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
-	sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
-	sets.midcast.Shellra = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
+	sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {
+		ring2="Sheltered Ring"
+	})
+	sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], {
+		ring2="Sheltered Ring"
+	})
+	sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], {
+		ring2="Sheltered Ring"
+	})
+	sets.midcast.Shellra = set_combine(sets.midcast['Enhancing Magic'], {
+		ring2="Sheltered Ring"
+	})
 
-	sets.midcast['Divine Magic'] = {ammo="Pemphredo Tathlum",
-			        head="Jhakri Coronal +2",neck="Incanter's Torque",ear1="Regal Earring",ear2="Digni. Earring",
-				    body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Stikini Ring",ring2="Stikini Ring",
-					back=gear.mab_jse_back,waist="Luminary Sash",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
+	sets.midcast['Divine Magic'] = {
+		ammo="Pemphredo Tathlum",
+		head="Jhakri Coronal +2",
+		neck="Incanter's Torque",
+		ear1="Regal Earring",
+		ear2="Digni. Earring",
+		body="Jhakri Robe +2",
+		hands="Jhakri Cuffs +2",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
+		back=gear.mab_jse_back,
+		waist="Luminary Sash",
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2"
+	}
 
-	sets.midcast['Elemental Magic'] = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Dosis Tathlum",
-					 head="Jhakri Coronal +2",neck="Baetyl Pendant",ear1="Regal Earring",ear2="Friomisi Earring",
-					 body="Jhakri Robe +2",hands="Amalric Gages +1",ring1="Shiva Ring +1",ring2="Shiva Ring +1",
-				     back=gear.mab_jse_back,waist=gear.ElementalObi,legs="Hagondes Pants +1",feet="Jhakri Pigaches +2"}
+	sets.midcast['Elemental Magic'] = {
+		main="Nibiru Cudgel",
+		sub="Nibiru Cudgel",
+		ammo="Dosis Tathlum",
+		head="Jhakri Coronal +2",
+		neck="Baetyl Pendant",
+		ear1="Regal Earring",
+		ear2="Friomisi Earring",
+		body="Jhakri Robe +2",
+		hands="Amalric Gages +1",
+		ring1="Shiva Ring +1",
+		ring2="Shiva Ring +1",
+		back=gear.mab_jse_back,
+		waist=gear.ElementalObi,
+		legs="Hagondes Pants +1",
+		feet="Jhakri Pigaches +2"
+	}
 
-	sets.midcast['Elemental Magic'].Resistant = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-					 head="Jhakri Coronal +2",neck="Sanctity Necklace",ear1="Regal Earring",ear2="Friomisi Earring",
-					 body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Shiva Ring +1",ring2="Shiva Ring +1",
-				     back=gear.mab_jse_back,waist="Yamabuki-no-Obi",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
+	sets.midcast['Elemental Magic'].Resistant = {
+		main="Nibiru Cudgel",
+		sub="Nibiru Cudgel",
+		ammo="Pemphredo Tathlum",
+		head="Jhakri Coronal +2",
+		neck="Sanctity Necklace",
+		ear1="Regal Earring",
+		ear2="Friomisi Earring",
+		body="Jhakri Robe +2",
+		hands="Jhakri Cuffs +2",
+		ring1="Shiva Ring +1",
+		ring2="Shiva Ring +1",
+		back=gear.mab_jse_back,
+		waist="Yamabuki-no-Obi",
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2"
+	}
 
 	sets.midcast.Helix = sets.midcast['Elemental Magic']
 	sets.midcast.Helix.Resistant = sets.midcast['Elemental Magic'].Resistant
 
-	sets.element.Dark = {head="Pixie Hairpin +1",ring2="Archon Ring"}
-	sets.element.Earth = {neck="Quanpur Necklace"}
+	sets.element.Dark = {
+		head="Pixie Hairpin +1",
+		ring2="Archon Ring"
+	}
+	sets.element.Earth = {
+		neck="Quanpur Necklace"
+	}
 	sets.element.Light = {} --ring2="Weatherspoon Ring"
 
-	sets.midcast.Cure = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-					head="Carmine Mask +1",neck="Incanter's Torque",ear1="Etiolation Earring",ear2="Mendi. Earring",
-			        body="Vrikodara Jupon",hands="Telchine Gloves",ring1="Janniston Ring",ring2="Haoma's Ring",
-			        back=gear.ElementalCape,waist=gear.ElementalObi,legs="Carmine Cuisses +1",feet="Medium's Sabots"}
+	sets.midcast.Cure = {
+		main="Nibiru Cudgel",
+		sub="Nibiru Cudgel",
+		ammo="Pemphredo Tathlum",
+		head="Carmine Mask +1",
+		neck="Incanter's Torque",
+		ear1="Etiolation Earring",
+		ear2="Mendi. Earring",
+		body="Vrikodara Jupon",
+		hands="Telchine Gloves",
+		ring1="Janniston Ring",
+		ring2="Haoma's Ring",
+		back=gear.ElementalCape,
+		waist=gear.ElementalObi,
+		legs="Carmine Cuisses +1",
+		feet="Medium's Sabots"
+	}
 
 	-- Breath Spells --
 
