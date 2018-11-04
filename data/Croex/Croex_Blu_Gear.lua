@@ -1,6 +1,10 @@
+-- Debug function
+   --table.vprint(object/table name);
+   -- ex. table.vprint(item_map);
+
 function user_setup()
 	-- Options: Override default values
-	state.OffenseMode:options('Fodder','Normal','MinAcc','SomeAcc','Acc','HighAcc','FullAcc')
+	state.OffenseMode:options('Normal','MinAcc','SomeAcc','Acc','HighAcc','FullAcc','Fodder')
 	state.HybridMode:options('Normal','DTLite','PDT','MDT')
 	state.WeaponskillMode:options('Match','Normal','SomeAcc','Acc','HighAcc','FullAcc','Fodder')
 	state.CastingMode:options('Normal','Resistant','Fodder','Proc')
@@ -147,12 +151,16 @@ function init_gear_sets()
 		head={ name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
 		body="Assimilator's Jubbah +3",
 		hands={ name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
-		neck="Light Gorget",
+		--neck=gear.ElementalGorget,
+		--neck=gear.ElementalGorget.name,
+		neck="Fotia Gorget",
 		ring1="Begrudging Ring",
 		ring2="Epona's Ring",
-		waist="Light Belt",
+		--waist="Light Belt",
+		--waist=gear.ElementalObi.name,
 		legs="Samnuha Tights",
-		feet=gear.herculean_ch_feet,
+		--feet=gear.herculean_ch_feet,
+		feet={ name="Herculean Boots", augments={'Accuracy+11','Crit. hit damage +4%','Attack+12',}},
 		ammo="Jukukik Feather",
 		ear1="Mache Earring",
 		ear2="Brutal Earring"
@@ -175,8 +183,7 @@ function init_gear_sets()
 	}
 
 	sets.precast.WS.Acc = {
-		ammo="Ginsen",
-		--ammo="Falcon Eye",
+		ammo="Falcon Eye",
 		head="Dampening Tam",
 		--head="Carmine Mask +1",
 		neck="Light Gorget",
@@ -194,8 +201,7 @@ function init_gear_sets()
 	}
 
 	sets.precast.WS.HighAcc = {
-		ammo="Ginsen",
-		--ammo="Falcon Eye",
+		ammo="Falcon Eye",
 		head="Dampening Tam",
 		--head="Carmine Mask +1",
 		neck="Light Gorget",
@@ -214,8 +220,7 @@ function init_gear_sets()
 	}
 
 	sets.precast.WS.FullAcc = {
-		ammo="Ginsen",
-		--ammo="Falcon Eye",
+		ammo="Falcon Eye",
 		head="Dampening Tam",
 		--head="Carmine Mask +1",
 		neck="Combatant's Torque",
@@ -234,8 +239,7 @@ function init_gear_sets()
 	}
 
 	sets.precast.WS.Fodder = {
-		ammo="Ginsen",
-		--ammo="Falcon Eye",
+		ammo="Falcon Eye",
 		head="Dampening Tam",
 		--head="Carmine Mask +1",
 		neck="Fotia Gorget",
@@ -316,15 +320,17 @@ function init_gear_sets()
 	sets.precast.WS['Realmrazer'].Fodder = set_combine(sets.precast.WS['Realmrazer'], {})
 
 	sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
-		ammo="Falcon Eye",
 		head="Adhemar Bonnet +1",
 		--ear1="Moonshade Earring",
 		--body="Abnoba Kaftan",
+		neck="Light Gorget",
 		hands="Adhemar Wrist. +1",
 		ring2="Begrudging Ring",
 		back=gear.crit_jse_back,
-		feet=gear.herculean_cd_feet
+		waist="Light Belt"
+		--feet=gear.herculean_cd_feet
 		--feet="Thereoid Greaves"
+		--feet={name="Herculean Boots", augments={'Accuracy+21','Crit. hit damage +4%','Attack+3',}}
 	})
 	sets.precast.WS['Chant du Cygne'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
 		ammo="Ginsen",
@@ -919,38 +925,97 @@ function init_gear_sets()
 
 	-- Breath Spells --
 
-	sets.midcast['Blue Magic'].Breath = {ammo="Mavi Tathlum",
-		head="Luh. Keffiyeh +1",neck="Mavi Scarf",ear1="Regal Earring",ear2="Digni. Earring",
-		body="Assim. Jubbah +3",hands="Luh. Bazubands +1",ring1="Kunaji Ring",ring2="Meridian Ring",
-		back="Cornflower Cape",legs="Hashishin Tayt +1",feet="Luhlaza Charuqs +1"}
+	sets.midcast['Blue Magic'].Breath = {
+		ammo="Mavi Tathlum",
+		head="Luh. Keffiyeh +1",
+		neck="Mavi Scarf",
+		ear1="Regal Earring",
+		ear2="Digni. Earring",
+		body="Assim. Jubbah +3",
+		hands="Luh. Bazubands +1",
+		ring1="Kunaji Ring",
+		ring2="Meridian Ring",
+		back="Cornflower Cape",
+		legs="Hashishin Tayt +1",
+		feet="Luhlaza Charuqs +1"
+	}
 
 	-- Physical Added Effect Spells most notably "Stun" spells --
 
-	sets.midcast['Blue Magic'].Stun = {main="Iris",sub="Iris",ammo="Pemphredo Tathlum",
-			       head="Jhakri Coronal +2",neck="Erra Pendant",ear1="Regal Earring",ear2="Digni. Earring",
-                   body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Stikini Ring",ring2="Stikini Ring",
-			       back="Cornflower Cape",waist="Luminary Sash",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
+	sets.midcast['Blue Magic'].Stun = {
+		main="Iris",
+		sub="Iris",
+		ammo="Pemphredo Tathlum",
+		head="Jhakri Coronal +2",
+		neck="Erra Pendant",
+		ear1="Regal Earring",
+		ear2="Digni. Earring",
+		body="Jhakri Robe +2",
+		hands="Jhakri Cuffs +2",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
+		back="Cornflower Cape",
+		waist="Luminary Sash",
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2"
+	}
 
-	sets.midcast['Blue Magic'].Stun.Resistant = {main="Iris",sub="Iris",ammo="Falcon Eye",
-			       head="Jhakri Coronal +2",neck="Erra Pendant",ear1="Regal Earring",ear2="Digni. Earring",
-                   body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Stikini Ring",ring2="Stikini Ring",
-			       back="Cornflower Cape",waist="Olseni Belt",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
+	sets.midcast['Blue Magic'].Stun.Resistant = {
+		main="Iris",
+		sub="Iris",
+		ammo="Falcon Eye",
+		head="Jhakri Coronal +2",
+		neck="Erra Pendant",
+		ear1="Regal Earring",
+		ear2="Digni. Earring",
+		body="Jhakri Robe +2",
+		hands="Jhakri Cuffs +2",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
+		back="Cornflower Cape",
+		waist="Olseni Belt",
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2"
+	}
 
 	sets.midcast['Blue Magic'].Stun.Fodder = sets.midcast['Blue Magic'].Stun
 
 	-- Other Specific Spells --
 
-	sets.midcast['Blue Magic']['White Wind'] = {ammo="Mavi Tathlum",
-					head="Carmine Mask +1",neck="Phalaina Locket",ear1="Gifted Earring",ear2="Loquac. Earring",
-			        body="Vrikodara Jupon",hands="Telchine Gloves",ring1="Janniston Ring",ring2="Lebeche Ring",
-			        back=gear.ElementalCape,waist=gear.ElementalObi,legs="Gyve Trousers",feet="Medium's Sabots"}
+	sets.midcast['Blue Magic']['White Wind'] = {
+		ammo="Mavi Tathlum",
+		head="Carmine Mask +1",
+		neck="Phalaina Locket",
+		ear1="Gifted Earring",
+		ear2="Loquac. Earring",
+		body="Vrikodara Jupon",
+		hands="Telchine Gloves",
+		ring1="Janniston Ring",
+		ring2="Lebeche Ring",
+		back=gear.ElementalCape,
+		waist=gear.ElementalObi,
+		legs="Gyve Trousers",
+		feet="Medium's Sabots"
+	}
 					
 	sets.midcast['Blue Magic']['Healing Breeze'] = sets.midcast['Blue Magic']['White Wind']
 
-	sets.midcast['Blue Magic'].Healing = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Staunch Tathlum",
-					head="Carmine Mask +1",neck="Incanter's Torque",ear1="Etiolation Earring",ear2="Mendi. Earring",
-			        body="Vrikodara Jupon",hands="Telchine Gloves",ring1="Janniston Ring",ring2="Haoma's Ring",
-			        back=gear.ElementalCape,waist=gear.ElementalObi,legs="Carmine Cuisses +1",feet="Medium's Sabots"}
+	sets.midcast['Blue Magic'].Healing = {main="Nibiru Cudgel",
+		sub="Nibiru Cudgel",
+		ammo="Staunch Tathlum",
+		head="Carmine Mask +1",
+		neck="Incanter's Torque",
+		ear1="Etiolation Earring",
+		ear2="Mendi. Earring",
+		body="Vrikodara Jupon",
+		hands="Telchine Gloves",
+		ring1="Janniston Ring",
+		ring2="Haoma's Ring",
+		back=gear.ElementalCape,
+		waist=gear.ElementalObi,
+		legs="Carmine Cuisses +1",
+		feet="Medium's Sabots"
+	}
 
 	--Overwrite certain spells with these peices even if the day matches, because of resource inconsistancies.
 	sets.NonElementalCure = {back="Tempered Cape +1",waist="Luminary Sash"}
@@ -1186,7 +1251,6 @@ function init_gear_sets()
 	}
 
 	sets.engaged.HighAcc = {
-	
 		ammo="Falcon Eye",
 		head={ name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
 		body="Assim. Jubbah +3",
@@ -1199,12 +1263,11 @@ function init_gear_sets()
 		feet={ name="Herculean Boots", augments={'Accuracy+18 Attack+18','"Triple Atk."+3',}},
 		ear2="Cessance Earring",
 		ear1="Ethereal Earring",
-		back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}}
+		back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}},
 		--head="Carmine Mask +1",
 		--neck="Combatant's Torque",
 		--ear1="Regal Earring",
 		--ear2="Telos Earring",
-		
 		hands="Assim. Bazu. +3",
 		--ring1="Ramuh Ring +1",
 		ring2="Ilabrat Ring",
@@ -1230,15 +1293,37 @@ function init_gear_sets()
 		feet=gear.herculean_acc_feet
 	}
 
-	sets.engaged.FullAcc = {main="Tizona",sub="Almace",ammo="Falcon Eye",
-				head="Carmine Mask +1",neck="Combatant's Torque",ear1="Regal Earring",ear2="Telos Earring",
-				body="Assim. Jubbah +3",hands="Assim. Bazu. +3",ring1="Ramuh Ring +1",ring2="Ramuh Ring +1",
-				back=gear.da_jse_back,waist="Olseni Belt",legs="Carmine Cuisses +1",feet=gear.herculean_acc_feet}
+	sets.engaged.FullAcc = {
+		ammo="Falcon Eye",
+		head="Carmine Mask +1",
+		neck="Combatant's Torque",
+		ear1="Regal Earring",
+		ear2="Telos Earring",
+		body="Assim. Jubbah +3",
+		hands="Assim. Bazu. +3",
+		ring1="Ramuh Ring +1",
+		ring2="Ramuh Ring +1",
+		back=gear.da_jse_back,
+		waist="Olseni Belt",
+		legs="Carmine Cuisses +1",
+		feet=gear.herculean_acc_feet
+	}
 
-	sets.engaged.FullAcc.AM = {main="Tizona",sub="Almace",ammo="Falcon Eye",
-			    head="Carmine Mask +1",neck="Combatant's Torque",ear1="Regal Earring",ear2="Telos Earring",
-			    body="Assim. Jubbah +3",hands="Assim. Bazu. +3",ring1="Ramuh Ring +1",ring2="Ramuh Ring +1",
-			    back=gear.stp_jse_back,waist="Olseni Belt",legs="Carmine Cuisses +1",feet=gear.herculean_acc_feet}
+	sets.engaged.FullAcc.AM = {
+		ammo="Falcon Eye",
+		head="Carmine Mask +1",
+		neck="Combatant's Torque",
+		ear1="Regal Earring",
+		ear2="Telos Earring",
+		body="Assim. Jubbah +3",
+		hands="Assim. Bazu. +3",
+		ring1="Ramuh Ring +1",
+		ring2="Ramuh Ring +1",
+		back=gear.stp_jse_back,
+		waist="Olseni Belt",
+		legs="Carmine Cuisses +1",
+		feet=gear.herculean_acc_feet
+	}
 
 	sets.engaged.Fodder = {
 		ammo="Ginsen",
