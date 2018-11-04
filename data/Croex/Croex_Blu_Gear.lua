@@ -385,14 +385,14 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 	sets.precast.WS['Realmrazer'].Fodder = set_combine(sets.precast.WS['Realmrazer'], {})
 
 	sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
+		neck = "Light Gorget",
+		waist = "Light Belt",
 		head = "Adhemar Bonnet +1",
 		--ear1 = "Moonshade Earring",
 		--body = "Abnoba Kaftan",
-		neck = "Light Gorget",
 		hands = "Adhemar Wrist. +1",
 		ring2 = "Begrudging Ring",
 		back = gear.crit_jse_back,
-		waist = "Light Belt",
 		--feet = gear.herculean_cd_feet
 		--feet = "Thereoid Greaves"
 		feet = {
@@ -405,6 +405,8 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 		}
 	})
 	sets.precast.WS['Chant du Cygne'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
+		neck = "Light Gorget",
+		waist = "Light Belt",
 		ammo = "Ginsen",
 		--ammo = "Falcon Eye",
 		ear1 = "Moonshade Earring",
@@ -417,24 +419,30 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 	})
 
 	sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS.Acc, {
-		--ear2 = "Moonshade Earring",
+		neck = "Light Gorget",
+		waist = "Light Belt",
 		ring2 = "Begrudging Ring",
 		--body = "Sayadio's Kaftan",
+		--ear2 = "Moonshade Earring",
 		back = gear.crit_jse_back,
 		legs = "Carmine Cuisses +1",
 		feet = gear.herculean_cd_feet
 	})
 	sets.precast.WS['Chant du Cygne'].HighAcc = set_combine(sets.precast.WS.HighAcc, {
+		neck = "Light Gorget",
+		waist = "Light Belt",
 		body = "Sayadio's Kaftan",
 		back = gear.crit_jse_back,
+		waist = "Light Belt",
 		feet = gear.herculean_cd_feet
 	})
 	sets.precast.WS['Chant du Cygne'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
 	sets.precast.WS['Chant du Cygne'].Fodder = set_combine(sets.precast.WS['Chant du Cygne'], {})
 
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-		head = gear.herculean_wsd_head,
 		neck = "Soil Gorget",
+		waist = "Soil Belt",
+		head = gear.herculean_wsd_head,
 		--ear1 = "Moonshade Earring",
 		ear2 = "Ishvara Earring",
 		body = "Assim. Jubbah +3",
@@ -442,12 +450,13 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 		ring1 = "Ifrit Ring +1",
 		ring2 = "Rufescent Ring",
 		back = gear.wsd_jse_back,
-		waist = "Soil Belt",
 		--waist = "Grunfeld Rope",
 		legs = gear.herculean_wsd_legs,
 		feet = gear.herculean_wsd_feet
 	})
 	sets.precast.WS['Savage Blade'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		head = "Dampening Tam",
 		--head = "Carmine Mask +1",
 		ear1 = "Moonshade Earring",
@@ -457,25 +466,28 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 		ring1 = "Ifrit Ring +1",
 		ring2 = "Rufescent Ring",
 		back = gear.wsd_jse_back,
-		waist = "Grunfeld Rope",
 		legs = gear.herculean_wsd_legs,
 		feet = gear.herculean_wsd_feet
 	})
 	sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS.Acc, {
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		--ear2 = "Moonshade Earring",
 		hands = "Jhakri Cuffs +2",
 		back = gear.wsd_jse_back,
-		waist = "Grunfeld Rope",
+		--waist = "Grunfeld Rope",
 		legs = "Carmine Cuisses +1",
 		feet = gear.herculean_wsd_feet
 	})
 	sets.precast.WS['Savage Blade'].HighAcc = set_combine(sets.precast.WS.HighAcc, {
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		ear2 = "Moonshade Earring",
 		hands = "Jhakri Cuffs +2",
 		ring1 = "Rufescent Ring",
 		ring2 = "Ilabrat Ring",
 		back = gear.wsd_jse_back,
-		waist = "Grunfeld Rope",
+		--waist = "Grunfeld Rope",
 		legs = "Carmine Cuisses +1",
 		feet = gear.herculean_wsd_feet
 	})
@@ -503,33 +515,39 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 	sets.precast.WS['Vorpal Blade'].Fodder = set_combine(sets.precast.WS['Vorpal Blade'], {})
 
 	sets.precast.WS['Expiacion'] = set_combine(sets.precast.WS, {
-		--head = "Lilitu Headpiece",
-		--neck = "Caro Necklace",
-		--ear1 = "Moonshade Earring",
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		ear2 = "Ishvara Earring",
 		body = "Assim. Jubbah +3",
 		hands = "Jhakri Cuffs +2",
 		--ring1 = "Ifrit Ring +1",
+		--head = "Lilitu Headpiece",
+		--neck = "Caro Necklace",
+		--ear1 = "Moonshade Earring",
+		--waist = "Grunfeld Rope",
 		ring2 = "Rufescent Ring",
 		back = gear.wsd_jse_back,
-		waist = "Grunfeld Rope",
 		legs = gear.herculean_wsd_legs,
 		feet = gear.herculean_wsd_feet
 	})
 	sets.precast.WS['Expiacion'].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
-		--ear1 = "Moonshade Earring",
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		ear2 = "Ishvara Earring",
 		body = "Assim. Jubbah +3",
 		hands = "Jhakri Cuffs +2",
 		--ring1 = "Ifrit Ring +1",
+		--ear1 = "Moonshade Earring",
 		ring2 = "Rufescent Ring",
 		back = gear.wsd_jse_back,
-		waist = "Grunfeld Rope",
+		--waist = "Grunfeld Rope",
 		legs = gear.herculean_wsd_legs,
 		feet = gear.herculean_wsd_feet
 	})
 	sets.precast.WS['Expiacion'].Acc = set_combine(sets.precast.WS.Acc, {
 		--ear2 = "Moonshade Earring",
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		body = "Assim. Jubbah +3",
 		hands = "Jhakri Cuffs +2",
 		back = gear.wsd_jse_back,
@@ -537,34 +555,38 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 		feet = gear.herculean_wsd_feet
 	})
 	sets.precast.WS['Expiacion'].HighAcc = set_combine(sets.precast.WS.HighAcc, {
-		--ear2 = "Moonshade Earring",
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		body = "Assim. Jubbah +3",
 		hands = "Jhakri Cuffs +2",
 		back = gear.wsd_jse_back,
 		legs = "Carmine Cuisses +1",
+		--ear2 = "Moonshade Earring",
 		feet = gear.herculean_wsd_feet
 	})
 	sets.precast.WS['Expiacion'].FullAcc = set_combine(sets.precast.WS.FullAcc, {
+		neck = "Soil Gorget",
+		waist = "Soil Belt",
 		body = "Assim. Jubbah +3",
-		hands = "Jhakri Cuffs +2"
+		hands = "Jhakri Cuffs +2",
 	})
 	sets.precast.WS['Expiacion'].Fodder = set_combine(sets.precast.WS['Expiacion'], {})
 
 	sets.precast.WS['Sanguine Blade'] = {
-	ammo = "Pemphredo Tathlum",
-	head = "Pixie Hairpin +1",
-	--neck = "Baetyl Pendant",
-	--ear1 = "Regal Earring",
-	ear2 = "Friomisi Earring",
-	body = "Jhakri Robe +2",
-	hands = "Jhakri Cuffs +2",
-	--ring1 = "Shiva Ring +1",
-	--ring2 = "Archon Ring",
-	back = gear.mab_jse_back,
-	waist = "Yamabuki-no-Obi",
-	legs = "Jhakri Slops +2",
-	feet = "Jhakri Pigaches +2"
-}
+		ammo = "Pemphredo Tathlum",
+		head = "Pixie Hairpin +1",
+		--neck = "Baetyl Pendant",
+		--ear1 = "Regal Earring",
+		ear2 = "Friomisi Earring",
+		body = "Jhakri Robe +2",
+		hands = "Jhakri Cuffs +2",
+		--ring1 = "Shiva Ring +1",
+		--ring2 = "Archon Ring",
+		back = gear.mab_jse_back,
+		waist = "Yamabuki-no-Obi",
+		legs = "Jhakri Slops +2",
+		feet = "Jhakri Pigaches +2"
+	}
 --test
 
 sets.precast.WS['Flash Nova'] = {
@@ -1351,7 +1373,7 @@ sets.TreasureHunter = set_combine(sets.TreasureHunter, {
 			}
 		}
 	})
-	sets.Assault = {
+sets.Assault = {
 	ring1 = "Balrahn's Ring"
 }
 
