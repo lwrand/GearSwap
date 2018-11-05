@@ -52,21 +52,27 @@ sets.TreasureHunter = set_combine(sets.TreasureHunter, {
 }
 
 sets.precast.JA['Elemental Siphon'] = {
-	main = "Espiritus",
+	main = {
+		name = "Keraunos",
+		augments = {
+			'"Elemental Siphon"+25',
+		}
+	},
 	sub = "Vox Grip",
 	ammo = "Esper Stone +1",
 	head = "Telchine Cap",
-	neck = "Incanter's Torque",
-	ear1 = "Andoaa Earring",
-	ear2 = "Gifted Earring",
-	body = "Telchine Chasuble",
 	hands = "Baayami Cuffs",
-	ring1 = "Evoker's Ring",
-	ring2 = "Stikini Ring",
-	back = "Conveyance Cape",
-	waist = "Kobo Obi",
+	body = "Telchine Chasuble",
 	legs = "Telchine Braconi",
-	feet = "Beck. Pigaches +1"
+	feet = "Beck. Pigaches +1",
+	neck = "Incanter's Torque",
+	waist = "Kobo Obi",
+	left_ear = "Summoning earring",
+	right_ear = "Andoaa earring",
+	left_ring = "Zodiac Ring",
+	--use on all but light or darks day
+	right_ring = "Evoker's Ring",
+	back = conveyance
 }
 
 sets.precast.JA['Mana Cede'] = {
@@ -97,21 +103,20 @@ sets.precast.BloodPactRage = sets.precast.BloodPactWard
 	--Fast cast sets for spells
 
 	sets.precast.FC = {
-	main = gear.grioavolr_fc_staff,
-	sub = "Clerisy Strap +1",
-	ammo = "Impatiens",
-	head = "Amalric Coif +1",
-	neck = "Voltsurge Torque",
-	ear1 = "Enchntr. Earring +1",
-	ear2 = "Loquacious Earring",
-	body = "Inyanga Jubbah +2",
-	hands = "Volte Gloves",
-	ring1 = "Kishar Ring",
-	ring2 = "Lebeche Ring",
-	back = "Perimede Cape",
-	waist = "Witful Belt",
+	main = "Gridarvor",
+	sub = "Vivid Strap",
+	head = merlinic_head_fc,
+	neck = "Orunmila's Torque",
+	left_ear = "Etiolation Earring",
+	right_ear = "Loquacious earring",
+	hands = merlinic_hands_fc,
+	body = "Inyanga Jubbah +1",
+	left_ring = "Rahab Ring",
+	right_ring = "Prolix Ring",
+	waist = "Witful belt",
 	legs = "Psycloth Lappas",
-	feet = "Regal Pumps +1"
+	feet = merlinic_feet_fc,
+	back = campestres_fc,
 }
 
 sets.precast.FC.Cure = set_combine(sets.precast.FC, {
@@ -119,23 +124,23 @@ sets.precast.FC.Cure = set_combine(sets.precast.FC, {
 		sub = "Clerisy Strap +1"
 	})
 
-	sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {
-		waist = "Siegel Sash"
-	})
+sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {
+	waist = "Siegel Sash"
+})
 
-	sets.precast.FC.Stoneskin = set_combine(sets.precast.FC['Enhancing Magic'], {})
+sets.precast.FC.Stoneskin = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
-	sets.precast.FC.Impact = set_combine(sets.precast.FC, {
-		head = empty,
-		body = "Twilight Cloak"
-	})
+sets.precast.FC.Impact = set_combine(sets.precast.FC, {
+	head = empty,
+	body = "Twilight Cloak"
+})
 
-	--Weaponskill sets
-	--Default set for any weaponskill that isn 't any more specifically defined
-	    sets.precast.WS = {}
+--Weaponskill sets
+--Default set for any weaponskill that isn 't any more specifically defined
+		sets.precast.WS = {}
 
-	    -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn' t found.
-	sets.precast.WS['Myrkr'] = {
+		-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn' t found.
+sets.precast.WS['Myrkr'] = {
 	ammo = "Sancus Sachet +1",
 	head = "Beckoner's Horn +1",
 	neck = "Sanctity Necklace",
@@ -429,12 +434,12 @@ sets.midcast['Enfeebling Magic'].Resistant = {
 }
 
 sets.midcast.Dia = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
-	sets.midcast.Diaga = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
-	sets.midcast['Dia II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
-	sets.midcast.Bio = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
-	sets.midcast['Bio II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
+sets.midcast.Diaga = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
+sets.midcast['Dia II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
+sets.midcast.Bio = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
+sets.midcast['Bio II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
 
-	sets.midcast['Enhancing Magic'] = {
+sets.midcast['Enhancing Magic'] = {
 	main = gear.gada_enhancing_club,
 	sub = "Ammurapi Shield",
 	ammo = "Hasty Pinion +1",
@@ -513,22 +518,22 @@ sets.midcast.Pet.DebuffBloodPactWard = {
 
 sets.midcast.Pet.DebuffBloodPactWard.Acc = sets.midcast.Pet.DebuffBloodPactWard
 
-	sets.midcast.Pet.PhysicalBloodPactRage = {
-	main = "Gridarvor",
-	sub = "Elan Strap +1",
-	ammo = "Sancus Sachet +1",
-	head = "Helios Band",
-	neck = "Shulmanu Collar",
-	ear1 = "Gelos Earring",
-	ear2 = "Lugalbanda Earring",
-	body = "Con. Doublet +3",
-	hands = gear.merlinic_physpact_hands,
-	ring1 = "Varar Ring",
-	ring2 = "Varar Ring",
-	back = gear.phys_jse_back,
-	waist = "Incarnation Sash",
-	legs = "Apogee Slacks +1",
-	feet = "Apogee Pumps +1"
+sets.midcast.Pet.PhysicalBloodPactRage = {
+	main="Gridarvor",
+	sub="Elan Strap +1",
+	ammo="Sancus Sachet +1",
+	head=gear.helios_physpact_head,
+	body="Convoker's Doublet +3",
+	hands=merlinic_physpact_hands,
+	legs=gear.apogee_physpact_legs,
+	neck="Empath necklace",
+	waist="Incarnation Sash",
+	left_ear="Gelos Earring",
+	right_ear="Esper earring",
+	left_ring="Varar Ring",
+	right_ring="Varar Ring",
+	back=gear.camp_physpact_back,
+	feet="Apogee Pumps +1"
 }
 
 sets.midcast.Pet.PhysicalBloodPactRage.Acc = {
@@ -536,21 +541,21 @@ sets.midcast.Pet.PhysicalBloodPactRage.Acc = {
 }
 
 sets.midcast.Pet.MagicalBloodPactRage = {
-	main = gear.grioavolr_pet_staff,
-	sub = "Elan Strap +1",
-	ammo = "Sancus Sachet +1",
-	head = "Apogee Crown +1",
-	neck = "Adad Amulet",
-	ear1 = "Gelos Earring",
-	ear2 = "Lugalbanda Earring",
-	body = "Con. Doublet +3",
-	hands = gear.merlinic_magpact_hands,
-	ring1 = "Varar Ring",
-	ring2 = "Varar Ring",
-	back = gear.magic_jse_back,
-	waist = "Regal Belt",
-	legs = "Enticer's Pants",
-	feet = "Apogee Pumps +1"
+	main="Grioavolr",
+	sub="Elan Strap +1",
+	ammo="Sancus Sachet +1",
+	head=gear.apogee_magpact_head,
+	neck="Adad Amulet",
+	lear="Gelos Earring",
+	rear="Andoaa Earring",
+	body="Convoker's Doublet +3",
+	hands=gear.merlinic_magpact_hands,
+	lring="Varar Ring",
+	rring="Varar Ring",
+	back=gear.camp_magpact_back,
+	waist="Incarnation Sash",
+	legs=gear.apogee_magpact_legs,
+	feet=gear.apogee_magpact_feet,
 }
 
 sets.midcast.Pet.MagicalBloodPactRage.Acc = {
@@ -567,21 +572,25 @@ sets.midcast.Pet.WhiteMagic = {}
 	sets.midcast.Pet['Elemental Magic'].Resistant = {}
 
 sets.midcast.Pet['Flaming Crush'] = {
-	main = gear.grioavolr_pet_staff,
-	sub = "Elan Strap +1",
-	ammo = "Sancus Sachet +1",
-	head = "Apogee Crown +1",
-	neck = "Adad Amulet",
-	ear1 = "Gelos Earring",
-	ear2 = "Lugalbanda Earring",
+	main="Gridarvor",
+	sub="Elan Strap +1",
+	ammo="Sancus Sachet +1",
+	head=gear.apogee_hybpact_head,
+	hands=gear.merlinic_hybpact_hands,
+	--body="Apogee Dalmatica +1",
 	body = "Con. Doublet +3",
-	hands = gear.merlinic_magpact_hands,
-	ring1 = "Varar Ring",
-	ring2 = "Varar Ring",
-	back = gear.phys_jse_back,
-	waist = "Regal Belt",
-	legs = "Apogee Slacks +1",
-	feet = "Apogee Pumps +1"
+	legs=gear.apogee_physpact_legs,
+	feet=gear.apogee_hybpact_feet,
+	neck="Adad Amulet",
+	waist="Incarnation Sash",
+	left_ear="Gelos Earring",
+	right_ear="Esper earring",
+	left_ring="Varar Ring",
+	right_ring="Varar Ring",
+	back=gear.camp_physpact_back,
+	--back="Scintillating Cape"
+	--left_ring="Speaker's Ring",
+	--right_ring="Fervor Ring",
 }
 sets.midcast.Pet['Flaming Crush'].Acc = {
 	feet = "Convo. Pigaches +3"
@@ -688,7 +697,7 @@ sets.idle.TPEat = set_combine(sets.idle, {
 	--others: 15
 	--avatar 's favor: -4/tick
 
-	    -- Max useful -perp gear is 1 less than the perp cost (can' t be reduced below 1)
+		    -- Max useful -perp gear is 1 less than the perp cost (can' t be reduced below 1)
 --Aim for  - 14 perp, and refresh in other slots.
 
 -- - perp gear:
