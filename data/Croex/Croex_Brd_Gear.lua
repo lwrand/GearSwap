@@ -286,7 +286,7 @@ function init_gear_sets()
 		body="Fili Hongreline",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
-	sets.Kiting = {}
+	sets.Kiting = {feet="Fili Cothurnes +1"}
 
 	-- Gear for specific elemental nukes.
 	sets.WindNuke = {main="Marin Staff +1"}
