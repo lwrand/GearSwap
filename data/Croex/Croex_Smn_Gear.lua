@@ -102,7 +102,7 @@ sets.precast.BloodPactRage = sets.precast.BloodPactWard
 
 	--Fast cast sets for spells
 
-	sets.precast.FC = {
+sets.precast.FC = {
 	main = "Gridarvor",
 	sub = "Vivid Strap",
 	head = merlinic_head_fc,
@@ -361,7 +361,7 @@ sets.midcast.Drain = {
 
 sets.midcast.Aspir = sets.midcast.Drain
 
-	sets.midcast.Stun = {
+sets.midcast.Stun = {
 	main = "Oranyan",
 	sub = "Clerisy Strap +1",
 	ammo = "Hasty Pinion +1",
@@ -632,7 +632,7 @@ sets.midcast.Pet['Mountain Buster'] = set_combine(sets.midcast.Pet.PhysicalBlood
 	--------------------------------------
 
 	--Resting sets
-	sets.resting = {
+sets.resting = {
 	main = "Chatoyant Staff",
 	ammo = "Staunch Tathlum",
 	head = "Beckoner's Horn +1",
@@ -640,7 +640,8 @@ sets.midcast.Pet['Mountain Buster'] = set_combine(sets.midcast.Pet.PhysicalBlood
 	ear1 = "Etiolation Earring",
 	ear2 = "Ethereal Earring",
 	body = "Shomonjijoe +1",
-	hands = gear.merlinic_refresh_hands,
+	--hands = gear.merlinic_refresh_hands,
+	hands = "Asteria Mitts +1",
 	ring1 = "Defending Ring",
 	ring2 = "Sheltered Ring",
 	back = "Umbra Cape",
@@ -665,7 +666,7 @@ sets.idle = {
 	back = "Umbra Cape",
 	waist = "Regal Belt",
 	legs = "Assid. Pants +1",
-	feet = "Baayami Sabots"
+	--feet = "Baayami Sabots"
 }
 
 sets.idle.PDT = {
@@ -719,7 +720,7 @@ sets.idle.Avatar = {
 	ear1 = "Etiolation Earring",
 	ear2 = "Evans Earring",
 	body = "Shomonjijoe +1",
-	hands = gear.merlinic_refresh_hands,
+	hands = "Asteria Mitts +1",
 	ring1 = "Evoker's Ring",
 	ring2 = "Dark Ring",
 	back = "Conveyance Cape",
@@ -737,7 +738,7 @@ sets.idle.PDT.Avatar = {
 	ear1 = "Etiolation Earring",
 	ear2 = "Evans Earring",
 	body = "Shomonjijoe +1",
-	hands = gear.merlinic_refresh_hands,
+	hands = "Asteria Mitts +1",
 	ring1 = "Defending Ring",
 	ring2 = "Dark Ring",
 	back = "Umbra Cape",
@@ -864,7 +865,7 @@ sets.defense.MEVA = {
 }
 
 sets.Kiting = {
-	feet = "Herald's Gaiters"
+	--feet = "Herald's Gaiters"
 }
 sets.latent_refresh = {
 	waist = "Fucho-no-obi"
@@ -930,5 +931,5 @@ if reset == 'reset' then
 end
 
 --Default macro set / book
-set_macro_page(4, 17)
+set_macro_page(1, 10)
 end
