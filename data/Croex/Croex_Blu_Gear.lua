@@ -179,12 +179,12 @@ sets.precast.Waltz = {
 	}
 
 	sets.precast.FC.Trust =  {
-		body=" Yoran Unity shirt "
+		body="Yoran Unity Shirt"
 	}
 
 	-- Fast cast sets for spells
 
-	sets.precast.FC = {
+	sets.precast.FC.Magic = {
 		--main=" Vampirism ",
 		--sub=" Vampirism ",
 		head=" Haruspex Hat ",
@@ -203,7 +203,7 @@ sets.precast.Waltz = {
 	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {
 		body=" Passion Jacket "
 	})
-	sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, {
+	sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC.Magic, {
 		body=" Hashishin Mintan + 1 "
 	})
 
@@ -926,7 +926,7 @@ sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {
 		legs = "Shedir Seraweels"
 	})
 
-	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {
+	sets.midcast.BarElement = set_combine(sets.precast.FC.Magic['Enhancing Magic'], {
 		legs = "Shedir Seraweels"
 	})
 
