@@ -21,7 +21,7 @@ function job_setup()
 
 	autows = 'Realmrazer'
 	autofood = 'Miso Ramen'
-	autoindi = 'Torpor'
+	autoindi = 'Fury'
 	autogeo = 'Frailty'
 	last_indi = ''
 	last_geo = ''
