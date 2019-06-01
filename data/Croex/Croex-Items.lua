@@ -33,7 +33,9 @@ gear.herculean_nuke_feet = {name="Herculean Boots",augments={'"Mag.Atk.Bns."+23'
 gear.herculean_refresh_feet = {name="Herculean Boots",augments={'CHR+8','Rng.Acc.+7','"Refresh"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
 gear.herculean_ch_feet = {name="Herculean Boots", augments={'Attack+23','Crit.hit rate+4','STR+12','Accuracy+13',}}
 gear.herculean_cd_feet = {name="Herculean Boots", augments={'Accuracy+21','Crit. hit damage +4%','Attack+3',}}
---gear.herculean_tp_feet = {name="Herculean Boots",augments={'CHR+8','Rng.Acc.+7','"Refresh"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
+gear.herculean_pet_stp_feet = {name="Herculean Boots", augments={'Pet: Accuracy+3 Pet: Rng. Acc.+3','Pet: "Store TP"+11','Pet: AGI+6',}}
+gear.herculean_pet_stp_legs = {name="Herculean Trousers", augments={'Pet: Mag. Acc.+10','Pet: "Store TP"+10','Pet: INT+1','Pet: "Mag.Atk.Bns."+4',}}
+gear.herculean_pet_stp_hands = {name="Herculean Gloves", augments={'Pet: Attack+9 Pet: Rng.Atk.+9','Pet: "Store TP"+10','Pet: STR+9',}}
 
 gear.merlinic_nuke_head = {name="Merlinic Hood",augments={'Mag. Acc.+21 "Mag.Atk.Bns."+21','INT+15','Mag. Acc.+3','"Mag.Atk.Bns."+13',}}
 gear.merlinic_nuke_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','"Occult Acumen"+4','INT+10','Mag. Acc.+2','"Mag.Atk.Bns."+15',}}
@@ -71,7 +73,8 @@ gear.apogee_magpact_feet = {name="Apogee Pumps +1", augments={'MP+80','Pet: "Mag
 gear.apogee_hybpact_head = {name="Apogee Crown +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}}
 gear.apogee_physpact_legs = {name="Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}}
 gear.apogee_magpact_legs = {name="Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}}
-gear.helios_physpact_head = {name="Helios Band", augments={'Pet: Accuracy+27 Pet: Rng. Acc.+27','Pet: "Dbl. Atk."+4','Blood Pact Dmg.+6',}}
+gear.helios_physpact_head = {name="Helios Band"}
+gear.helios_physpact_boots = {name="Helios Boots"}
 gear.camp_physpact_back = {name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Accuracy+20 Attack+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10',}}
 gear.camp_magpact_back = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','"Fast Cast"+10',}}
 
