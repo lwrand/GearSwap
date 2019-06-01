@@ -145,7 +145,7 @@ function init_gear_sets()
 	sets.midcast.Paeon = {}
 	sets.midcast.March = {hands="Fili Manchettes +1"}
 	sets.midcast['Honor March'] = set_combine(sets.midcast.March,{range="Marsyas"})
-	sets.midcast.Minuet = {body="Fili Hongreline +1"}
+	sets.midcast.Minuet = {body="Fili Hongreline +1 +1"}
 	sets.midcast.Minne = {}
 	sets.midcast.Carol = {}
 	sets.midcast["Sentinel's Scherzo"] = {} --feet="Fili Cothurnes +1" Brioso Slippers still provides more Duration
@@ -162,7 +162,7 @@ function init_gear_sets()
 		neck="Moonbow Whistle +1",
 		ear1="Enchntr. Earring +1",
 		ear2="Loquacious Earring",
-		body="Fili Hongreline +1",
+		body="Fili Hongreline +1 +1",
 		hands="Inyan. Dastanas +2",
 		ring1="Defending Ring",
 		ring2="Dark Ring",
@@ -261,29 +261,29 @@ function init_gear_sets()
 	-- Resting sets
 	sets.resting = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
 		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body="Fili Hongreline",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
+		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
 	sets.idle = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
 		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body="Fili Hongreline",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
+		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.idle.PDT = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
 		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body="Fili Hongreline",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
+		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
 	-- Defense sets
 
 	sets.defense.PDT = {main="Terra's Staff", sub="Umbra Strap",ammo="Staunch Tathlum",
 		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body="Fili Hongreline",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
+		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.defense.MDT = {main="Terra's Staff", sub="Umbra Strap",ammo="Staunch Tathlum",
 		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body="Fili Hongreline",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
+		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.Kiting = {feet="Fili Cothurnes +1"}
