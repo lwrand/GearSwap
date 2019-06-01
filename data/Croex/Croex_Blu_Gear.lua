@@ -85,7 +85,7 @@ gear.obi_cure_waist = "Luminary Sash"
 	send_command('bind ^@!` gs c cycle MagicBurstMode')
 	send_command('bind @f8 gs c toggle AutoNukeMode')
 	send_command('bind !@^f7 gs c toggle AutoWSMode')
-	send_command('bind !r gs c weapons MagicWeapons;gs c update')
+	send_command('bind !t gs c weapons MagicWeapons;gs c update')
 	send_command('bind @q gs c weapons MaccWeapons;gs c update')
 	send_command('bind ^q gs c weapons Almace;gs c update')
 	send_command('bind !q gs c weapons HybridWeapons;gs c update')
