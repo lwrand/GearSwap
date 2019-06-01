@@ -533,7 +533,8 @@ sets.midcast.Pet.PhysicalBloodPactRage = {
 	left_ring="Varar Ring",
 	right_ring="Varar Ring",
 	back=gear.camp_physpact_back,
-	feet="Apogee Pumps +1"
+	feet=gear.helios_physpact_boots
+	--feet="Apogee Pumps +1"
 }
 
 sets.midcast.Pet.PhysicalBloodPactRage.Acc = {
