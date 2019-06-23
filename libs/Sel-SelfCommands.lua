@@ -321,14 +321,19 @@ function handle_naked(cmdParams)
 end
 
 function handle_weapons(cmdParams)
-	if cmdParams[1] == nil then
+	local weaponSet
+	if type(cmdParams) == 'string' then
+		weaponSet = cmdParams
+	elseif type(cmdParams) == 'table' then
+		weaponSet = cmdParams[1]
+	end
+	if weaponSet == nil then
 		if sets.weapons[state.Weapons.value] then
 			equip_weaponset(state.Weapons.value)
 		elseif state.Weapons.value == 'None' then
 			enable('main','sub','range','ammo')
 		end
-	elseif cmdParams[1] == 'None' then
-	elseif cmdParams[1]:lower() == 'default' then
+	elseif weaponSet:lower() == 'default' then
 		if (player.sub_job == 'DNC' or player.sub_job == 'NIN') and state.Weapons:contains('DualWeapons') and sets.weapons.DualWeapons then
 			if state.Weapons.value ~= 'DualWeapons' then
 				state.Weapons:set('DualWeapons')
@@ -338,20 +343,25 @@ function handle_weapons(cmdParams)
 			state.Weapons:reset()
 			if sets.weapons[state.Weapons.value] then
 				equip_weaponset(state.Weapons.value)
-			else
+			elseif state.Weapons.value == 'None' then
 				enable('main','sub','range','ammo')
 			end
 		end
-	elseif sets.weapons[cmdParams[1]] then
-		if state.Weapons:contains(cmdParams[1]) and state.Weapons.value ~= cmdParams[1] then
-			state.Weapons:set(cmdParams[1])
+	elseif sets.weapons[weaponSet] then
+		if state.Weapons:contains(weaponSet) and state.Weapons.value ~= weaponSet then
+			state.Weapons:set(weaponSet)
 		end
-		equip_weaponset(cmdParams[1])
-	elseif cmdParams ~= 'None' then
-		add_to_chat(123,"Error: A weapons set for ["..cmdParams[1].."] does not exist.")
+		equip_weaponset(weaponSet)
+	elseif weaponSet:lower() == 'none' then
+		if state.Weapons:contains('None') then
+			enable('main','sub','range','ammo')
+			state.Weapons:set('None')
+		end
+	else
 		if sets.weapons[state.Weapons.value] then
 			equip_weaponset(state.Weapons.value)
 		end
+		add_to_chat(123,"Error: A weapons set for ["..weaponSet.."] does not exist.")
 	end
 	
 	if state.DisplayMode.value then update_job_states()	end
@@ -446,6 +456,12 @@ function handle_quietenable(cmdParams)
 	end
 end
 
+function handle_delayedcast()
+	if delayed_cast ~= '' and delayed_target ~= '' then
+		windower.send_command(''..delayed_cast..' '..delayed_target..'')
+	end
+end
+
 function handle_autonuke(cmdParams)
 	if #cmdParams == 0 then
 		add_to_chat(122,'Your must specify a spell to autonuke with.')
@@ -456,20 +472,42 @@ function handle_autonuke(cmdParams)
 	end
 end
 
+function handle_buffup(cmdParams)
+	if #cmdParams == 0 then
+		buffup = 'Default'
+	elseif not buff_spell_lists[cmdParams[1]] then
+		add_to_chat(123, ''..cmdParams[1]..' is not a buff list!')
+		return
+	else
+		buffup = cmdParams[1]
+	end
+	
+	for i in pairs(buff_spell_lists[buffup]) do
+		if buff_spell_lists[buffup][i].Reapply then
+			windower.send_command('cancel '..buff_spell_lists[buffup][i].Buff..'')
+			tickdelay = os.clock() + 1.65
+		end
+	end
+end
+
+function handle_runeelement()
+	windower.chat.input('/ja "'..state.RuneElement.value..'" <me>')
+end
+
 function handle_shadows()
 	local spell_recasts = windower.ffxi.get_spell_recasts()
 	if player.main_job == 'NIN' then
 		if has_shadows() < 3 and player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 and spell_recasts[340] < spell_latency then
 			windower.chat.input('/ma "Utsusemi: San" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.8
 			return true
 		elseif has_shadows() < 2 and spell_recasts[339] < spell_latency then
 			windower.chat.input('/ma "Utsusemi: Ni" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.8
 			return true
 		elseif has_shadows() < 2 and spell_recasts[338] < spell_latency then
 			windower.chat.input('/ma "Utsusemi: Ichi" <me>')
-			tickdelay = (framerate * 2)
+			tickdelay = os.clock() + 2
 			return true
 		else
 			return false
@@ -477,34 +515,34 @@ function handle_shadows()
 	elseif player.sub_job == 'NIN' then
 		if has_shadows() < 2 and spell_recasts[339] < spell_latency then
 			windower.chat.input('/ma "Utsusemi: Ni" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.8
 			return true
 		elseif has_shadows() < 2 and spell_recasts[338] < spell_latency then
 			windower.chat.input('/ma "Utsusemi: Ichi" <me>')
-			tickdelay = (framerate * 2)
+			tickdelay = os.clock() + 2
 			return true
 		else
 			return false
 		end
 	elseif not has_shadows() and player.main_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
 		windower.chat.input('/ja "Third Eye" <me>')
-		tickdelay = (framerate * .7)
+		tickdelay = os.clock() + .7
 		return true
 	elseif not has_shadows() and silent_can_use(679) and spell_recasts[679] < spell_latency then
 		windower.chat.input('/ma "Occultation" <me>')
-		tickdelay = (framerate * 2)
+		tickdelay = os.clock() + 2
 		return true
 	elseif not has_shadows() and silent_can_use(53) and spell_recasts[53] < spell_latency then
 		windower.chat.input('/ma "Blink" <me>')
-		tickdelay = (framerate * 2)
+		tickdelay = os.clock() + 2
 		return true
 	elseif not has_shadows() and silent_can_use(647) and spell_recasts[647] < spell_latency then
 		windower.chat.input('/ma "Zephyr Mantle" <me>')
-		tickdelay = (framerate * 2)
+		tickdelay = os.clock() + 2
 		return true
 	elseif not has_shadows() and player.sub_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
 		windower.chat.input('/ja "Third Eye" <me>')
-		tickdelay = (framerate * .7)
+		tickdelay = os.clock() + .7
 		return true
 	else
 		return false
@@ -666,6 +704,9 @@ function handle_smartcure()
 	if player.target.type == "SELF" or player.target.type == 'MONSTER' or player.target.type == 'NONE' then
 		missingHP = player.max_hp - player.hp
 		cureTarget = '<me>'
+	elseif player.target.status:lower():contains('dead') then
+		windower.chat.input('/ma "Raise III" '..cureTarget..'')
+		return
 	-- If curing someone in our alliance, we can estimate their missing HP
 	elseif player.target.isallymember then
 		local target = find_player_in_alliance(player.target.name)
@@ -682,31 +723,31 @@ function handle_smartcure()
 			end
 		elseif player.target.hpp > 85 then
 			if spell_recasts[2] < spell_latency then
-				windower.chat.input('/ma "Cure II" '..cureTarget..'')
+				windower.chat.input('/ma "Cure II" <t>')
 			elseif spell_recasts[3] < spell_latency then
-				windower.chat.input('/ma "Cure III" '..cureTarget..'')
+				windower.chat.input('/ma "Cure III" <t>')
 			elseif spell_recasts[1] < spell_latency then
-				windower.chat.input('/ma "Cure" '..cureTarget..'')
+				windower.chat.input('/ma "Cure" <t>')
 			else
 				add_to_chat(123,'Abort: Appropriate cures are on cooldown.')
 			end
 		elseif player.target.hpp > 70 then
 			if spell_recasts[3] < spell_latency then
-				windower.chat.input('/ma "Cure III" '..cureTarget..'')
+				windower.chat.input('/ma "Cure III" <t>')
 			elseif silent_can_use(4) and spell_recasts[4] < spell_latency then
-				windower.chat.input('/ma "Cure IV" '..cureTarget..'')
+				windower.chat.input('/ma "Cure IV" <t>')
 			elseif spell_recasts[2] < spell_latency then
-				windower.chat.input('/ma "Cure II" '..cureTarget..'')
+				windower.chat.input('/ma "Cure II" <t>')
 			else
 				add_to_chat(123,'Abort: Appropriate cures are on cooldown.')
 			end
 		else
 			if silent_can_use(4) and spell_recasts[4] < spell_latency then
-				windower.chat.input('/ma "Cure IV" '..cureTarget..'')
+				windower.chat.input('/ma "Cure IV" <t>')
 			elseif spell_recasts[3] < spell_latency then
-				windower.chat.input('/ma "Cure III" '..cureTarget..'')
+				windower.chat.input('/ma "Cure III" <t>')
 			elseif spell_recasts[2] < spell_latency then
-				windower.chat.input('/ma "Cure II" '..cureTarget..'')
+				windower.chat.input('/ma "Cure II" <t>')
 			else
 				add_to_chat(123,'Abort: Appropriate cures are on cooldown.')
 			end
@@ -961,4 +1002,7 @@ selfCommandMaps = {
 	['smartcure']		= handle_smartcure,
 	['mount'] 			= handle_mount,
 	['shadows']			= handle_shadows,
+	['buffup']			= handle_buffup,
+	['delayedcast']		= handle_delayedcast,
+	['runeelement']		= handle_runeelement,
 	}
