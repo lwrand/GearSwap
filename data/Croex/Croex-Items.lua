@@ -33,6 +33,11 @@ gear.herculean_nuke_feet = {name="Herculean Boots",augments={'"Mag.Atk.Bns."+23'
 gear.herculean_refresh_feet = {name="Herculean Boots",augments={'CHR+8','Rng.Acc.+7','"Refresh"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
 gear.herculean_ch_feet = {name="Herculean Boots", augments={'Attack+23','Crit.hit rate+4','STR+12','Accuracy+13',}}
 gear.herculean_cd_feet = {name="Herculean Boots", augments={'Accuracy+21','Crit. hit damage +4%','Attack+3',}}
+gear.herculean_pet_melee_ws_head = {name="Herculean Helm", augments={'Pet: Accuracy+8 Pet: Rng. Acc.+8','Pet: "Dbl.Atk."+4 Pet: Crit.hit rate +4','Pet: DEX+6','Pet: Attack+2 Pet: Rng.Atk.+2',}}
+gear.herculean_pet_melee_ws_hand = {name="Herculean Gloves", augments={'Pet: "Dbl.Atk."+4 Pet: Crit.hit rate +4','Pet: INT+3','Pet: Attack+10 Pet: Rng.Atk.+10',}}
+gear.herculean_pet_melee_ws_legs = {name="Herculean Trousers", augments={'Pet: Mag. Acc.+19','Pet: "Dbl.Atk."+4 Pet: Crit.hit rate +4','Pet: Attack+12 Pet: Rng.Atk.+12',}}
+gear.herculean_pet_melee_ws_feet = {name="Herculean Boots", augments={'Pet: Attack+21 Pet: Rng.Atk.+21','Pet: "Dbl.Atk."+3 Pet: Crit.hit rate +3','Pet: "Mag.Atk.Bns."+3',}}
+
 gear.herculean_pet_stp_feet = {name="Herculean Boots", augments={'Pet: Accuracy+3 Pet: Rng. Acc.+3','Pet: "Store TP"+11','Pet: AGI+6',}}
 gear.herculean_pet_stp_legs = {name="Herculean Trousers", augments={'Pet: Mag. Acc.+10','Pet: "Store TP"+10','Pet: INT+1','Pet: "Mag.Atk.Bns."+4',}}
 gear.herculean_pet_stp_hands = {name="Herculean Gloves", augments={'Pet: Attack+9 Pet: Rng.Atk.+9','Pet: "Store TP"+10','Pet: STR+9',}}
