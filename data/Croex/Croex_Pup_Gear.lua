@@ -87,10 +87,10 @@ function init_gear_sets()
 		feet="Karagoz Scarpe"
 	}
     sets.precast.JA['Repair'] = {
-		--main="Nibiru Santi",
+		main="Nibiru Santi",
 		ammo="Automat. Oil +3",
 		left_ear="Guignol Earring",
-		--right_ear="Pratik Earring",
+		right_ear="Pratik Earring",
 		head={ name="Herculean Helm", augments={'Pet: Mag. Acc.+15','"Repair" potency +7%',}},
 		hands={ name="Herculean Gloves", augments={'"Repair" potency +7%','Pet: CHR+9','Pet: "Mag.Atk.Bns."+6',}},
 		legs={ name="Desultor Tassets", augments={'"Repair" potency +10%','"Elemental Siphon"+20',}},
@@ -120,9 +120,19 @@ function init_gear_sets()
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
-        head="Lilitu Headpiece",neck="Caro Necklace",ear1="Moonshade Earring",ear2="Brutal Earring",
-        body=gear.herculean_wsd_body,hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Regal Ring",
-        back="Visucius's Mantle",waist="Grunfeld Rope",legs="Hiza. Hizayoroi +2",feet=gear.herculean_ta_feet}
+        head="Lilitu Headpiece",
+		neck="Caro Necklace",
+		ear1="Moonshade Earring",
+		ear2="Brutal Earring",
+        body=gear.herculean_wsd_body,
+		hands="Ryuo Tekko",
+		ring1="Niqmaddu Ring",
+		ring2="Regal Ring",
+        back="Visucius's Mantle",
+		waist="Grunfeld Rope",
+		legs="Hiza. Hizayoroi +2",
+		feet=gear.herculean_ta_feet
+	}
 	sets.precast.WS.Acc = {
         head="Lilitu Headpiece",neck="Fotia Gorget",ear1="Moonshade Earring",ear2="Telos Earring",
         body=gear.herculean_wsd_body,hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Regal Ring",
@@ -137,7 +147,10 @@ function init_gear_sets()
         back="Visucius's Mantle",waist="Grunfeld Rope",legs="Hiza. Hizayoroi +2",feet=gear.herculean_ta_feet}
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-    sets.precast.WS['Victory Smite'] = set_combine(sets.precast.WS, {body="Abnoba Kaftan"})
+    sets.precast.WS['Victory Smite'] = set_combine(sets.precast.WS, {
+		body="Abnoba Kaftan",
+		neck="Rancor Collar"
+	})
     sets.precast.WS['Victory Smite'].Acc = set_combine(sets.precast.WS.Acc, {body="Sayadio's Kaftan"})
 	sets.precast.WS['Victory Smite'].FullAcc = set_combine(sets.precast.WS.FullAcc, {body="Sayadio's Kaftan"})
 	sets.precast.WS['Victory Smite'].Fodder = set_combine(sets.precast.WS.Fodder, {body="Abnoba Kaftan"})
@@ -229,7 +242,7 @@ function init_gear_sets()
 		head="Karagoz Capello +1",
 		hands="Karagoz Guanti +1",
 		legs="Karagoz Pantaloni +1",
-		--feet="Naga Kyahan",
+		feet="Naga Kyahan",
 		ring2="Overbearing Ring",
 		neck="Shulmanu Collar",
 		waist="Incarnation Sash",
@@ -244,8 +257,24 @@ function init_gear_sets()
 		waist="Incarnation Sash",
 		left_ear="Domes. Earring"
 	})
-	sets.midcast.Pet.PetWSGear.Tank = set_combine(sets.midcast.Pet.PetWSGear.Melee, {})
-	sets.midcast.Pet.PetWSGear.LightTank = set_combine(sets.midcast.Pet.PetWSGear, {})
+	sets.midcast.Pet.PetWSGear.Tank = set_combine(sets.midcast.Pet.PetWSGear.Melee, {
+		head=gear.herculean_pet_melee_ws_head,
+		hands=gear.herculean_pet_melee_ws_hand,
+		legs=gear.herculean_pet_melee_ws_legs,
+		feet=gear.herculean_pet_melee_ws_feet,
+		neck="Shulmanu Collar",
+		waist="Incarnation Sash",
+		left_ear="Domes. Earring"
+	})
+	sets.midcast.Pet.PetWSGear.LightTank = set_combine(sets.midcast.Pet.PetWSGear.Melee, {
+		head=gear.herculean_pet_melee_ws_head,
+		hands=gear.herculean_pet_melee_ws_hand,
+		legs=gear.herculean_pet_melee_ws_legs,
+		feet=gear.herculean_pet_melee_ws_feet,
+		neck="Shulmanu Collar",
+		waist="Incarnation Sash",
+		left_ear="Domes. Earring"
+	})
     sets.midcast.Pet.PetWSGear.Magic = set_combine(sets.midcast.Pet.PetWSGear, {})
 	sets.midcast.Pet.PetWSGear.Heal = set_combine(sets.midcast.Pet.PetWSGear, {})
 	sets.midcast.Pet.PetWSGear.Nuke = set_combine(sets.midcast.Pet.PetWSGear, {})
@@ -274,20 +303,94 @@ function init_gear_sets()
 		
     -- Set for idle while pet is out (eg: pet regen gear)
     sets.idle.Pet = {
-        head="Rawhide Mask",neck="Loricate Torque +1",ear1="Enmerkar Earring",ear2="Handler's Earring +1",
-        body="Taeon Tabard",hands=gear.herculean_dt_hands,ring1="Defending Ring",ring2="Dark Ring",
-        back="Moonlight Cape",waist="Isa Belt",legs="Tali'ah Sera. +2",feet="Hippo. Socks +1"}
+        head="Rawhide Mask",
+		neck="Loricate Torque +1",
+		ear1="Enmerkar Earring",
+		ear2="Handler's Earring +1",
+        body="Taeon Tabard",
+		hands=gear.herculean_dt_hands,
+		ring1="Defending Ring",
+		ring2="Dark Ring",
+        back="Moonlight Cape",
+		waist="Isa Belt",
+		legs="Tali'ah Sera. +2",
+		feet="Hippo. Socks +1"
+	}
 
     -- Idle sets to wear while pet is engaged
     sets.idle.Pet.Engaged = {
-        head="Anwig Salade",neck="Shulmanu Collar",ear1="Enmerkar Earring",ear2="Domesticator's Earring",
-        body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring +1",ring2="Varar Ring +1",
-        back="Visucius's Mantle",waist="Klouskap Sash",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"}
+		main="Karambit",
+		neck="Shulmanu Collar",
+		ear1="Enmerkar Earring",
+		ear2="Domesticator's Earring",
+		ring1="Varar Ring +1",
+		ring2="Varar Ring +1",
+        back="Visucius's Mantle",
+		waist="Klouskap Sash",
+		legs="Tali'ah Sera. +2",
+		feet="Tali'ah Crackows +2"
+	}
 
-    sets.idle.Pet.Engaged.Ranged = set_combine(sets.idle.Pet.Engaged, {})
-	sets.idle.Pet.Engaged.Melee = set_combine(sets.idle.Pet.Engaged, {})
-	sets.idle.Pet.Engaged.Tank = set_combine(sets.idle.Pet.Engaged, {waist="Isa Belt",ear2="Handler's Earring +1"})
-	sets.idle.Pet.Engaged.LightTank = set_combine(sets.idle.Pet.Engaged, {waist="Isa Belt",ear2="Handler's Earring +1"})
+    sets.idle.Pet.Engaged.Ranged = set_combine(sets.idle.Pet.Engaged, {
+		main="Ohtas",
+		range="Divinator",
+		head=gear.herculean_pet_stp_head,
+		body={name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
+		hands=gear.herculean_pet_stp_hands,
+		legs=gear.herculean_pet_stp_legs,
+		feet=gear.herculean_pet_stp_feet,
+		neck="Shulmanu Collar",
+		waist="Incarnation Sash",
+		left_ear="Rimeice Earring",
+		right_ear="Domes. Earring",
+		left_ring="Varar Ring",
+		right_ring="Varar Ring",
+		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},
+	})
+	sets.idle.Pet.Engaged.Melee = set_combine(sets.idle.Pet.Engaged, {
+		main="Ohtas",
+		range="Divinator",
+		head=gear.herculean_pet_stp_head,
+		body={ name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
+		hands=gear.herculean_pet_stp_hands,
+		legs=gear.herculean_pet_stp_legs,
+		feet=gear.herculean_pet_stp_feet,
+		neck="Shulmanu Collar",
+		waist="Incarnation Sash",
+		left_ear="Rimeice Earring",
+		right_ear="Domes. Earring",
+		left_ring="Varar Ring",
+		right_ring="Varar Ring",
+		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},
+	})
+	sets.idle.Pet.Engaged.Tank = set_combine(sets.idle.Pet.Engaged, {
+		main="Condemners",
+		waist="Isa Belt",
+		head="Anwig Salade",
+		neck="Shepherd's Chain",
+		body={name="Taeon Tabard", augments={'Pet: Mag. Evasion+25','Pet: "Regen"+3','Pet: Damage taken -4%',}},
+		hands={name="Taeon Gloves", augments={'Pet: Mag. Evasion+12','Pet: "Regen"+2','Pet: Damage taken -3%',}},
+		legs={name="Taeon Tights", augments={'Pet: Mag. Evasion+10','Pet: "Regen"+2','Pet: Damage taken -3%',}},
+		feet={name="Taeon Boots", augments={'Pet: Attack+5 Pet: Rng.Atk.+5','Pet: "Regen"+2','Pet: Damage taken -4%',}},
+		ring1="Overbearing Ring",
+		ear1="Rimeice Earring",
+		ear2="Handler's Earring +1",
+		back={name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}}
+	})
+	sets.idle.Pet.Engaged.LightTank = set_combine(sets.idle.Pet.Engaged, {
+		main="Condemners",
+		waist="Isa Belt",
+		head="Anwig Salade",
+		neck="Shepherd's Chain",
+		body={name="Taeon Tabard", augments={'Pet: Mag. Evasion+25','Pet: "Regen"+3','Pet: Damage taken -4%',}},
+		hands={name="Taeon Gloves", augments={'Pet: Mag. Evasion+12','Pet: "Regen"+2','Pet: Damage taken -3%',}},
+		legs={name="Taeon Tights", augments={'Pet: Mag. Evasion+10','Pet: "Regen"+2','Pet: Damage taken -3%',}},
+		feet={name="Taeon Boots", augments={'Pet: Attack+5 Pet: Rng.Atk.+5','Pet: "Regen"+2','Pet: Damage taken -4%',}},
+		ring1="Overbearing Ring",
+		ear1="Rimeice Earring",
+		ear2="Handler's Earring +1",
+		back={name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}}
+	})
     sets.idle.Pet.Engaged.Magic = set_combine(sets.idle.Pet.Engaged, {})
 	sets.idle.Pet.Engaged.Heal = sets.idle.Pet.Engaged.Magic
 	sets.idle.Pet.Engaged.Nuke = sets.idle.Pet.Engaged.Magic
@@ -372,6 +475,13 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.PetWeapons = {main="Ohtas",range="Animator P +1",}
 	sets.weapons.Godhands = {main="Godhands",range="Animator P +1",}
+	
+	-- NEW!!! (Croex)
+	--Equipped automatically
+    sets.engaged.Enmity = {
+       neck="Lisomme Necklace"
+    }
+	
 end
 
 -- Select default macro book on initial load or subjob change.
