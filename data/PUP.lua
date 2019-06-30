@@ -45,6 +45,9 @@ function job_setup()
 	init_job_states({"Capacity","AutoPuppetMode","PetWSGear","AutoRepairMode","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
 	lockstyleset = 6
 	set_lockstyle()
+	
+	--include("PUP-LIB.lua")
+	
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -66,6 +69,8 @@ function job_precast(spell, spellMap, eventArgs)
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
+	--windower.chat.input('/p '..spell.english)
+	--notice('### INFO | job_post_precast: '..spell.english..' ###')
 	if spell.type == 'WeaponSkill' then
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
