@@ -38,9 +38,10 @@ gear.herculean_pet_melee_ws_hand = {name="Herculean Gloves", augments={'Pet: "Db
 gear.herculean_pet_melee_ws_legs = {name="Herculean Trousers", augments={'Pet: Mag. Acc.+19','Pet: "Dbl.Atk."+4 Pet: Crit.hit rate +4','Pet: Attack+12 Pet: Rng.Atk.+12',}}
 gear.herculean_pet_melee_ws_feet = {name="Herculean Boots", augments={'Pet: Attack+21 Pet: Rng.Atk.+21','Pet: "Dbl.Atk."+3 Pet: Crit.hit rate +3','Pet: "Mag.Atk.Bns."+3',}}
 
-gear.herculean_pet_stp_feet = {name="Herculean Boots", augments={'Pet: Accuracy+3 Pet: Rng. Acc.+3','Pet: "Store TP"+11','Pet: AGI+6',}}
+gear.herculean_pet_stp_feet = {name="Herculean Boots", augments={'Pet: Mag. Acc.+4','Pet: "Store TP"+10','Pet: DEX+1',}}
 gear.herculean_pet_stp_legs = {name="Herculean Trousers", augments={'Pet: Mag. Acc.+10','Pet: "Store TP"+10','Pet: INT+1','Pet: "Mag.Atk.Bns."+4',}}
 gear.herculean_pet_stp_hands = {name="Herculean Gloves", augments={'Pet: Attack+9 Pet: Rng.Atk.+9','Pet: "Store TP"+10','Pet: STR+9',}}
+gear.herculean_pet_stp_head = {name="Herculean Helm", augments={'Pet: Mag. Acc.+5','Pet: "Store TP"+10','Pet: Attack+1 Pet: Rng.Atk.+1',}}
 
 gear.merlinic_nuke_head = {name="Merlinic Hood",augments={'Mag. Acc.+21 "Mag.Atk.Bns."+21','INT+15','Mag. Acc.+3','"Mag.Atk.Bns."+13',}}
 gear.merlinic_nuke_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','"Occult Acumen"+4','INT+10','Mag. Acc.+2','"Mag.Atk.Bns."+15',}}
