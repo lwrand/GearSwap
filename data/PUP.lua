@@ -11,9 +11,12 @@ end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
-
+	
+	--if (get_pet_mode()) then
+	--	stateBox:append(string.format("%sPet Mode: "..get_pet_mode().." | %s", clr.s, clr.s))
+	--end
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
-
+	
     -- List of pet weaponskills to check for
     petWeaponskills = S{"Slapstick", "Knockout", "Magic Mortar",
         "Chimera Ripper", "String Clipper",  "Cannibal Blade", "Bone Crusher", "String Shredder",
@@ -34,7 +37,7 @@ function job_setup()
 	state.AutoDeployMode = M(true, 'Auto Deploy Mode')
 	state.PetWSGear		 = M(true, 'Pet WS Gear')
 
-    autows = "Victory Smite"
+    autows = "Asuran Fists"
 	autofood = 'Akamochi'
 	lastpettp = 0
 	deactivatehpp = 100
@@ -46,7 +49,7 @@ function job_setup()
 	lockstyleset = 6
 	set_lockstyle()
 	
-	--include("PUP-LIB.lua")
+	include("PUP-LIB.lua")
 	
 end
 
@@ -166,24 +169,21 @@ function job_get_spell_map(spell, default_spell_map)
 	end	
 end
 
-function job_customize_idle_set(idleSet)
+function job_customize_melee_set(meleeSet)
 	if pet.isvalid and state.PetWSGear.value and pet.tp and pet.tp > 999 and sets.midcast.Pet then
 		if sets.midcast.Pet.PetWSGear and sets.midcast.Pet.PetWSGear[state.PetMode.value] then
-			idleSet = set_combine(idleSet, sets.midcast.Pet.PetWSGear[state.PetMode.value])
-		elseif sets.midcast.Pet.PetWSGear then
-			idleSet = set_combine(idleSet, sets.midcast.Pet.PetWSGear)
-		end
-	end
-	return idleSet
-end
-
-function job_customize_melee_set(meleeSet)
-	if pet.isvalid and state.PetWSGear.value and pet.tp and pet.tp > 999 and player.tp > 999 and sets.midcast.Pet then
-		if sets.midcast.Pet.PetWSGear and sets.midcast.Pet.PetWSGear[state.PetMode.value] then
+			--windower.chat.input('/p '..state.PetMode.value..'');
+			--add_to_chat(204, "*-*-*-*-*-*-*-*-* [ "..state.PetMode.value.." ] *-*-*-*-*-*-*-*-*")
 			meleeSet = set_combine(meleeSet, sets.midcast.Pet.PetWSGear[state.PetMode.value])
 		elseif sets.midcast.Pet.PetWSGear then
+			--windower.chat.input('/p '..state.PetMode.value..'');
+			--add_to_chat(204, "*-*-*-*-*-*-*-*-* [ "..state.PetMode.value.." ] *-*-*-*-*-*-*-*-*")
 			meleeSet = set_combine(meleeSet, sets.midcast.Pet.PetWSGear)
 		end
+	else
+		--windower.chat.input('/p '..state.PetMode.value..'');
+		--add_to_chat(204, "*-*-*-*-*-*-*-*-* [ "..state.PetMode.value.." ] *-*-*-*-*-*-*-*-*")
+		meleeSet = set_combine(meleeSet, sets.idle.Pet.Engaged[state.PetMode.value])
 	end
 
     return meleeSet
@@ -349,7 +349,9 @@ function check_auto_pet()
 			return true
 		end
 	end
-
+	
+	update_job_states()
+	
 	return false
 end
 
