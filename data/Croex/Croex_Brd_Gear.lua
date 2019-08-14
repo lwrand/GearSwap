@@ -75,13 +75,112 @@ function init_gear_sets()
 
 	sets.precast.FC.SongDebuff = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
 	sets.precast.FC.SongDebuff.Resistant = set_combine(sets.precast.FC.BardSong,{range="Gjallarhorn"})
-	sets.precast.FC['Magic Finale'] = set_combine(sets.precast.FC.BardSong,{range="Gjallarhorn"})
-	sets.precast.FC['Horde Lullaby'] = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
-	sets.precast.FC['Horde Lullaby'].Resistant = set_combine(sets.precast.FC.BardSong,{range="Gjallarhorn"})
-	sets.precast.FC['Horde Lullaby'].AoE = set_combine(sets.precast.FC.BardSong,{range=info.ExtraSongInstrument})
-	sets.precast.FC['Horde Lullaby II'] = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
-	sets.precast.FC['Horde Lullaby II'].Resistant = set_combine(sets.precast.FC.BardSong,{range="Gjallarhorn"})
-	sets.precast.FC['Horde Lullaby II'].AoE = set_combine(sets.precast.FC.BardSong,{range=info.ExtraSongInstrument})
+	sets.precast.FC['Magic Finale'] = set_combine(sets.precast.FC.BardSong,{
+		range="Gjallarhorn",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +2",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +2",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring",
+	})
+	
+	sets.precast.FC['Horde Lullaby'] = set_combine(sets.precast.FC.BardSong,{
+		--range="Marsyas",
+		range="Gjallarhorn",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +2",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +2",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring",
+	})
+		
+	sets.precast.FC['Horde Lullaby'].Resistant = set_combine(sets.precast.FC.BardSong,{
+		--range="Marsyas",
+		range="Gjallarhorn",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +2",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +2",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring",
+	})
+	sets.precast.FC['Horde Lullaby'].AoE = set_combine(sets.precast.FC.BardSong,{
+		--range=info.ExtraSongInstrument,
+		range="Gjallarhorn",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +2",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +2",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring",
+	})
+	sets.precast.FC['Horde Lullaby II'] = set_combine(sets.precast.FC.BardSong,{
+		--range="Marsyas",
+		range="Gjallarhorn",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +2",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +2",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring",
+	})
+	sets.precast.FC['Horde Lullaby II'].Resistant = set_combine(sets.precast.FC.BardSong,{
+		--range="Marsyas",
+		range="Gjallarhorn",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +2",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +2",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring",
+	})
+	sets.precast.FC['Horde Lullaby II'].AoE = set_combine(sets.precast.FC.BardSong,{
+		--range=info.ExtraSongInstrument,
+		range="Gjallarhorn",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +2",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +2",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring",
+	})
 		
 	sets.precast.FC.Mazurka = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
 	sets.precast.FC['Honor March'] = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
@@ -182,7 +281,7 @@ function init_gear_sets()
 		body="Brioso Justaucorps +1",
 		legs="Brioso Cannions +1",
 		feet="Brioso Slippers +2",
-		hands="Brioso Cuffs +1",
+		hands="Brioso Cuffs +2",
 		neck="Moonbow Whistle +1",
 		ear1="Gwati Earring",
 		ear2="Digni. Earring",
