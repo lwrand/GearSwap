@@ -440,14 +440,20 @@ windower.register_event(
                     if Strobe_Recast <= 2 then
 						add_to_chat(204, "*-*-*-*-*-*-*-*-* [ sets.engaged.Enmity ] *-*-*-*-*-*-*-*-*")
                         equip(sets.engaged.Enmity)
-                    end
+                    else
+						--add_to_chat(204, "*-*-*-*-*-*-*-*-* [ sets.idle.Pet.Engaged ] *-*-*-*-*-*-*-*-*")
+						--equip(sets.idle.Pet.Engaged[state.PetMode.value])
+					end
                 end
 
                 if buffactive["Light Maneuver"] and pet.attachments.flashbulb == true then
                     if Flashbulb_Recast <= 2 then
 						add_to_chat(204, "*-*-*-*-*-*-*-*-* [ sets.engaged.Enmity ] *-*-*-*-*-*-*-*-*")
                         equip(sets.engaged.Enmity)
-                    end
+                    else
+						--add_to_chat(204, "*-*-*-*-*-*-*-*-* [ sets.idle.Pet.Engaged ] *-*-*-*-*-*-*-*-*")
+						--equip(sets.idle.Pet.Engaged[state.PetMode.value])
+					end
                 end
             end
 
@@ -680,12 +686,8 @@ function job_state_change(stateField, newValue, oldValue)
         else 
             texts.update(main_text_hub, keybinds_off)
         end
-    elseif stateField == 'Offense Mode' then --Updates HUB for Offense Mode
-        main_text_hub.player_current_offense = newValue
     elseif stateField == 'Physical Defense Mode' then -- Updates HUB for Physical Defense Mode
         main_text_hub.player_current_physical = newValue
-    elseif stateField == 'Hybrid Mode' then --Updates HUB for Hybrid Mode
-        main_text_hub.player_current_hybrid = newValue
     elseif stateField == 'Idle Mode' then -- Updates HUB for Idle Mode
         main_text_hub.player_current_idle = newValue
     end
