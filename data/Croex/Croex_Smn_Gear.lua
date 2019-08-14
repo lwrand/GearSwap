@@ -505,5 +505,5 @@ function select_default_macro_book(reset)
     end
     
     -- Default macro set/book
-    set_macro_page(4, 17)
+    set_macro_page(1, 10)
 end
