@@ -401,8 +401,8 @@ function init_gear_sets()
     
     sets.idle.Avatar = {
 		main = "Gridarvor", -- (-5 perp)
-		sub = "Oneiros Grip", -- (+1 refresh, <75%)
-		ammo = "Sancus Sachet +1", -- (avatat lvl 119)
+		sub = "Oneiros Grip", -- (+1 refresh when mp<75%)
+		ammo = "Sancus Sachet +1", -- (avatar lvl 119)
 		head = "Beckoner's Horn +1", -- (+2 refresh and avatar flavor +3)
 		neck = "Caller's Pendant", -- (avatar regain +25)
 		ear1 = "Moonshade Earring", -- (+1 refresh)
