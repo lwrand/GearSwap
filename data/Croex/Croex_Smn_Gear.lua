@@ -285,7 +285,7 @@ function init_gear_sets()
 		neck="Shulmanu Collar",
 		waist="Incarnation Sash",
 		left_ear="Gelos Earring",
-		right_ear="Esper earring",
+		right_ear="Domesticator's Earring",
 		left_ring="Varar Ring",
 		right_ring="Varar Ring",
 		back=gear.camp_physpact_back,
@@ -400,21 +400,21 @@ function init_gear_sets()
     -- Can make due without either the head or the body, and use +refresh items in those slots.
     
     sets.idle.Avatar = {
-		main = "Gridarvor",
-		sub = "Oneiros Grip",
-		ammo = "Sancus Sachet +1",
-		head = "Beckoner's Horn +1",
-		neck = "Caller's Pendant",
-		ear1 = "Etiolation Earring",
-		ear2 = "Evans Earring",
-		body = "Shomonjijoe +1",
-		hands = "Asteria Mitts +1",
-		ring1 = "Evoker's Ring",
-		ring2 = "Dark Ring",
-		back = "Conveyance Cape",
-		waist = "Lucidity Sash",
-		legs = "Assid. Pants +1",
-		feet = "Convo. Pigaches +3"
+		main = "Gridarvor", -- (-5 perp)
+		sub = "Oneiros Grip", -- (+1 refresh, <75%)
+		ammo = "Sancus Sachet +1", -- (avatat lvl 119)
+		head = "Beckoner's Horn +1", -- (+2 refresh and avatar flavor +3)
+		neck = "Caller's Pendant", -- (avatar regain +25)
+		ear1 = "Moonshade Earring", -- (+1 refresh)
+		ear2 = "Andoaa Earring", -- (+5 summoning skill)
+		body = "Shomonjijoe +1", -- (+3 refresh, +14 avatar enmity)
+		hands = "Asteria Mitts +1", -- (+1 refresh)
+		ring1 = "Evoker's Ring", -- (-1 perp, +10 summoning skill)
+		ring2 = "Stikini Ring", -- (+5 summoning skill)
+		back = "Campestres's Cape", -- (+1 avatar lvl)
+		waist = "Lucidity Sash", -- (-2 perp, +7 summoning skill)
+		legs = "Assid. Pants +1", -- (-3 perp, +1-2 refresh)
+		feet = "Apogee Pumps +1" -- (-9 perp)
 	}
 		
     sets.idle.PDT.Avatar = {main="Terra's Staff",sub="Oneiros Grip",ammo="Sancus Sachet +1",
