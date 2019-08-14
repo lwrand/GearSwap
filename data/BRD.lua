@@ -47,6 +47,8 @@ function job_setup()
 
 	update_melee_groups()
 	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode",},{"AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","TreasureMode",})
+	lockstyleset = 4
+	set_lockstyle()
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -310,4 +312,8 @@ function check_song()
 	else
 		return false
 	end
+end
+
+function set_lockstyle()
+    send_command('wait 2; input /lockstyleset ' .. lockstyleset)
 end
