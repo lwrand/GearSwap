@@ -43,6 +43,11 @@ gear.herculean_pet_stp_legs = {name="Herculean Trousers", augments={'Pet: Mag. A
 gear.herculean_pet_stp_hands = {name="Herculean Gloves", augments={'Pet: Attack+9 Pet: Rng.Atk.+9','Pet: "Store TP"+10','Pet: STR+9',}}
 gear.herculean_pet_stp_head = {name="Herculean Helm", augments={'Pet: Mag. Acc.+5','Pet: "Store TP"+10','Pet: Attack+1 Pet: Rng.Atk.+1',}}
 
+gear.taeon_pet_tank_feet = {name="Taeon Boots", augments={'Pet: Mag. Evasion+11','Pet: "Regen"+2','Pet: Damage taken -4%',}}
+gear.taeon_pet_tank_legs = {name="Taeon Tights", augments={'Pet: Mag. Evasion+10','Pet: "Regen"+2','Pet: Damage taken -3%',}}
+gear.taeon_pet_tank_hands = {name="Taeon Gloves", augments={'Pet: Mag. Evasion+12','Pet: "Regen"+3','Pet: Damage taken -3%',}}
+gear.taeon_pet_tank_body = {name="Taeon Tabard", augments={'Pet: Mag. Evasion+25','Pet: "Regen"+3','Pet: Damage taken -4%',}}
+
 gear.merlinic_nuke_head = {name="Merlinic Hood",augments={'Mag. Acc.+21 "Mag.Atk.Bns."+21','INT+15','Mag. Acc.+3','"Mag.Atk.Bns."+13',}}
 gear.merlinic_nuke_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','"Occult Acumen"+4','INT+10','Mag. Acc.+2','"Mag.Atk.Bns."+15',}}
 gear.merlinic_occult_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+14','"Occult Acumen"+11','MND+6',}}
