@@ -39,8 +39,8 @@ function user_setup()
 		]]--
 		HybridRanged = {
 			{Name='Wind Maneuver', 	  Amount=1},
-			{Name='Fire Maneuver',	  Amount=2},
-			{Name='Light Maneuver',	  Amount=0},
+			{Name='Fire Maneuver',	  Amount=1},
+			{Name='Light Maneuver',	  Amount=1},
 			{Name='Thunder Maneuver', Amount=0},
 		},
 		Tank = {
@@ -346,7 +346,8 @@ function init_gear_sets()
     -- Idle sets to wear while pet is engaged
     sets.idle.Pet.Engaged = {
 		neck="Shulmanu Collar",
-		main="Karambit",
+		--main="Karambit",
+		main="Ohtas",
 		range="Divinator",
 		head=gear.herculean_pet_stp_head,
 		body={name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
@@ -363,7 +364,8 @@ function init_gear_sets()
 
     sets.idle.Pet.Engaged.Ranged = set_combine(sets.idle.Pet.Engaged, {
 		neck="Shulmanu Collar",
-		main="Karambit",
+		--main="Karambit",
+		main="Ohtas",
 		range="Divinator",
 		head=gear.herculean_pet_stp_head,
 		body={name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
@@ -379,7 +381,8 @@ function init_gear_sets()
 	})
 	sets.idle.Pet.Engaged.Melee = set_combine(sets.idle.Pet.Engaged, {
 		neck="Shulmanu Collar",
-		main="Karambit",
+		--main="Karambit",
+		main="Ohtas",
 		range="Divinator",
 		head=gear.herculean_pet_stp_head,
 		body={ name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
@@ -395,7 +398,8 @@ function init_gear_sets()
 	})
 	sets.idle.Pet.Engaged.HybridRanged = set_combine(sets.idle.Pet.Engaged, {
 		neck="Shulmanu Collar",
-		main="Karambit",
+		--main="Karambit",
+		main="Ohtas",
 		range="Divinator",
 		head=gear.herculean_pet_stp_head,
 		body={ name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
@@ -410,26 +414,28 @@ function init_gear_sets()
 		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},
 	})
 	sets.idle.Pet.Engaged.Tank = set_combine(sets.idle.Pet.Engaged, {
-		main="Karambit",
+		--main="Karambit",
+		main="Ohtas",
 		waist="Isa Belt",
-		--head="Anwig Salade",
+		head="Anwig Salade",
 		neck="Shepherd's Chain",
-		--body=gear.taeon_pet_tank_body,
-		--hands=gear.taeon_pet_tank_hands,
-		--legs=gear.taeon_pet_tank_legs,
-		--feet=gear.taeon_pet_tank_feet,
-		legs="Heyoka Subligar",
-		hands="Heyoka Mittens",
-		hands="Heyoka Mittens",
-		head="Heyoka Cap",
-		body="Heyoka Harness",
+		body=gear.taeon_pet_tank_body,
+		hands=gear.taeon_pet_tank_hands,
+		legs=gear.taeon_pet_tank_legs,
+		feet=gear.taeon_pet_tank_feet,
+		--legs="Heyoka Subligar",
+		--hands="Heyoka Mittens",
+		--feet="Heyoka Leggings",
+		--head="Heyoka Cap",
+		--body="Heyoka Harness",
 		ring1="Overbearing Ring",
 		ear1="Rimeice Earring",
 		ear2="Handler's Earring +1",
 		back={name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}}
 	})
 	sets.idle.Pet.Engaged.LightTank = set_combine(sets.idle.Pet.Engaged, {
-		main="Karambit",
+		--main="Karambit",
+		main="Ohtas",
 		waist="Isa Belt",
 		head="Anwig Salade",
 		neck="Shepherd's Chain",
