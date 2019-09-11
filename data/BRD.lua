@@ -315,5 +315,5 @@ function check_song()
 end
 
 function set_lockstyle()
-    send_command('wait 2; input /lockstyleset ' .. lockstyleset)
+    send_command('wait 4; input /lockstyleset ' .. lockstyleset)
 end
