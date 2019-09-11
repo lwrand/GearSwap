@@ -60,14 +60,7 @@ gear.wsd_jse_back = {
 		'Weapon skill damage +10%',
 	}
 }
-gear.mab_jse_back = {
-	name = "Rosmerta's Cape",
-	augments = {
-		'INT+20',
-		'Mag. Acc+20 /Mag. Dmg.+20',
-		'"Mag.Atk.Bns."+10',
-	}
-}
+gear.mab_jse_back = { name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
 
 gear.obi_cure_waist = "Luminary Sash"
 	gear.obi_nuke_waist = "Yamabuki-no-Obi"
@@ -149,16 +142,16 @@ sets.precast.Waltz = {
 	sets.precast.Step = {
 		ammo="Falcon Eye",
 		head="Dampening Tam",
-		neck="Combatant' s Torque ",
-		ear1=" Regal Earring ",
-		ear2=" Telos Earring ",
-		body=" Assim.Jubbah + 3 ",
-		hands=" Assim.Bazu.+3 ",
-		ring1=" Ramuh Ring + 1 ",
-		ring2=" Ramuh Ring + 1 ",
+		neck="Combatant' s Torque",
+		ear1="Regal Earring",
+		ear2="Telos Earring",
+		body="Assim.Jubbah + 3",
+		hands="Assim.Bazu.+3",
+		ring1="Ramuh Ring + 1",
+		ring2="Ramuh Ring + 1",
 		back=gear.da_jse_back,
-		waist=" Olseni Belt ",
-		legs=" Carmine Cuisses + 1 ",
+		waist="Olseni Belt",
+		legs="Carmine Cuisses + 1",
 		feet=gear.herculean_acc_feet
 	}
 
@@ -773,8 +766,7 @@ sets.midcast['Blue Magic'].PhysicalAcc.Resistant = set_combine(sets.midcast['Blu
 	ear1 = "Friomisi Earring",
 	ear2 = "Novio Earring",
 	body = "Jhakri Robe +2",
-	hands = "Jhakri Cuffs +2",
-	--hands = "Amalric Gages +1",
+	hands = "Amalric Gages +1",
 	--ring1 = "Shiva Ring +1",
 	--ring2 = "Shiva Ring +1",
 	ring2 = "Strendu Ring",
