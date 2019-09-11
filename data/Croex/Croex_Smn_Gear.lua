@@ -79,17 +79,17 @@ function init_gear_sets()
 		sub = "Vox Grip",
 		ammo = "Sancus Sachet +1",
 		head = "Beckoner's Horn +1",
-		neck = "Incanter's Torque",
+		neck = "Caller's Pendant",
 		ear1 = "Andoaa Earring",
 		ear2 = "Evans Earring",
 		body = "Con. Doublet +3",
-		hands = "Baayami Cuffs",
+		hands = "Lamassu Mitts +1",
 		ring1 = "Evoker's Ring",
 		ring2 = "Stikini Ring",
 		back = "Conveyance Cape",
-		waist = "Kobo Obi",
-		legs = "Baayami Slops",
-		feet = "Baayami Sabots"
+		waist = "Lucidity Sash",
+		legs = "Beckoner's Spats +1",
+		--feet = "Baayami Sabots"
 	}
 
     sets.precast.BloodPactRage = sets.precast.BloodPactWard
@@ -290,7 +290,6 @@ function init_gear_sets()
 		right_ring="Varar Ring",
 		back=gear.camp_physpact_back,
 		feet=gear.helios_physpact_boots
-		--feet="Apogee Pumps +1"
 	}	
     sets.midcast.Pet.PhysicalBloodPactRage.Acc = {feet="Convo. Pigaches +3"}
 
