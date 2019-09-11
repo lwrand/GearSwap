@@ -57,15 +57,13 @@ function init_gear_sets()
 	sets.precast.FC.BardSong = {
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
 		sub="Genmei Shield",
-		range="Gjallarhorn",
-		ammo=empty,
 		head="Fili Calot +1",
-		neck="Loricate Torque",
-		ear1="Enchntr. Earring +1",
-		ear2="Loquacious Earring",
-		legs="Aya. Cosciales +2",
 		body="Inyanga Jubbah +2",
 		hands="Gendewitha Gages +1",
+		legs="Aya. Cosciales +2",
+		neck="Loricate Torque",
+		ear1="Ethereal Earring",
+		ear2="Loquacious Earring",
 		ring1="Kishar Ring",
 		ring2="Defending Ring",
 		back="Intarabus's Cape",
@@ -76,106 +74,68 @@ function init_gear_sets()
 	sets.precast.FC.SongDebuff = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
 	sets.precast.FC.SongDebuff.Resistant = set_combine(sets.precast.FC.BardSong,{range="Gjallarhorn"})
 	sets.precast.FC['Magic Finale'] = set_combine(sets.precast.FC.BardSong,{
-		range="Gjallarhorn",
 		head="Brioso Roundlet +2",
-		body="Brioso Justaucorps +2",
+		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
+		feet="Brioso Slippers +3",
 		ring1="Stikinki Ring",
 		ring2="Stikinki Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
 	
-	sets.precast.FC['Horde Lullaby'] = set_combine(sets.precast.FC.BardSong,{
-		--range="Marsyas",
-		range="Gjallarhorn",
-		head="Brioso Roundlet +2",
-		body="Brioso Justaucorps +2",
-		hands="Brioso Cuffs +3",
-		waist="Luminary Sash",
-		neck="Moonbow Whistle +1",
-		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring",
-	})
-		
-	sets.precast.FC['Horde Lullaby'].Resistant = set_combine(sets.precast.FC.BardSong,{
-		--range="Marsyas",
-		range="Gjallarhorn",
-		head="Brioso Roundlet +2",
-		body="Brioso Justaucorps +2",
-		hands="Brioso Cuffs +3",
-		waist="Luminary Sash",
-		neck="Moonbow Whistle +1",
-		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring",
-	})
+	sets.precast.FC['Horde Lullaby'] = set_combine(sets.precast.FC.BardSong,{})
+	sets.precast.FC['Horde Lullaby'].Resistant = set_combine(sets.precast.FC.BardSong,{})
 	sets.precast.FC['Horde Lullaby'].AoE = set_combine(sets.precast.FC.BardSong,{
-		--range=info.ExtraSongInstrument,
-		range="Gjallarhorn",
 		head="Brioso Roundlet +2",
-		body="Brioso Justaucorps +2",
+		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
+		feet="Brioso Slippers +3",
 		ring1="Stikinki Ring",
 		ring2="Stikinki Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
 	sets.precast.FC['Horde Lullaby II'] = set_combine(sets.precast.FC.BardSong,{
-		--range="Marsyas",
-		range="Gjallarhorn",
 		head="Brioso Roundlet +2",
-		body="Brioso Justaucorps +2",
+		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
+		feet="Brioso Slippers +3",
 		ring1="Stikinki Ring",
 		ring2="Stikinki Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
 	sets.precast.FC['Horde Lullaby II'].Resistant = set_combine(sets.precast.FC.BardSong,{
-		--range="Marsyas",
-		range="Gjallarhorn",
 		head="Brioso Roundlet +2",
-		body="Brioso Justaucorps +2",
+		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
+		feet="Brioso Slippers +3",
 		ring1="Stikinki Ring",
 		ring2="Stikinki Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
 	sets.precast.FC['Horde Lullaby II'].AoE = set_combine(sets.precast.FC.BardSong,{
-		--range=info.ExtraSongInstrument,
-		range="Gjallarhorn",
 		head="Brioso Roundlet +2",
-		body="Brioso Justaucorps +2",
+		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
+		feet="Brioso Slippers +3",
 		ring1="Stikinki Ring",
 		ring2="Stikinki Ring",
 		ear1="Lifestorm Earring",
@@ -192,7 +152,7 @@ function init_gear_sets()
 	-- Precast sets to enhance JAs
 	
 	sets.precast.JA.Nightingale = {feet="Bihu Slippers +1"}
-	sets.precast.JA.Troubadour = {body="Bihu Jstcorps"}
+	sets.precast.JA.Troubadour = {body="Bihu Justaucorps"}
 	sets.precast.JA['Soul Voice'] = {legs="Bihu Cannions +1"}
 
 	-- Waltz set (chr and vit)
@@ -200,22 +160,23 @@ function init_gear_sets()
 
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
-	sets.precast.WS = {
-		ammo="Hasty Pinion +1",
-		head="Aya. Zucchetto +2",
+	sets.precast.WS = {}
+		
+	sets.precast.WS["Savage Blade"] = set_combine(sets.precast.WS, {
+		range="Linos",
+		head="Lustratio Cap +1",
+		hands="Lustratio Mittens +1",
+		legs="Lustratio Subligar +1",
+		feet="Lustratio Leggings +1",
 		neck="Caro Necklace",
 		ear1="Moonshade Earring",
 		ear2="Ishvara Earring",
-		body="Ayanmo Corazza +2",
-		hands="Aya. Manopolas +2",
-		ring1="Ramuh Ring +1",
+		ring1="Karieyh Ring +1",
 		ring2="Ilabrat Ring",
-		back="Ground. Mantle +1",
-		waist="Grunfeld Rope",
-		legs="Aya. Cosciales +2",
-		feet="Aya. Gambieras +1"
-	}
-		
+		back={name="Intarabus's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}},
+		waist="Prosilio Belt +1"
+	})
+	
 	-- Swap to these on Moonshade using WS if at 3000 TP
 	sets.MaxTP = {ear1="Ishvara Earring",ear2="Telos Earring",}
 	sets.AccMaxTP = {ear1="Zennaroi Earring",ear2="Telos Earring"}
@@ -226,69 +187,97 @@ function init_gear_sets()
 	-- Midcast Sets
 
 	-- General set for recast times.
-	sets.midcast.FastRecast = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Hasty Pinion +1",
-		head="Nahtirah Hat",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquacious Earring",
-		body="Inyanga Jubbah +2",hands="Leyline Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
-		back="Intarabus's Cape",waist="Witful Belt",legs="Aya. Cosciales +2",feet="Gende. Galosh. +1"}
-
+	sets.midcast.FastRecast = {
+		main = gear.grioavolr_fc_staff,
+		sub = "Clerisy Strap +1",
+		ammo = "Hasty Pinion +1",
+		head = "Nahtirah Hat",
+		neck = "Voltsurge Torque",
+		--ear1 = "Enchntr. Earring +1",
+		ear2 = "Loquacious Earring",
+		body = "Inyanga Jubbah +2",
+		hands = "Leyline Gloves",
+		ring1 = "Kishar Ring",
+		ring2 = "Lebeche Ring",
+		back = "Intarabus's Cape",
+		waist = "Witful Belt",
+		legs = "Aya. Cosciales +2",
+		feet = "Gende. Galosh. +1"
+	}
 	-- Gear to enhance certain classes of songs.  No instruments added here since Gjallarhorn is being used.
-	sets.midcast.Ballad = {legs="Fili Rhingrave +1"}
 	sets.midcast.Lullaby = {}
-	sets.midcast['Horde Lullaby'] = {range="Marsyas"}
-	sets.midcast['Horde Lullaby'].Resistant = {range="Gjallarhorn"}
-	sets.midcast['Horde Lullaby'].AoE = {range=info.ExtraSongInstrument}
-	sets.midcast['Horde Lullaby II'] = {range="Marsyas"}
-	sets.midcast['Horde Lullaby II'].Resistant = {range="Gjallarhorn"}
+	sets.midcast['Horde Lullaby'] = {
+		range="Marsyas",
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +3",
+		hands="Brioso Cuffs +3",
+		waist="Luminary Sash",
+		neck="Moonbow Whistle +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +3",
+		ring1="Stikinki Ring",
+		ring2="Stikinki Ring",
+		ear1="Lifestorm Earring",
+		ear2="Psystorm Earring"
+	}
+	sets.midcast['Horde Lullaby'].Resistant = set_combine(sets.midcast['Horde Lullaby'], {range="Gjallarhorn"})
+	sets.midcast['Horde Lullaby'].AoE = set_combine(sets.midcast['Horde Lullaby'], {range=info.ExtraSongInstrument})
+	sets.midcast['Horde Lullaby II'] = set_combine(sets.midcast['Horde Lullaby'], {})
+	sets.midcast['Horde Lullaby II'].Resistant = set_combine(sets.midcast['Horde Lullaby'], {range="Gjallarhorn"})
 	sets.midcast['Horde Lullaby II'].AoE = {range=info.ExtraSongInstrument}
+	sets.midcast.Ballad = {legs="Fili Rhingrave +1"}
 	sets.midcast.Madrigal = {head="Fili Calot +1"}
-	sets.midcast.Paeon = {}
+	sets.midcast.Paeon = {head="Brioso Roundlet +2"}
 	sets.midcast.March = {hands="Fili Manchettes +1"}
 	sets.midcast['Honor March'] = set_combine(sets.midcast.March,{range="Marsyas"})
 	sets.midcast.Minuet = {body="Fili Hongreline +1 +1"}
-	sets.midcast.Minne = {}
-	sets.midcast.Carol = {}
-	sets.midcast["Sentinel's Scherzo"] = {} --feet="Fili Cothurnes +1" Brioso Slippers still provides more Duration
+	sets.midcast.Minne = {legs="Mousai Seraweels +1"} -- expensive (+2) or normal (+1)
+	sets.midcast.Carol = {hands="Mousai Gages +1"} -- expensive (+2) or normal (+1)
+	sets.midcast.Etude = {head="Mousai Turban +1"} -- expensive or (+2) normal (+1)
+	sets.midcast.Threnody = {body="Mousai Manteel +1"} -- expensive or (+2) normal (+1)
+	sets.midcast.Mambo = {feet="Mousai Crackows +1"} -- expensive or (+2) normal (+1)
+	sets.midcast["Sentinel's Scherzo"] = {feet="Fili Cothurnes +1"}
+	sets.midcast["Adventurer's Dirge"] = {hands="Bihu Cuffs +3"}
+	sets.midcast["Foe Sirvente"] = {hands="Bihu Roundlet +3"}
 	sets.midcast['Magic Finale'] = {range="Gjallarhorn"}
 	sets.midcast.Mazurka = {range=info.ExtraSongInstrument}
 	
 	-- For song buffs (duration and AF3 set bonus)
 	sets.midcast.SongEffect = {
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
-		sub="Genmei Shield",
 		range="Gjallarhorn",
-		ammo=empty,
+		sub="Genmei Shield",
 		head="Fili Calot +1",
-		neck="Moonbow Whistle +1",
-		ear1="Enchntr. Earring +1",
-		ear2="Loquacious Earring",
 		body="Fili Hongreline +1 +1",
-		hands="Inyan. Dastanas +2",
+		hands="Fili Manchettes +1",
+		legs="Inyanga Shalwar +2",
+		feet="Brioso Slippers +3",
+		waist="Flume Belt +1",
+		neck="Moonbow Whistle +1",
+		--ear1="Enchntr. Earring +1",
+		ear2="Loquacious Earring",
 		ring1="Defending Ring",
 		ring2="Dark Ring",
-		back="Intarabus's Cape",
-		waist="Flume Belt +1",
-		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2"
+		back="Intarabus's Cape"
 	}
 
 	-- For song defbuffs (duration primary, accuracy secondary)
 	sets.midcast.SongDebuff = {
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
-		--sub="Ammurapi Shield",
-		range="Marsyas",
-		ammo=empty,
-		head="Brioso Roundlet +1",
-		body="Brioso Justaucorps +1",
-		legs="Brioso Cannions +1",
-		feet="Brioso Slippers +2",
-		hands="Brioso Cuffs +2",
+		sub="Genmei Shield", --upgrade with "Ammurapi Shield"
+		range="Gjallarhorn", --more duration with "Marsyas"
+		head="Brioso Roundlet +2",
+		body="Brioso Justaucorps +3",
+		hands="Brioso Cuffs +3",
+		legs="Brioso Cannions +3",
+		feet="Brioso Slippers +3",
 		neck="Moonbow Whistle +1",
-		ear1="Gwati Earring",
 		ear2="Digni. Earring",
+		ear1="Gwati Earring",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
-		back="Intarabus's Cape",
-		waist="Luminary Sash"
+		waist="Luminary Sash",
+		back="Intarabus's Cape"
 	}
 
 	-- For song defbuffs (accuracy primary, duration secondary)
@@ -398,22 +387,26 @@ function init_gear_sets()
 	-- If you create a set with both offense and defense modes, the offense mode should be first.
 	-- EG: sets.engaged.Dagger.Accuracy.Evasion
 	
-	sets.engaged = {main="Aeneas",sub="Genmei Shield",ammo="Ginsen",
-		head="Aya. Zucchetto +2",neck="Asperity Necklace",ear1="Cessance Earring",ear2="Brutal Earring",
-		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Petrov Ring",ring2="Ilabrat Ring",
-		back="Bleating Mantle",waist="Windbuffet Belt +1",legs="Aya. Cosciales +2",feet="Battlecast Gaiters"}
-	sets.engaged.Acc = {main="Aeneas",sub="Genmei Shield",ammo="Ginsen",
-		head="Aya. Zucchetto +2",neck="Combatant's Torque",ear1="Digni. Earring",ear2="Telos Earring",
-		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Ramuh Ring +1",ring2="Ilabrat Ring",
-		back="Letalis Mantle",waist="Olseni Belt",legs="Aya. Cosciales +2",feet="Aya. Gambieras +1"}
-	sets.engaged.DW = {main="Aeneas",sub="Blurred Knife +1",ammo="Ginsen",
-		head="Aya. Zucchetto +2",neck="Asperity Necklace",ear1="Suppanomimi",ear2="Brutal Earring",
-		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Petrov Ring",ring2="Ilabrat Ring",
-		back="Bleating Mantle",waist="Reiki Yotai",legs="Aya. Cosciales +2",feet="Battlecast Gaiters"}
-	sets.engaged.DW.Acc = {main="Aeneas",sub="Blurred Knife +1",ammo="Ginsen",
-		head="Aya. Zucchetto +2",neck="Combatant's Torque",ear1="Suppanomimi",ear2="Telos Earring",
-		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Ramuh Ring +1",ring2="Ilabrat Ring",
-		back="Bleating Mantle",waist="Reiki Yotai",legs="Aya. Cosciales +2",feet="Battlecast Gaiters"}
+	sets.engaged = {
+		main = "Naegling",
+		sub = "Vampirism",
+		ammo = "Ginsen",
+		head = "Ayanmo Zucchetto +2",
+		body = "Ayanmo Corazza +2",
+		hands = "Ayanmo Manopolas +2",
+		legs = "Ayanmo Cosciales +2",
+		feet = "Ayanmo Gambieras +2",
+		neck = "Lissome Necklace",
+		ear1 = "Cessance Earring",
+		ear2 = "Suppanomimi Earring",
+		ring1 = "Petrov Ring",
+		ring2 = "Epona's Ring",
+		back = {name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}},
+		waist = "Windbuffet Belt +1"
+	}
+	sets.engaged.Acc = set_combine(sets.engaged, {})
+	sets.engaged.DW = set_combine(sets.engaged, {})
+	sets.engaged.DW.Acc = set_combine(sets.engaged, {})
 end
 
 -- Select default macro book on initial load or subjob change.
