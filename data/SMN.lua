@@ -115,6 +115,9 @@ function job_setup()
 	autofood = 'Akamochi'
 	
 	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","PactSpamMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode","AutoBuffMode",},{"Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ElementalMode","CastingMode","TreasureMode",})
+	
+	lockstyleset = 5
+	set_lockstyle()
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -172,7 +175,16 @@ function job_precast(spell, spellMap, eventArgs)
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
-
+	if spell.type == 'WeaponSkill' then
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if sets.MaxTP and get_effective_player_tp(spell, WSset) > 3200 then
+				equip(sets.MaxTP[spell.english] or sets.MaxTP)
+			end
+		end
+	end
 end
 
 function job_midcast(spell, spellMap, eventArgs)
@@ -203,76 +215,71 @@ end
 
 function job_aftercast(spell, spellMap, eventArgs)
     if not spell.interrupted then
-        if state.UseCustomTimers.value and spell.english == 'Sleep' or spell.english == 'Sleepga' then
+		if state.UseCustomTimers.value and spell.english == 'Sleep' or spell.english == 'Sleepga' then
             send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
         elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
             state.MagicBurstMode:reset()
 			if state.DisplayMode.value then update_job_states()	end
-		elseif pet_midaction() or (type(spell.type) == 'string' and(spell.type:startswith('BloodPact') or avatars:contains(spell.english))) then
+		elseif type(spell.type) == 'string' and spell.type:startswith('BloodPact') and state.DefenseMode.value == 'None' then
+			petWillAct = os.clock()
+			if ConduitLocked and ConduitLocked ~= spell.english then
+				ConduitLocked = nil
+				if state.Weapons.value == 'None' then
+					enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+				else
+					enable('range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+				end
+			end
+			equip(get_pet_midcast_set(spell, spellMap))
+			if state.Buff['Aftermath: Lv.3'] then
+				if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].AM then
+					equip(sets.midcast.Pet[spell.english].AM)
+				elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.AM then
+					equip(sets.midcast.Pet.PhysicalBloodPactRage.AM)
+				end
+			end
+
+			if state.CastingMode.value == 'Resistant' then
+				if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].Acc then
+					equip(sets.midcast.Pet[spell.english].Acc)
+				elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.Acc then
+					equip(sets.midcast.Pet.PhysicalBloodPactRage.Acc)
+				elseif spellMap == 'MagicalBloodPactRage' and sets.midcast.Pet.MagicalBloodPactRage.Acc then
+						equip(sets.midcast.Pet.MagicalBloodPactRage.Acc)
+				end
+			end
+			
+			if spellMap == 'PhysicalBloodPactRage' then
+				if sets.midcast.Pet.PhysicalBloodPactRage[pet.name] then
+					equip(sets.midcast.Pet.PhysicalBloodPactRage[pet.name])
+				end
+			elseif spellMap == 'MagicalBloodPactRage' then
+				if sets.midcast.Pet.MagicalBloodPactRage[pet.name] then
+					equip(sets.midcast.Pet.MagicalBloodPactRage[pet.name])
+				end
+			elseif spellMap == 'DebuffBloodPactWard' then
+				if sets.midcast.Pet.BloodPactWard[pet.name] then
+					equip(sets.midcast.Pet.BloodPactWard[pet.name])
+				end
+			end	
+			
+			if state.Buff['Astral Conduit'] and ConduitLock and ConduitLocked == nil then
+				ConduitLocked = spell.english
+				disable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+				add_to_chat(217, "Astral Conduit on, locking your "..spell.english.." set.")
+			end
+			eventArgs.handled = true
+		elseif pet_midaction() or avatars:contains(spell.english) then
 			eventArgs.handled = true
         end
     end
-end
-
-function pet_action(spell, spellMap, eventArgs)
-
-end
-
-function job_post_pet_midcast(spell, spellMap, eventArgs)--override equip sets for bloodpacts without lots of messy sets
-
-	if ConduitLocked and ConduitLocked ~= spell.english then
-		ConduitLocked = nil
-		if state.Weapons.value == 'None' then
-			enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-		else
-			enable('range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-		end
-	end
-
-	if state.Buff['Aftermath: Lv.3'] then
-		if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].AM then
-			equip(sets.midcast.Pet[spell.english].AM)
-		elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.AM then
-			equip(sets.midcast.Pet.PhysicalBloodPactRage.AM)
-		end
-	end
-
-	if state.CastingMode.value == 'Resistant' then
-		if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].Acc then
-			equip(sets.midcast.Pet[spell.english].Acc)
-		elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.Acc then
-			equip(sets.midcast.Pet.PhysicalBloodPactRage.Acc)
-		elseif spellMap == 'MagicalBloodPactRage' and sets.midcast.Pet.MagicalBloodPactRage.Acc then
-				equip(sets.midcast.Pet.MagicalBloodPactRage.Acc)
-		end
-	end
-	
-	if spellMap == 'PhysicalBloodPactRage' then
-		if sets.midcast.Pet.PhysicalBloodPactRage[pet.name] then
-			equip(sets.midcast.Pet.PhysicalBloodPactRage[pet.name])
-		end
-	elseif spellMap == 'MagicalBloodPactRage' then
-		if sets.midcast.Pet.MagicalBloodPactRage[pet.name] then
-			equip(sets.midcast.Pet.MagicalBloodPactRage[pet.name])
-		end
-	elseif spellMap == 'DebuffBloodPactWard' then
-		if sets.midcast.Pet.BloodPactWard[pet.name] then
-			equip(sets.midcast.Pet.BloodPactWard[pet.name])
-		end
-	end	
-	
-	if state.Buff['Astral Conduit'] and ConduitLock and ConduitLocked == nil then
-		ConduitLocked = spell.english
-		disable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-		add_to_chat(217, "Astral Conduit on, locking your "..spell.english.." set.")
-	end
 end
 
 -- Runs when pet completes an action.
 function job_pet_aftercast(spell, spellMap, eventArgs)
 	if state.PactSpamMode.value == true and spell.type == 'BloodPactRage'then
 		abil_recasts = windower.ffxi.get_ability_recasts()
-		if abil_recasts[173] < latency then
+		if abil_recasts[173] == 0 then
 			windower.chat.input('/pet "'..spell.name..'" <t>')
 		end
 	end
@@ -705,6 +712,7 @@ end
 function job_tick()
 	if check_favor() then return true end
 	if check_buff() then return true end
+	if check_buffup() then return true end
 	return false
 end
 
@@ -714,29 +722,11 @@ function check_favor()
 		
 		if abil_recasts[176] < latency then
 			windower.chat.input('/pet "Avatar\'s Favor" <me>')
-			tickdelay = (framerate * 1.8)
+			tickdelay = os.clock() + 1.8
 			return true
 		end
 	end
 	return false
-end
-
-function check_buff()
-	if state.AutoBuffMode.value and not moving then
-		if not pet.isvalid then
-			windower.chat.input('/ma "Titan" <me>')
-			tickdelay = (framerate * 2.1)
-			return true
-		elseif not buffactive['Earthen Armor'] then
-			windower.chat.input('/pet "Earthen Armor" <me>')
-			tickdelay = (framerate * 2.1)
-			return true 
-		else
-			return false
-		end
-	else
-		return false
-	end
 end
 
 function handle_elemental(cmdParams)
@@ -805,3 +795,74 @@ function handle_elemental(cmdParams)
         add_to_chat(123,'Unrecognized elemental command.')
     end
 end
+
+function check_buff()
+	if state.AutoBuffMode.value and not areas.Cities:contains(world.area) then
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		for i in pairs(buff_spell_lists['Auto']) do
+			if not buffactive[buff_spell_lists['Auto'][i].Buff] and (buff_spell_lists['Auto'][i].When == 'Always' or (buff_spell_lists['Auto'][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists['Auto'][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists['Auto'][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists['Auto'][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists['Auto'][i].SpellID] < latency and silent_can_use(buff_spell_lists['Auto'][i].SpellID) then
+				windower.chat.input('/ma "'..buff_spell_lists['Auto'][i].Name..'" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			end
+		end
+	else
+		return false
+	end
+end
+
+function check_buffup()
+	if buffup ~= '' then
+		local needsbuff = false
+		for i in pairs(buff_spell_lists[buffup]) do
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) then
+				needsbuff = true
+				break
+			end
+		end
+	
+		if not needsbuff then
+			add_to_chat(217, 'All '..buffup..' buffs are up!')
+			buffup = ''
+			return false
+		end
+		
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		
+		for i in pairs(buff_spell_lists[buffup]) do
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < latency then
+				windower.chat.input('/ma "'..buff_spell_lists[buffup][i].Name..'" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			end
+		end
+		
+		return false
+	else
+		return false
+	end
+end
+
+function set_lockstyle()
+    send_command('wait 2; input /lockstyleset ' .. lockstyleset)
+end
+
+buff_spell_lists = {
+	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
+		{Name='Reraise',	Buff='Reraise',		SpellID=113,	When='Always'},
+		{Name='Haste',		Buff='Haste',		SpellID=57,		When='Always'},
+		{Name='Refresh',	Buff='Refresh',		SpellID=109,	When='Always'},
+		{Name='Stoneskin',	Buff='Stoneskin',	SpellID=54,		When='Always'},
+	},
+	
+	Default = {
+		{Name='Reraise',	Buff='Reraise',		SpellID=113,	Reapply=false},
+		{Name='Haste',		Buff='Haste',		SpellID=57,		Reapply=false},
+		{Name='Refresh',	Buff='Refresh',		SpellID=109,	Reapply=false},
+		{Name='Aquaveil',	Buff='Aquaveil',	SpellID=55,		Reapply=false},
+		{Name='Stoneskin',	Buff='Stoneskin',	SpellID=54,		Reapply=false},
+		{Name='Blink',		Buff='Blink',		SpellID=53,		Reapply=false},
+		{Name='Regen',		Buff='Regen',		SpellID=108,	Reapply=false},
+		{Name='Phalanx',	Buff='Phalanx',		SpellID=106,	Reapply=false},
+	},
+}
