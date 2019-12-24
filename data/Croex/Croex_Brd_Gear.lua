@@ -33,8 +33,8 @@ function init_gear_sets()
 
 	-- Weapons sets
 	sets.weapons.Aeneas = {main="Aeneas",sub="Genmei Shield"}
-	sets.weapons.DualWeapons = {main="Aeneas",sub="Taming Sari"}
-	sets.weapons.Swords = {main="Vampirism",sub="Vampirism"}
+	sets.weapons.DualWeapons = {main="Naegling",sub="Blurred Knife +1"}
+	sets.weapons.Swords = {main="Naegling",sub="Blurred Knife +1"}
 	sets.weapons.NukeWeapons = {main="Malevolence",sub="Malevolence"}
 	
 	-- Precast Sets
@@ -45,10 +45,23 @@ function init_gear_sets()
 	
 	-- Fast cast sets for spells
 	
-	sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
-		head="Nahtirah Hat",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquacious Earring",
-		body="Inyanga Jubbah +2",hands="Leyline Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
-		back="Intarabus's Cape",waist="Witful Belt",legs="Aya. Cosciales +2",feet="Gende. Galosh. +1"}
+	sets.precast.FC = {
+		main = gear.grioavolr_fc_staff,
+		sub = "Clerisy Strap +1",
+		ammo = "Impatiens",
+		head = "Nahtirah Hat",
+		neck = "Voltsurge Torque",
+		ear1 = "Enchntr. Earring +1",
+		ear2 = "Loquacious Earring",
+		body = "Inyanga Jubbah +2",
+		hands = "Leyline Gloves",
+		ring1 = "Kishar Ring",
+		ring2 = "Lebeche Ring",
+		back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}},
+		waist = "Witful Belt",
+		legs = "Aya. Cosciales +2",
+		feet = "Gende. Galosh. +1"
+	}
 
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {feet="Vanya Clogs"})
 
@@ -56,17 +69,17 @@ function init_gear_sets()
 	
 	sets.precast.FC.BardSong = {
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
-		sub="Genmei Shield",
+		sub="Ammurapi Shield",
 		head="Fili Calot +1",
 		body="Inyanga Jubbah +2",
 		hands="Gendewitha Gages +1",
 		legs="Aya. Cosciales +2",
-		neck="Loricate Torque",
+		neck="Loricate Torque +1",
 		ear1="Ethereal Earring",
 		ear2="Loquacious Earring",
 		ring1="Kishar Ring",
 		ring2="Defending Ring",
-		back="Intarabus's Cape",
+		back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}},
 		waist="Witful Belt",
 		feet="Telchine Pigaches"
 	}
@@ -74,7 +87,9 @@ function init_gear_sets()
 	sets.precast.FC.SongDebuff = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
 	sets.precast.FC.SongDebuff.Resistant = set_combine(sets.precast.FC.BardSong,{range="Gjallarhorn"})
 	sets.precast.FC['Magic Finale'] = set_combine(sets.precast.FC.BardSong,{
-		head="Brioso Roundlet +2",
+		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		sub="Ammurapi Shield",
+		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
@@ -90,7 +105,9 @@ function init_gear_sets()
 	sets.precast.FC['Horde Lullaby'] = set_combine(sets.precast.FC.BardSong,{})
 	sets.precast.FC['Horde Lullaby'].Resistant = set_combine(sets.precast.FC.BardSong,{})
 	sets.precast.FC['Horde Lullaby'].AoE = set_combine(sets.precast.FC.BardSong,{
-		head="Brioso Roundlet +2",
+		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		sub="Ammurapi Shield",
+		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
@@ -103,7 +120,9 @@ function init_gear_sets()
 		ear2="Psystorm Earring",
 	})
 	sets.precast.FC['Horde Lullaby II'] = set_combine(sets.precast.FC.BardSong,{
-		head="Brioso Roundlet +2",
+		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		sub="Ammurapi Shield",
+		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
@@ -116,7 +135,9 @@ function init_gear_sets()
 		ear2="Psystorm Earring",
 	})
 	sets.precast.FC['Horde Lullaby II'].Resistant = set_combine(sets.precast.FC.BardSong,{
-		head="Brioso Roundlet +2",
+		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		sub="Ammurapi Shield",
+		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
@@ -129,7 +150,9 @@ function init_gear_sets()
 		ear2="Psystorm Earring",
 	})
 	sets.precast.FC['Horde Lullaby II'].AoE = set_combine(sets.precast.FC.BardSong,{
-		head="Brioso Roundlet +2",
+		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		sub="Ammurapi Shield",
+		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
@@ -152,7 +175,7 @@ function init_gear_sets()
 	-- Precast sets to enhance JAs
 	
 	sets.precast.JA.Nightingale = {feet="Bihu Slippers +1"}
-	sets.precast.JA.Troubadour = {body="Bihu Justaucorps"}
+	sets.precast.JA.Troubadour = {body="Bihu Justaucorps +3"}
 	sets.precast.JA['Soul Voice'] = {legs="Bihu Cannions +1"}
 
 	-- Waltz set (chr and vit)
@@ -168,6 +191,7 @@ function init_gear_sets()
 		hands="Lustratio Mittens +1",
 		legs="Lustratio Subligar +1",
 		feet="Lustratio Leggings +1",
+		body="Bihu Justaucorps +3",
 		neck="Caro Necklace",
 		ear1="Moonshade Earring",
 		ear2="Ishvara Earring",
@@ -199,7 +223,7 @@ function init_gear_sets()
 		hands = "Leyline Gloves",
 		ring1 = "Kishar Ring",
 		ring2 = "Lebeche Ring",
-		back = "Intarabus's Cape",
+		back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}},
 		waist = "Witful Belt",
 		legs = "Aya. Cosciales +2",
 		feet = "Gende. Galosh. +1"
@@ -207,8 +231,10 @@ function init_gear_sets()
 	-- Gear to enhance certain classes of songs.  No instruments added here since Gjallarhorn is being used.
 	sets.midcast.Lullaby = {}
 	sets.midcast['Horde Lullaby'] = {
+		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		sub="Ammurapi Shield",
 		range="Marsyas",
-		head="Brioso Roundlet +2",
+		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		waist="Luminary Sash",
@@ -226,8 +252,8 @@ function init_gear_sets()
 	sets.midcast['Horde Lullaby II'].Resistant = set_combine(sets.midcast['Horde Lullaby'], {range="Gjallarhorn"})
 	sets.midcast['Horde Lullaby II'].AoE = {range=info.ExtraSongInstrument}
 	sets.midcast.Ballad = {legs="Fili Rhingrave +1"}
-	sets.midcast.Madrigal = {head="Fili Calot +1"}
-	sets.midcast.Paeon = {head="Brioso Roundlet +2"}
+	sets.midcast.Madrigal = {head="Fili Calot +1", ear1="Kuwunga Earring"}
+	sets.midcast.Paeon = {head="Brioso Roundlet +3"}
 	sets.midcast.March = {hands="Fili Manchettes +1"}
 	sets.midcast['Honor March'] = set_combine(sets.midcast.March,{range="Marsyas"})
 	sets.midcast.Minuet = {body="Fili Hongreline +1 +1"}
@@ -245,8 +271,8 @@ function init_gear_sets()
 	-- For song buffs (duration and AF3 set bonus)
 	sets.midcast.SongEffect = {
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		sub="Ammurapi Shield",
 		range="Gjallarhorn",
-		sub="Genmei Shield",
 		head="Fili Calot +1",
 		body="Fili Hongreline +1 +1",
 		hands="Fili Manchettes +1",
@@ -258,15 +284,15 @@ function init_gear_sets()
 		ear2="Loquacious Earring",
 		ring1="Defending Ring",
 		ring2="Dark Ring",
-		back="Intarabus's Cape"
+		back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}
 	}
 
 	-- For song defbuffs (duration primary, accuracy secondary)
 	sets.midcast.SongDebuff = {
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
-		sub="Genmei Shield", --upgrade with "Ammurapi Shield"
+		sub="Ammurapi Shield",
 		range="Gjallarhorn", --more duration with "Marsyas"
-		head="Brioso Roundlet +2",
+		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
 		hands="Brioso Cuffs +3",
 		legs="Brioso Cannions +3",
@@ -277,7 +303,7 @@ function init_gear_sets()
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
 		waist="Luminary Sash",
-		back="Intarabus's Cape"
+		back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}
 	}
 
 	-- For song defbuffs (accuracy primary, duration secondary)
@@ -348,29 +374,29 @@ function init_gear_sets()
 
 	-- Resting sets
 	sets.resting = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
-		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Fili Calot +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
 	sets.idle = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
-		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Fili Calot +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.idle.PDT = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
-		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Fili Calot +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
 	-- Defense sets
 
 	sets.defense.PDT = {main="Terra's Staff", sub="Umbra Strap",ammo="Staunch Tathlum",
-		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Fili Calot +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
 	sets.defense.MDT = {main="Terra's Staff", sub="Umbra Strap",ammo="Staunch Tathlum",
-		head="Fili Calot +1",neck="Loricate Torque",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Fili Calot +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
@@ -389,7 +415,7 @@ function init_gear_sets()
 	
 	sets.engaged = {
 		main = "Naegling",
-		sub = "Vampirism",
+		sub = "Blurred Knife +1",
 		ammo = "Ginsen",
 		head = "Ayanmo Zucchetto +2",
 		body = "Ayanmo Corazza +2",
