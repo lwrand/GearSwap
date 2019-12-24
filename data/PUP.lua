@@ -246,6 +246,7 @@ end
 -- Get the pet mode value based on the equipped frame of the automaton.
 -- Returns nil if pet is not valid.
 function get_pet_mode()
+	
     if pet.isvalid then
 		if pet.frame == 'Sharpshot Frame' then
 			if pet.head == 'Valoredge Head' or pet.head == 'Harlequin Head' then
@@ -257,7 +258,8 @@ function get_pet_mode()
 			if pet.head == 'Soulsoother Head' then
 				return 'Tank'
 			else
-				return 'Melee'
+				--return 'Melee'
+				return 'Tank'
 			end
 		elseif pet.head == 'Sharpshot Head' or pet.head == 'Stormwaker Head' then
 			return 'Magic'
@@ -265,7 +267,8 @@ function get_pet_mode()
 			return 'Nuke'
 		elseif pet.frame == 'Harlequin Frame' then
 			if pet.head == 'Harlequin Head' then
-				return 'Melee'
+				--return 'Melee'
+				return 'Tank'
 			else
 				return 'LightTank'
 			end
@@ -273,7 +276,8 @@ function get_pet_mode()
 				if pet.head == 'Soulsoother Head' then
 					return 'Heal'
 				elseif pet.head == 'Valoredge Head' then
-					return 'Melee'
+					--return 'Melee'
+					return 'Tank'
 				else
 					return 'Magic'
 				end

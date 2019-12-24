@@ -19,6 +19,7 @@
 function get_sets()
     -- Load and initialize the include file.
     include('Sel-Include.lua')
+	include('autoassist.lua')
 end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
@@ -28,9 +29,6 @@ function job_setup()
     state.Buff['Trick Attack'] = buffactive['Trick Attack'] or false
     state.Buff['Feint'] = buffactive['Feint'] or false
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
-    
-	--List of which WS you plan to use TP bonus WS with.
-	moonshade_ws = S{'Rudra\'s Storm'}
 	
 	autows = "Rudra's Storm"
 	rangedautows = "Last Stand"
@@ -60,34 +58,39 @@ end
 
 function job_post_precast(spell, spellMap, eventArgs)
     
-	if  state.AmbushMode.value == true and spell.type == 'WeaponSkill' then
-		if  state.Buff['Sneak Attack'] == false and state.Buff['Trick Attack'] == false then
-			equip(sets.Ambush)
+	if spell.type == 'WeaponSkill' then
+		if (spell.english == 'Aeolian Edge' or spell.english == 'Cyclone') and state.TreasureMode.value ~= 'None' then
+			equip(sets.TreasureHunter)
+			return
+		end
+	
+		local WSset = standardize_set(get_precast_set(spell, spellMap))
+		local wsacc = check_ws_acc()
+		
+		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
+			-- Replace Moonshade Earring if we're at cap TP
+			if get_effective_player_tp(spell, WSset) > 3200 then
+				if wsacc:contains('Acc') and not state.Buff['Sneak Attack'] and not state.Buff['Trick Attack'] and sets.AccMaxTP then
+					equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
+				elseif sets.MaxTP then
+					equip(sets.MaxTP[spell.english] or sets.MaxTP)
+				else
+				end
+			end
+		end
+
+		if state.AmbushMode.value == true and sets.Ambush then
+			if state.Buff['Sneak Attack'] == false and state.Buff['Trick Attack'] == false then
+				equip(sets.Ambush)
+			end
 		end
 	end
-	
-	if (spell.english == 'Aeolian Edge' or spell.english == 'Cyclone') and state.TreasureMode.value ~= 'None' then
-        equip(sets.TreasureHunter)
-    elseif spell.english == 'Sneak Attack' or spell.english == 'Trick Attack' or spell.type == 'WeaponSkill' then
+
+    if spell.english == 'Sneak Attack' or spell.english == 'Trick Attack' or spell.type == 'WeaponSkill' then
         if state.TreasureMode.value == 'SATA' or state.TreasureMode.value == 'Fulltime' then
             equip(sets.TreasureHunter)
         end
     end
-	
-	if spell.type == 'WeaponSkill' then
-        -- Replace Moonshade Earring if we're at cap TP
-        if player.tp == 3000 and moonshade_ws:contains(spell.english) then
-			if not check_ws_acc():contains('Acc') or (state.Buff['Sneak Attack'] or state.Buff['Trick Attack']) then
-				if sets.AccMaxTP then
-					equip(sets.MaxTP)
-				end
-			else
-				if sets.MaxTP then
-					equip(sets.AccMaxTP)
-				end
-			end
-		end
-	end
 	
 end
 
@@ -163,16 +166,13 @@ end
 
 -- Modify the default melee set after it was constructed.
 function job_customize_melee_set(meleeSet)
-    if state.TreasureMode.value == 'Fulltime' then
-        meleeSet = set_combine(meleeSet, sets.TreasureHunter)
-    end
 
-    if state.ExtraMeleeMode.value ~= 'None' then
-        meleeSet = set_combine(meleeSet, sets[state.ExtraMeleeMode.value])
-    end
-	
     if state.AmbushMode.value == true then
         meleeSet = set_combine(meleeSet, sets.Ambush)
+    end
+	
+    if state.TreasureMode.value == 'Fulltime' then
+        meleeSet = set_combine(meleeSet, sets.TreasureHunter)
     end
 
     return meleeSet
