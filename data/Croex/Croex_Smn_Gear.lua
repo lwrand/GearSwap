@@ -285,7 +285,7 @@ function init_gear_sets()
 		neck="Shulmanu Collar",
 		waist="Incarnation Sash",
 		left_ear="Gelos Earring",
-		right_ear="Domesticator's Earring",
+		right_ear="Lugalbanda Earring",
 		left_ring="Varar Ring",
 		right_ring="Varar Ring",
 		back=gear.camp_physpact_back,
