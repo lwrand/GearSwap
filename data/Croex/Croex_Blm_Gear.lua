@@ -44,7 +44,7 @@ function init_gear_sets()
     --------------------------------------
 	
 	-- Weapons sets
-	sets.weapons.NukeWeapons = {main=gear.grioavolr_nuke_staff,sub="Niobid Strap"}
+	sets.weapons.NukeWeapons = {main="Lathi",sub="Niobid Strap"}
 	sets.weapons.Khatvanga = {main="Khatvanga",sub="Bloodrain Strap"}
 	sets.weapons.Malevolence = {main="Malevolence",sub="Ammurapi Shield"}
 	
@@ -65,10 +65,23 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
 
-    sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
-		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquacious Earring",
-		body="Zendik Robe",hands="Volte Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
-		back="Perimede Cape",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
+	sets.precast.FC = {
+		--main = gear.grioavolr_fc_staff,
+		--sub = "Clerisy Strap +1",
+		ammo = "Sapience Orb",
+		head = "Nahtirah Hat",
+		neck = "Voltsurge Torque",
+		ear1 = "Enchntr. Earring +1",
+		ear2 = "Loquacious Earring",
+		body = "Anhur Robe",
+		hands = gear.merlinic_fc_hands,
+		ring1 = "Kishar Ring",
+		ring2 = "Lebeche Ring",
+		back = "Perimede Cape",
+		waist = "Witful Belt",
+		legs = "Gyve Trousers",
+		feet = "Merlinic Crackows"
+	}
 		
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
 	
@@ -175,11 +188,23 @@ function init_gear_sets()
 	
 	sets.midcast['Divine Magic'] = set_combine(sets.midcast['Enfeebling Magic'], {})
 
-    sets.midcast['Dark Magic'] = {main="Rubicundity",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
-        head="Amalric Coif +1",neck="Erra Pendant",ear1="Barkaro. Earring",ear2="Regal Earring",
-        body=gear.merlinic_nuke_body,hands="Amalric Gages +1",ring1="Stikini Ring",ring2="Stikini Ring",
-        back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Merlinic Shalwar",feet=gear.merlinic_aspir_feet}
-
+	sets.midcast['Dark Magic'] = {
+		main = "Rubicundity",
+		sub = "Ammurapi Shield",
+		ammo = "Pemphredo Tathlum",
+		head = "Amalric Coif +1",
+		neck = "Erra Pendant",
+		ear1 = "Barkaro. Earring",
+		ear2 = "Regal Earring",
+		body = gear.merlinic_nuke_body,
+		hands = "Amalric Gages +1",
+		ring1 = "Stikini Ring",
+		ring2 = "Stikini Ring",
+		back = gear.nuke_jse_back,
+		waist = "Acuity Belt +1",
+		legs = "Merlinic Shalwar",
+		feet = gear.merlinic_aspir_feet
+	}
     sets.midcast.Drain = {main="Rubicundity",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Barkaro. Earring",ear2="Regal Earring",
         body=gear.merlinic_nuke_body,hands="Amalric Gages +1",ring1="Evanescence Ring",ring2="Archon Ring",
@@ -220,21 +245,21 @@ function init_gear_sets()
     -- Elemental Magic sets
     
 	sets.midcast['Elemental Magic'] = {
-		main={ name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: STR+5','Pet: Mag. Acc.+19','Pet: "Mag.Atk.Bns."+15',}},
+		main = "Lathi",
 		ammo = "Pemphredo Tathlum",
 		sub = "Enki Strap",
-		head = "Jhakri Coronal +2",
-		neck = "Saevus Pendant +1",
-		ear1 = "Hecate's Earring",
-		ear2 = "Friomisi Earring",
+		head = gear.merlinic_nuke_head,
+		neck = "Mizukage-no-Kubikazari",
+		ear1 = "Barkarole Earring",
+		ear2 = "Malignance Earring",
 		body = "Jhakri Robe +2",
-		hands = "Jhakri Cuffs +2",
-		ring1 = "Acumen Ring",
+		hands = "Amalric Gages +1",
+		ring1 = "Mujin Band",
 		ring2 = "Strendu Ring",
 		back = gear.nuke_jse_back,
 		waist = gear.ElementalObi,
-		legs = "Jhakri Slops +2",
-		feet = "Jhakri Pigaches +2"		
+		legs = gear.merlinic_nuke_legs,
+		feet = gear.merlinic_nuke_feet
 	}
     sets.midcast['Elemental Magic'].Resistant = {main=gear.grioavolr_nuke_staff,sub="Niobid Strap",ammo="Pemphredo Tathlum",
         head=gear.merlinic_nuke_head,neck="Sanctity Necklace",ear1="Barkaro. Earring",ear2="Regal Earring",
@@ -279,11 +304,21 @@ function init_gear_sets()
     -- Idle sets
     
     -- Normal refresh idle set
-    sets.idle = {ammo="Staunch Tathlum",
-		head="Befouled Crown",neck="Loricate Torque +1",ear1="Ethereal Earring",ear2="Etiolation Earring",
-		body="Jhakri Robe +2",hands=gear.merlinic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flax Sash",legs="Assid. Pants +1",feet=gear.merlinic_refresh_feet}
-
+	sets.idle = {
+		ammo = "Staunch Tathlum",
+		head = "Befouled Crown",
+		neck = "Loricate Torque +1",
+		ear1 = "Ethereal Earring",
+		ear2 = "Etiolation Earring",
+		body = "Jhakri Robe +2",
+		hands = gear.merlinic_refresh_hands,
+		ring1 = "Defending Ring",
+		ring2 = "Dark Ring",
+		back = "Umbra Cape",
+		waist = "Flax Sash",
+		legs = "Assid. Pants +1",
+		feet = gear.merlinic_refresh_feet
+	}
     -- Idle mode that keeps PDT gear on, but doesn't prevent normal gear swaps for precast/etc.
     sets.idle.PDT = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
         head="Hagondes Hat +1",neck="Loricate Torque +1",ear1="Genmei Earring",ear2="Etiolation Earring",
@@ -340,9 +375,25 @@ function init_gear_sets()
     sets.buff['Mana Wall'] = {back=gear.nuke_jse_back,feet="Wicce Sabots +1"}
 	
 	-- Gear that converts elemental damage done to recover MP.	
-	sets.RecoverMP = {body="Spaekona's Coat +3"}
+	sets.RecoverMP = {body="Spaekona's Coat +1"}
 	-- Gear for Magic Burst mode.
-    sets.MagicBurst = {head="Ea Hat",body="Ea Houppelande",hands="Amalric Gages +1",ring1="Mujin Band",legs="Ea Slops",feet="Jhakri Pigaches +2"}
+    sets.MagicBurst = {
+    	main = "Lathi",
+		ammo = "Pemphredo Tathlum",
+		sub = "Enki Strap",
+		head = gear.merlinic_nuke_head,
+		neck = "Mizukage-no-Kubikazari",
+		ear1 = "Barkarole Earring",
+		ear2 = "Malignance Earring",
+		body = "Jhakri Robe +2",
+		hands = "Amalric Gages +1",
+		ring1 = "Mujin Band",
+		ring2 = "Strendu Ring",
+		back = gear.nuke_jse_back,
+		waist = gear.ElementalObi,
+		legs = gear.merlinic_nuke_legs,
+		feet = gear.merlinic_nuke_feet
+    }
 	sets.ResistantMagicBurst = {head="Ea Hat",body="Ea Houppelande",hands="Amalric Gages +1",ring1="Mujin Band",legs="Ea Slops",feet="Jhakri Pigaches +2"}
 	sets.RecoverBurst = {head="Ea Hat",neck="Mizu. Kubikazari",body="Spaekona's Coat +3",hands="Amalric Gages +1",ring1="Mujin Band",legs="Ea Slops",feet="Jhakri Pigaches +2"}
 	sets.ResistantRecoverBurst = {head="Ea Hat",neck="Mizu. Kubikazari",body="Spaekona's Coat +3",hands="Amalric Gages +1",ring1="Mujin Band",legs="Ea Slops",feet="Jhakri Pigaches +2"}
