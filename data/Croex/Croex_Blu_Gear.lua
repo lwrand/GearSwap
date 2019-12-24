@@ -382,7 +382,7 @@ sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
 		waist = "Light Belt",
 		head = "Adhemar Bonnet +1",
 		--ear1 = "Moonshade Earring",
-		--body = "Abnoba Kaftan",
+		body = "Herculean Vest",
 		hands = "Adhemar Wrist. +1",
 		ring2 = "Begrudging Ring",
 		back = gear.crit_jse_back,
@@ -1356,14 +1356,8 @@ sets.TreasureHunter = set_combine(sets.TreasureHunter, {
 				'Mag. Acc.+12 "Mag.Atk.Bns."+12',
 			}
 		},
-		feet = {
-			name = "Herculean Boots",
-			augments = {
-				'DEX+2',
-				'Pet: INT+9',
-				'"Treasure Hunter"+2',
-			}
-		}
+		head="White Rarab Cap +1",
+		waist="Chaac Belt"
 	})
 sets.Assault = {
 	ring1 = "Balrahn's Ring"
