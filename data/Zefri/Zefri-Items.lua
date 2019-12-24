@@ -25,25 +25,30 @@ gear.chironic_nuke_feet = {name="Chironic Slippers",augments={'Mag. Acc.+25 "Mag
 gear.chironic_refresh_feet = {name="Chironic Slippers",augments={'Pet: Mag. Acc.+18 Pet: "Mag.Atk.Bns."+18','Pet: Mag. Acc.+3','"Refresh"+1','Accuracy+13 Attack+13','Mag. Acc.+8 "Mag.Atk.Bns."+8',}}
 
 gear.herculean_fc_head = {name="Herculean Helm",augments={'"Fast Cast"+6','"Mag.Atk.Bns."+13',}}
-gear.herculean_nuke_head = {name="Herculean Helm",augments={'Mag. Acc.+16 "Mag.Atk.Bns."+16','Enmity-3','INT+9','"Mag.Atk.Bns."+13',}}
+gear.herculean_PetStp_head = { name="Herculean Helm", augments={'Pet: Mag. Acc.+16','Pet: "Store TP"+11','Pet: AGI+9','Pet: Attack+4 Pet: Rng.Atk.+4','Pet: "Mag.Atk.Bns."+9',}}
+gear.herculean_nuke_head = { name="Herculean Helm", augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','Weapon skill damage +2%','STR+10','Mag. Acc.+1',}}
+gear.herculean_wsd_head = { name="Herculean Helm", augments={'Weapon skill damage +2%','DEX+15','Accuracy+6','Attack+3',}}
 gear.herculean_dt_hands = {name="Herculean Gloves",augments={'Attack+4','Damage taken-4%',}}
 gear.herculean_refresh_hands = {name="Herculean Gloves",augments={'Enmity+2','Pet: "Store TP"+4','"Refresh"+1',}}
+gear.herculean_triple_hands = { name="Herculean Gloves", augments={'Attack+19','"Triple Atk."+2','STR+14','Accuracy+6', } }
+gear.herculean_waltz_hands = {name="Herculean Gloves",augments={'Rng.Acc.+16','"Waltz" potency +11%','AGI+1',}}
+gear.herculean_PetStp_hands =  { name = "Herculean Gloves", augments = {'Pet: Attack+28 Pet: Rng.Atk.+28','Pet: "Store TP"+10',}}
 gear.herculean_waltz_body = {name="Herculean Vest",augments={'Attack+26','"Waltz" potency +11%','AGI+4','Accuracy+5',}}
 gear.herculean_wsd_body = {name="Herculean Vest",augments={'Accuracy+11','Weapon skill damage +5%','DEX+7',}}
-gear.herculean_waltz_hands = {name="Herculean Gloves",augments={'Rng.Acc.+16','"Waltz" potency +11%','AGI+1',}}
 gear.herculean_dt_legs = {name="Herculean Trousers",augments={'Attack+15','Damage taken-4%','STR+3','Accuracy+12',}}
-gear.herculean_wsd_legs = {name="Herculean Trousers",augments={'Weapon skill damage +5%','DEX+8','Accuracy+13','Attack+14',}}
+gear.herculean_rawsd_legs = { name="Herculean Trousers", augments={'Rng.Atk.+20','Weapon skill damage +3%','AGI+14',}}
 gear.herculean_nuke_legs = {name="Herculean Trousers",augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','Damage taken-2%','"Mag.Atk.Bns."+14',}}
 gear.herculean_acc_feet = {name="Herculean Boots",augments={'Accuracy+25 Attack+25','Crit. hit damage +1%','DEX+10','Accuracy+14','Attack+1',}}
 gear.herculean_ta_feet = {name="Herculean Boots",augments={'Accuracy+19 Attack+19','"Triple Atk."+4','DEX+5','Accuracy+8','Attack+11',}}
 gear.herculean_dt_feet = {name="Herculean Boots",augments={'Damage taken-4%','MND+7','Attack+6',}}
-gear.herculean_wsd_feet = {name="Herculean Boots",augments={'Accuracy+23 Attack+23','Weapon skill damage +5%','DEX+10','Accuracy+10','Attack+1',}}
+gear.herculean_wsd_feet = {name="Herculean Boots", augments={'Weapon skill damage +2%','AGI+12','Rng.Acc.+13','Rng.Atk.+2',}}
 gear.herculean_waltz_feet = {name="Herculean Boots",augments={'Attack+10','"Waltz" potency +10%','AGI+4','Accuracy+9',}}
-gear.herculean_nuke_feet = {name="Herculean Boots",augments={'"Mag.Atk.Bns."+23','Rng.Acc.+14','Phalanx +1','Mag. Acc.+15 "Mag.Atk.Bns."+15',}}
+gear.herculean_nuke_feet = { name="Herculean Boots", augments={'"Mag.Atk.Bns."+9','Weapon skill damage +5%','Mag. Acc.+15',}}
 gear.herculean_refresh_feet = {name="Herculean Boots",augments={'CHR+8','Rng.Acc.+7','"Refresh"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
+gear.herculean_PetStp_feet = { name="Herculean Boots", augments={'Pet: "Mag.Atk.Bns."+18','Pet: "Store TP"+11','Pet: STR+5','Pet: Attack+9 Pet: Rng.Atk.+9',}}
 
 gear.merlinic_refresh_head = {name="Merlinic Hood",augments={'Accuracy+8','AGI+4','"Refresh"+2','Accuracy+1 Attack+1','Mag. Acc.+7 "Mag.Atk.Bns."+7',}}
-gear.merlinic_nuke_head = {name="Merlinic Hood",augments={'Mag. Acc.+24 "Mag.Atk.Bns."+24','Magic Damage +5','INT+4','Mag. Acc.+6','"Mag.Atk.Bns."+11',}}
+gear.merlinic_nuke_head = {name="Merlinic Hood", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Magic burst dmg.+11%','MND+10','Mag. Acc.+4','"Mag.Atk.Bns."+12',}}
 gear.merlinic_nuke_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','"Drain" and "Aspir" potency +8','CHR+1','Mag. Acc.+9','"Mag.Atk.Bns."+10'}}
 gear.merlinic_occult_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+14','"Occult Acumen"+11','MND+6',}}
 gear.merlinic_refresh_hands = {name="Merlinic Dastanas",augments={'Attack+17','Pet: INT+5','"Refresh"+2','Accuracy+11 Attack+11',}}
@@ -69,5 +74,16 @@ gear.valorous_wsd_hands = {name="Valorous Mitts",augments={'Accuracy+30','Weapon
 gear.valorous_acc_hands = {name="Valorous Mitts",augments={'Accuracy+21 Attack+21','"Store TP"+4','Accuracy+15','Attack+9',}}
 gear.valorous_physical_pet_legs = {name="Valor. Hose",augments={'Pet: Attack+29 Pet: Rng.Atk.+29','Pet: "Dbl.Atk."+3 Pet: Crit.hit rate +3','Pet: STR+8','Pet: Accuracy+8 Pet: Rng. Acc.+8',}}
 gear.valorous_magical_pet_legs = { name="Valor. Hose",augments={'Pet: "Mag.Atk.Bns."+28','Pet: "Regen"+3','Pet: INT+13','Pet: Attack+2 Pet: Rng.Atk.+2',}}
+gear.valorous_stp_legs = { name="Valor. Hose",augments={'Accuracy+25','"Store TP"+6','Attack+5',}}
 gear.valorous_magical_pet_feet = {name="Valorous Greaves",augments={'Pet: "Mag.Atk.Bns."+29','Pet: "Dbl.Atk."+1 Pet: Crit.hit rate +1','Pet: INT+9','Pet: Accuracy+1 Pet: Rng. Acc.+1','Pet: Attack+4 Pet: Rng.Atk.+4',}}
 gear.valorous_wsd_feet = {name="Valorous Greaves",augments={'Accuracy+25','Weapon skill damage +4%','STR+5',}}
+
+gear.taeon_snap_head = { name="Taeon Chapeau", augments={'Pet: Attack+23 Pet: Rng.Atk.+23','"Snapshot"+5','"Snapshot"+5',}}
+gear.taeon_snap_body = { name="Taeon Tabard", augments={'"Snapshot"+5','"Snapshot"+5',}}
+gear.taeon_FC_body = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}}
+gear.taeon_pet_body = { name="Taeon Tabard", augments={'Pet: "Regen"+3','Pet: Damage taken -4%',}}
+gear.taeon_pet_hands = { name="Taeon Gloves", augments={'Pet: "Regen"+3','Pet: Damage taken -4%',}}
+gear.taeon_pet_feet = { name="Taeon Boots", augments={'Pet: "Regen"+2','Pet: Damage taken -4%',}}
+
+gear.adhemar_melee_hand = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}}
+gear.adhemar_ranged_hand = { name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}}
