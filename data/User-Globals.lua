@@ -1,1 +1,0 @@
---This is where functions go that are for all characters that you play.
