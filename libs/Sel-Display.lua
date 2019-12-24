@@ -28,6 +28,7 @@
 --      init_job_states({"MagicBurst"},{"CastingMode","IdleMode"})
 -- end
 ----------------------------------------------------------------------------------------------------
+
 function init_job_states(job_bools,job_modes)
 
     stateList = job_modes
@@ -152,7 +153,11 @@ function update_job_states()
 
     stateBox:clear()
 	stateBox:append('   ')
-
+	-- Added Croex
+	if (get_pet_mode) then
+		stateBox:append(string.format("%sPet Mode: "..get_pet_mode().." | %s", clr.s, clr.s))
+	end
+	
     -- Construct and append info for boolean states
     for i,n in pairs(stateBool) do
 
@@ -161,9 +166,9 @@ function update_job_states()
 			if n == 'AutoBuffMode' then
 				if player.main_job == 'GEO' then
 					stateBox:append(string.format("%sAuto Buff: Indi-"..autoindi.." Geo-"..autogeo.."%s", clr.h, clr.n))
-					if autoentrust ~= 'None' then
-						stateBox:append(string.format("%s  Auto Entrust: "..autoentrust.."  Entrustee: "..autoentrustee.."%s", clr.h, clr.n))
-					end
+					--if autoentrust ~= 'None' then
+					--	stateBox:append(string.format("%s  Auto Entrust: "..autoentrust.."  Entrustee: "..autoentrustee.."%s", clr.h, clr.n))
+					--end
 				else
 					stateBox:append(string.format("%sAuto Buff%s", clr.h, clr.n))
 				end

@@ -1689,6 +1689,7 @@ function check_cpring()
 	local CurrentTime = (os.time(os.date('!*t')) + time_offset)
 	
 	if player.main_job_level < 99 then
+	-- if true then
 			if player.equipment.head and player.equipment.head == 'Sprout Beret' and get_item_next_use(player.equipment.head).usable then
 				send_command('input /item "'..player.equipment.head..'" <me>')
 				cp_delay = 0
@@ -1700,7 +1701,16 @@ function check_cpring()
 				disable("head")
 				cp_delay = 10
 				return true
-			   
+			
+			elseif player.equipment.left_ring == 'Undecennial Ring' and get_item_next_use('Undecennial Ring').usable then
+				send_command('input /item "'..player.equipment.left_ring..'" <me>')
+				cp_delay = 0
+				return true
+			elseif item_available('Undecennial Ring') and ((get_item_next_use('Undecennial Ring').next_use_time) - CurrentTime) < 15 then
+				cp_ring_equip('Echad Ring')
+				cp_delay = 10
+				return true
+			
 			elseif player.equipment.left_ring == 'Echad Ring' and get_item_next_use('Echad Ring').usable then
 				send_command('input /item "'..player.equipment.left_ring..'" <me>')
 				cp_delay = 0
