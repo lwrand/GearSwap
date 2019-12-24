@@ -10,10 +10,10 @@ function user_setup()
     -- Default/Automatic maneuvers for each pet mode.  Define at least 3.
 	defaultManeuvers = {
 		Melee = {
-			{Name='Fire Maneuver', 	  Amount=2},
+			{Name='Fire Maneuver', 	  Amount=1},
 			{Name='Thunder Maneuver', Amount=0},
 			{Name='Wind Maneuver', 	  Amount=1},
-			{Name='Light Maneuver',	  Amount=0},
+			{Name='Light Maneuver',	  Amount=1},
 		},
 		--[[ (MELEE)
 		Melee = {
@@ -44,10 +44,10 @@ function user_setup()
 			{Name='Thunder Maneuver', Amount=0},
 		},
 		Tank = {
-			{Name='Earth Maneuver',	  Amount=0},
-			{Name='Fire Maneuver',	  Amount=2},
+			{Name='Fire Maneuver', 	  Amount=1},
+			{Name='Water Maneuver',   Amount=0},
+			{Name='Wind Maneuver', 	  Amount=1},
 			{Name='Light Maneuver',	  Amount=1},
-			{Name='Dark Maneuver',	  Amount=0},
 		},
 		--[[ (TURTLE)
 		VS MAGIC
@@ -134,7 +134,7 @@ function init_gear_sets()
 		feet="Karagoz Scarpe"
 	}
     sets.precast.JA['Repair'] = {
-		main="Nibiru Santi",
+		--main="Nibiru Santi",
 		ammo="Automat. Oil +3",
 		left_ear="Guignol Earring",
 		right_ear="Pratik Earring",
@@ -148,9 +148,9 @@ function init_gear_sets()
 	}
 
     sets.precast.JA.Maneuver = {
-		main="Midnights",
+		--main="Midnights",
 		back="Visucius's Mantle",
-		neck="Buffoon's Collar +1",
+		--neck="Buffoon's Collar +1",
 		hands="Foire Dastanas +1",
 		body="Karagoz Farsetto"
 	} 
@@ -380,21 +380,39 @@ function init_gear_sets()
 		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},
 	})
 	sets.idle.Pet.Engaged.Melee = set_combine(sets.idle.Pet.Engaged, {
-		neck="Shulmanu Collar",
 		--main="Karambit",
 		main="Ohtas",
-		range="Divinator",
-		head=gear.herculean_pet_stp_head,
-		body={ name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
-		hands=gear.herculean_pet_stp_hands,
-		legs=gear.herculean_pet_stp_legs,
-		feet=gear.herculean_pet_stp_feet,
-		waist="Incarnation Sash",
-		left_ear="Rimeice Earring",
-		right_ear="Domes. Earring",
-		left_ring="Varar Ring",
-		right_ring="Varar Ring",
-		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},
+		waist="Isa Belt",
+		head="Anwig Salade",
+		neck="Shepherd's Chain",
+		body=gear.taeon_pet_tank_body,
+		hands=gear.taeon_pet_tank_hands,
+		legs=gear.taeon_pet_tank_legs,
+		feet=gear.taeon_pet_tank_feet,
+		--legs="Heyoka Subligar",
+		--hands="Heyoka Mittens",
+		--feet="Heyoka Leggings",
+		--head="Heyoka Cap",
+		--body="Heyoka Harness",
+		ring1="Overbearing Ring",
+		ear1="Rimeice Earring",
+		ear2="Handler's Earring +1",
+		back={name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}}
+		--neck="Shulmanu Collar",
+		--main="Karambit",
+		--main="Ohtas",
+		--range="Divinator",
+		--head=gear.herculean_pet_stp_head,
+		--body={ name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
+		--hands=gear.herculean_pet_stp_hands,
+		--legs=gear.herculean_pet_stp_legs,
+		--feet=gear.herculean_pet_stp_feet,
+		--waist="Incarnation Sash",
+		--left_ear="Rimeice Earring",
+		--right_ear="Domes. Earring",
+		--left_ring="Varar Ring",
+		--right_ring="Varar Ring",
+		--back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},
 	})
 	sets.idle.Pet.Engaged.HybridRanged = set_combine(sets.idle.Pet.Engaged, {
 		neck="Shulmanu Collar",
@@ -475,8 +493,8 @@ function init_gear_sets()
     
     -- Normal melee group
     sets.engaged = {
-		main="Karambit",
-		range="Divinator",
+		--main="Karambit",
+		main="Ohtas",
 		head=gear.herculean_pet_stp_head,
 		body={name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
 		hands=gear.herculean_pet_stp_hands,
@@ -491,8 +509,8 @@ function init_gear_sets()
 		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},	
 	}
     sets.engaged.Acc = {
-        main="Karambit",
-		range="Divinator",
+        --main="Karambit",
+		main="Ohtas",
 		head=gear.herculean_pet_stp_head,
 		body={name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
 		hands=gear.herculean_pet_stp_hands,
@@ -507,8 +525,8 @@ function init_gear_sets()
 		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},			
 	}
     sets.engaged.FullAcc = {
-		main="Karambit",
-		range="Divinator",
+		--main="Karambit",
+		main="Ohtas",
 		head=gear.herculean_pet_stp_head,
 		body={name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
 		hands=gear.herculean_pet_stp_hands,
@@ -523,8 +541,8 @@ function init_gear_sets()
 		back={ name="Visucius's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: "Regen"+10','System: 1 ID: 1247 Val: 4',}},	
 	}
 	sets.engaged.Fodder = {
-		main="Karambit",
-		range="Divinator",
+		--main="Karambit",
+		main="Ohtas",
 		head=gear.herculean_pet_stp_head,
 		body={name="Pitre Tobe +1", augments={'Enhances "Overdrive" effect',}},
 		hands=gear.herculean_pet_stp_hands,
