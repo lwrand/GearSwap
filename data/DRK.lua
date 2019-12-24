@@ -23,7 +23,7 @@ function job_setup()
 	--List of which WS you plan to use TP bonus WS with.
 	moonshade_ws = S{'Savage Blade','Requiescat','Resolution'}
 	
-	autows = 'Resolution'
+	autows = 'Torcleaver'
 	autofood = 'Soy Ramen'
 	
 	update_melee_groups()
