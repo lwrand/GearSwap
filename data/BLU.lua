@@ -481,9 +481,26 @@ function check_buff()
 				end
 			end
 		end
+		
+		if player.sub_job == 'WAR' then
+			local abil_recasts = windower.ffxi.get_ability_recasts()
+			if not buffactive.Berserk and abil_recasts[1] < latency then
+				windower.chat.input('/ja "Berserk" <me>')
+				tickdelay = (framerate * 1.8)
+			end
+			if not buffactive.Aggressor and abil_recasts[4] < latency then
+				windower.chat.input('/ja "Aggressor" <me>')
+				tickdelay = (framerate * 1.8)
+			end
+			if not buffactive.Warcry and abil_recasts[2] < latency then
+				windower.chat.input('/ja "Warcry" <me>')
+				tickdelay = (framerate * 1.8)
+			end
+		end
 	else
 		return false
 	end
+	
 end
 
 function check_buffup()
@@ -523,8 +540,9 @@ buff_spell_lists = {
 		{Name='Erratic Flutter',	Buff='Haste',			SpellID=710,	When='Always'},
 		{Name='Battery Charge',		Buff='Refresh',			SpellID=662,	When='Idle'},
 		{Name='Refresh',			Buff='Refresh',			SpellID=109,	When='Idle'},
-		{Name='Nat. Meditation',	Buff='Attack Boost',	SpellID=700,	When='Engaged'},
+		{Name='Nat. Meditation',	Buff='Attack Boost',	SpellID=700,	When='Always'},
 		{Name='Mighty Guard',		Buff='Mighty Guard',	SpellID=750,	When='Combat'},
+		{Name='Occultation',		Buff='Blink',			SpellID=679,	When='Always'},
 	},
 	
 	Default = {

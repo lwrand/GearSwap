@@ -9,7 +9,7 @@ function user_setup()
 	gear.obi_low_nuke_waist = "Sekhmet Corset"
 	gear.obi_high_nuke_waist = "Refoccilation Stone"
 	
-	gear.nuke_jse_back = {name="Taranus's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
+	gear.nuke_jse_back = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
 	gear.stp_jse_back = {name="Taranus's Cape",augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}}
 
 		-- Additional local binds
@@ -203,7 +203,8 @@ function init_gear_sets()
 		back = gear.nuke_jse_back,
 		waist = "Acuity Belt +1",
 		legs = "Merlinic Shalwar",
-		feet = gear.merlinic_aspir_feet
+		feet = "Merlinic Crackows"
+		--feet = gear.merlinic_aspir_feet
 	}
     sets.midcast.Drain = {main="Rubicundity",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Barkaro. Earring",ear2="Regal Earring",
@@ -257,7 +258,8 @@ function init_gear_sets()
 		ring1 = "Mujin Band",
 		ring2 = "Strendu Ring",
 		back = gear.nuke_jse_back,
-		waist = gear.ElementalObi,
+		--waist = gear.ElementalObi,
+		waist="Hachirin-no-Obi",
 		legs = gear.merlinic_nuke_legs,
 		feet = gear.merlinic_nuke_feet
 	}
