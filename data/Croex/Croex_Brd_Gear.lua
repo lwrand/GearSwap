@@ -23,6 +23,7 @@ function user_setup()
 	send_command('bind ^q gs c weapons Swords;gs c update')
 
 	select_default_macro_book()
+	set_lockstyle_custom(4)
 end
 
 function init_gear_sets()
@@ -96,8 +97,8 @@ function init_gear_sets()
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +3",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
@@ -114,8 +115,8 @@ function init_gear_sets()
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +3",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
@@ -129,8 +130,8 @@ function init_gear_sets()
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +3",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
@@ -144,8 +145,8 @@ function init_gear_sets()
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +3",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
@@ -159,8 +160,8 @@ function init_gear_sets()
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +3",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring",
 	})
@@ -174,9 +175,9 @@ function init_gear_sets()
 	
 	-- Precast sets to enhance JAs
 	
-	sets.precast.JA.Nightingale = {feet="Bihu Slippers +1"}
+	sets.precast.JA.Nightingale = {feet="Bihu Slippers +2"}
 	sets.precast.JA.Troubadour = {body="Bihu Justaucorps +3"}
-	sets.precast.JA['Soul Voice'] = {legs="Bihu Cannions +1"}
+	sets.precast.JA['Soul Voice'] = {legs="Bihu Cannions +2"}
 
 	-- Waltz set (chr and vit)
 	sets.precast.Waltz = {}
@@ -192,7 +193,7 @@ function init_gear_sets()
 		legs="Lustratio Subligar +1",
 		feet="Lustratio Leggings +1",
 		body="Bihu Justaucorps +3",
-		neck="Caro Necklace",
+		neck="Bard's Charm +2",
 		ear1="Moonshade Earring",
 		ear2="Ishvara Earring",
 		ring1="Karieyh Ring +1",
@@ -241,8 +242,8 @@ function init_gear_sets()
 		neck="Moonbow Whistle +1",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +3",
-		ring1="Stikinki Ring",
-		ring2="Stikinki Ring",
+		ring1="Stikini Ring",
+		ring2="Stikini Ring",
 		ear1="Lifestorm Earring",
 		ear2="Psystorm Earring"
 	}
@@ -256,15 +257,15 @@ function init_gear_sets()
 	sets.midcast.Paeon = {head="Brioso Roundlet +3"}
 	sets.midcast.March = {hands="Fili Manchettes +1"}
 	sets.midcast['Honor March'] = set_combine(sets.midcast.March,{range="Marsyas"})
-	sets.midcast.Minuet = {body="Fili Hongreline +1 +1"}
+	sets.midcast.Minuet = {body="Fili Hongreline +1"}
 	sets.midcast.Minne = {legs="Mousai Seraweels +1"} -- expensive (+2) or normal (+1)
-	sets.midcast.Carol = {hands="Mousai Gages +1"} -- expensive (+2) or normal (+1)
+	sets.midcast.Carol = {hands="Mousai Gages"} -- expensive (+2) or normal (+1)
 	sets.midcast.Etude = {head="Mousai Turban +1"} -- expensive or (+2) normal (+1)
-	sets.midcast.Threnody = {body="Mousai Manteel +1"} -- expensive or (+2) normal (+1)
+	sets.midcast.Threnody = {body="Mousai Manteel"} -- expensive or (+2) normal (+1)
 	sets.midcast.Mambo = {feet="Mousai Crackows +1"} -- expensive or (+2) normal (+1)
 	sets.midcast["Sentinel's Scherzo"] = {feet="Fili Cothurnes +1"}
-	sets.midcast["Adventurer's Dirge"] = {hands="Bihu Cuffs +3"}
-	sets.midcast["Foe Sirvente"] = {hands="Bihu Roundlet +3"}
+	sets.midcast["Adventurer's Dirge"] = {hands="Bihu Cuffs +2"}
+	sets.midcast["Foe Sirvente"] = {head="Bihu Roundlet +2"}
 	sets.midcast['Magic Finale'] = {range="Gjallarhorn"}
 	sets.midcast.Mazurka = {range=info.ExtraSongInstrument}
 	
@@ -274,7 +275,7 @@ function init_gear_sets()
 		sub="Ammurapi Shield",
 		range="Gjallarhorn",
 		head="Fili Calot +1",
-		body="Fili Hongreline +1 +1",
+		body="Fili Hongreline +1",
 		hands="Fili Manchettes +1",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +3",
@@ -326,12 +327,12 @@ function init_gear_sets()
 
 	-- Other general spells and classes.
 	sets.midcast.Cure = {
-		main="Serenity",
-		sub="Curatio Grip",
+		main="Daybreak",
+		sub="Ammurapi Shield",
 		ammo="Pemphredo Tathlum",
         head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
 		--neck="Incanter's Torque",
-		ear1="Gifted Earring",
+		ear1="Beatific Earring",
 		ear2="Mendi. Earring",
         body="Kaykaus Bliaut",
 		hands="Inyanga Dastanas +2",
@@ -339,7 +340,7 @@ function init_gear_sets()
 		ring2="Sirona's Ring",
         back="Tempered Cape +1",
 		waist="Bishop's Sash",
-		legs="Doyen Pants",
+		legs="Kaykaus Tights",
 		feet={ name="Vanya Clogs", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
 	}
 		
@@ -379,7 +380,7 @@ function init_gear_sets()
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
 	sets.idle = {main="Terra's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum",
-		head="Fili Calot +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Fili Calot +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="E eal Earring",
 		body="Fili Hongreline +1",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
@@ -422,7 +423,7 @@ function init_gear_sets()
 		hands = "Ayanmo Manopolas +2",
 		legs = "Ayanmo Cosciales +2",
 		feet = "Ayanmo Gambieras +2",
-		neck = "Lissome Necklace",
+		neck = "Bard's Charm +2",
 		ear1 = "Cessance Earring",
 		ear2 = "Suppanomimi Earring",
 		ring1 = "Petrov Ring",

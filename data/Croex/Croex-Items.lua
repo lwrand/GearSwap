@@ -5,7 +5,7 @@ gear.gada_healing_club = {name="Gada",augments={'"Cure" potency +9%','Mag. Acc.+
 gear.gada_matk_club = {name="Gada",augments={'Mag. Acc.+23','"Mag.Atk.Bns."+24','DMG:+14',}}
 gear.grioavolr_nuke_staff = {name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: STR+5','Pet: Mag. Acc.+19','Pet: "Mag.Atk.Bns."+15',}}
 gear.grioavolr_fc_staff = {name="Grioavolr",augments={'"Fast Cast"+7','MP+20','Mag. Acc.+17','"Mag.Atk.Bns."+10','Magic Damage +5',}}
-gear.grioavolr_pet_staff = {name="Grioavolr",augments={'Blood Pact Dmg.+8','Pet: STR+10','Pet: Mag. Acc.+19','Pet: "Mag.Atk.Bns."+30',}}
+gear.grioavolr_pet_staff = {name="Grioavolr", augments={'Blood Pact Dmg.+7','Pet: INT+1','Pet: Mag. Acc.+6','Pet: "Mag.Atk.Bns."+29','DMG:+2',}}
 
 gear.chironic_enfeeble_hands = {name="Chironic Gloves",augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','MND+10','Mag. Acc.+15',}}
 gear.chironic_refresh_hands = {name="Chironic Gloves",augments={'"Counter"+4','DEX+4','"Refresh"+2','Accuracy+19 Attack+19','Mag. Acc.+13 "Mag.Atk.Bns."+13',}}

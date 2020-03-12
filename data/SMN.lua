@@ -1,4 +1,4 @@
--------------------------------------------------------------------------------------------------------------------
+
 -- Setup functions for this job.  Generally should not be modified.
 -------------------------------------------------------------------------------------------------------------------
 
@@ -57,53 +57,53 @@ function job_setup()
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 
     spirits = S{"LightSpirit", "DarkSpirit", "FireSpirit", "EarthSpirit", "WaterSpirit", "AirSpirit", "IceSpirit", "ThunderSpirit"}
-    avatars = S{"Carbuncle", "Fenrir", "Diabolos", "Ifrit", "Titan", "Leviathan", "Garuda", "Shiva", "Ramuh", "Odin", "Alexander", "Cait Sith"}
+    avatars = S{"Carbuncle", "Fenrir", "Diabolos", "Ifrit", "Titan", "Leviathan", "Garuda", "Shiva", "Ramuh", "Odin", "Alexander", "Cait Sith", "siren"}
 
     magicalRagePacts = S{
-        'Inferno','Earthen Fury','Tidal Wave','Aerial Blast','Diamond Dust','Judgment Bolt','Searing Light','Howling Moon','Ruinous Omen',
-        'Fire II','Stone II','Water II','Aero II','Blizzard II','Thunder II',
-        'Fire IV','Stone IV','Water IV','Aero IV','Blizzard IV','Thunder IV',
-        'Thunderspark','Burning Strike','Meteorite','Nether Blast','Flaming Crush',
-        'Meteor Strike','Conflag Strike','Heavenly Strike','Wind Blade','Geocrush','Grand Fall','Thunderstorm',
-        'Holy Mist','Lunar Bay','Night Terror','Level ? Holy'}
-
+		'Inferno','Earthen Fury','Tidal Wave','Aerial Blast','Diamond Dust','Judgment Bolt','Searing Light','Howling Moon','Ruinous Omen','Clarsach Call',
+		'Fire II','Stone II','Water II','Aero II','Blizzard II','Thunder II',
+		'Fire IV','Stone IV','Water IV','Aero IV','Blizzard IV','Thunder IV',
+		'Thunderspark','Burning Strike','Meteorite','Nether Blast','Flaming Crush',
+		'Meteor Strike','Conflag Strike','Heavenly Strike','Wind Blade','Geocrush','Grand Fall','Thunderstorm',
+		'Holy Mist','Lunar Bay','Night Terror','Level ? Holy','Tornado II','Sonic Buffet'}
 
     pacts = {}
     pacts.cure = {['Carbuncle']='Healing Ruby'}
     pacts.curaga = {['Carbuncle']='Healing Ruby II', ['Garuda']='Whispering Wind', ['Leviathan']='Spring Water'}
     pacts.buffoffense = {['Carbuncle']='Glittering Ruby', ['Ifrit']='Crimson Howl', ['Garuda']='Hastega II', ['Ramuh']='Rolling Thunder',
-        ['Fenrir']='Ecliptic Growl'}
+		['Fenrir']='Ecliptic Growl', ['Siren']='Katabatic Blades'}
     pacts.buffdefense = {['Carbuncle']='Shining Ruby', ['Shiva']='Frost Armor', ['Garuda']='Aerial Armor', ['Titan']='Earthen Ward',
-        ['Ramuh']='Lightning Armor', ['Fenrir']='Ecliptic Howl', ['Diabolos']='Noctoshield', ['Cait Sith']='Reraise II'}
+		['Ramuh']='Lightning Armor', ['Fenrir']='Ecliptic Howl', ['Diabolos']='Noctoshield', ['Cait Sith']='Reraise II', ['Siren']="Wind's Blessing"}
     pacts.buffspecial = {['Ifrit']='Inferno Howl', ['Garuda']='Fleet Wind', ['Titan']='Earthen Armor', ['Diabolos']='Dream Shroud',
-        ['Carbuncle']='Soothing Ruby', ['Fenrir']='Heavenward Howl', ['Cait Sith']='Raise II'}
+		['Carbuncle']='Soothing Ruby', ['Fenrir']='Heavenward Howl', ['Cait Sith']='Raise II', ['Siren']='Chinook'}
 	pacts.buffspecial2 = {['Carbuncle']='Pacifying Ruby',['Leviathan']='Soothing Current',['Shiva']='Crystal Blessing'}
     pacts.debuff1 = {['Shiva']='Diamond Storm', ['Ramuh']='Shock Squall', ['Leviathan']='Tidal Roar', ['Fenrir']='Lunar Cry',
-        ['Diabolos']='Pavor Nocturnus', ['Cait Sith']='Eerie Eye'}
-    pacts.debuff2 = {['Shiva']='Sleepga', ['Leviathan']='Slowga', ['Fenrir']='Lunar Roar', ['Diabolos']='Somnolence', ['Ramuh']='Thunderspark',}
+		['Diabolos']='Pavor Nocturnus', ['Cait Sith']='Eerie Eye', ['Siren']='Lunatic Voice'}
+    pacts.debuff2 = {['Shiva']='Sleepga', ['Leviathan']='Slowga', ['Fenrir']='Lunar Roar', ['Diabolos']='Somnolence', ['Ramuh']='Thunderspark',
+		['Siren']='Bitter Elegy'}
     pacts.sleep = {['Shiva']='Sleepga', ['Diabolos']='Nightmare', ['Cait Sith']='Mewing Lullaby'}
     pacts.nuke2 = {['Ifrit']='Fire II', ['Shiva']='Blizzard II', ['Garuda']='Aero II', ['Titan']='Stone II',
-        ['Ramuh']='Thunder II', ['Leviathan']='Water II'}
+		['Ramuh']='Thunder II', ['Leviathan']='Water II', ['Siren']='Tornado II'}
     pacts.nuke4 = {['Ifrit']='Fire IV', ['Shiva']='Blizzard IV', ['Garuda']='Aero IV', ['Titan']='Stone IV',
-        ['Ramuh']='Thunder IV', ['Leviathan']='Water IV'}
+		['Ramuh']='Thunder IV', ['Leviathan']='Water IV', ['Siren']='Torando II'}
     pacts.bp70 = {['Ifrit']='Flaming Crush', ['Shiva']='Rush', ['Garuda']='Predator Claws', ['Titan']='Mountain Buster',
-        ['Ramuh']='Chaotic Strike', ['Leviathan']='Spinning Dive', ['Carbuncle']='Meteorite', ['Fenrir']='Eclipse Bite',
-        ['Diabolos']='Nether Blast',['Cait Sith']='Regal Scratch'}
+		['Ramuh']='Chaotic Strike', ['Leviathan']='Spinning Dive', ['Carbuncle']='Meteorite', ['Fenrir']='Eclipse Bite',
+		['Diabolos']='Nether Blast',['Cait Sith']='Regal Scratch'}
     pacts.bp75 = {['Ifrit']='Meteor Strike', ['Shiva']='Heavenly Strike', ['Garuda']='Wind Blade', ['Titan']='Geocrush',
-        ['Ramuh']='Thunderstorm', ['Leviathan']='Grand Fall', ['Carbuncle']='Holy Mist', ['Fenrir']='Lunar Bay',
-        ['Diabolos']='Night Terror', ['Cait Sith']='Level ? Holy'}
-	pacts.bp99 = {['Ifrit']='Conflag Strike',['Titan']='Crag Throw',['Ramuh']='Volt Strike'}
+		['Ramuh']='Thunderstorm', ['Leviathan']='Grand Fall', ['Carbuncle']='Holy Mist', ['Fenrir']='Lunar Bay',
+		['Diabolos']='Night Terror', ['Cait Sith']='Level ? Holy'}
+	pacts.bp99 = {['Ifrit']='Conflag Strike',['Titan']='Crag Throw',['Ramuh']='Volt Strike', ['Siren']='Hysteric Assault'}
     pacts.astralflow = {['Ifrit']='Inferno', ['Shiva']='Diamond Dust', ['Garuda']='Aerial Blast', ['Titan']='Earthen Fury',
-        ['Ramuh']='Judgment Bolt', ['Leviathan']='Tidal Wave', ['Carbuncle']='Searing Light', ['Fenrir']='Howling Moon',
-        ['Diabolos']='Ruinous Omen', ['Cait Sith']="Altana's Favor"}
+		['Ramuh']='Judgment Bolt', ['Leviathan']='Tidal Wave', ['Carbuncle']='Searing Light', ['Fenrir']='Howling Moon',
+		['Diabolos']='Ruinous Omen', ['Cait Sith']="Altana's Favor"}
 	
 	--Most commonly used offensive pacts by avatar split into two categories.
 	pacts.physical = {['Carbuncle']='Poison Nails',['Fenrir']='Eclipse Bite',['Ifrit']='Flaming Crush',['Titan']='Mountain Buster',
 		['Leviathan']='Spinning Dive',['Garuda']='Predator Claws',['Shiva']='Rush',['Ramuh']='Volt Strike',['Diabolos']='Blindside',
-		['Cait Sith']='Regal Gash',}
+		['Cait Sith']='Regal Gash',['Siren']='Hysteric Assault'}
 	pacts.magical = {['Carbuncle']='Holy Mist',['Fenrir']='Lunar Bay',['Ifrit']='Meteor Strike',['Titan']='Geocrush',
 		['Leviathan']='Grand Fall',['Garuda']='Wind Blade',['Shiva']='Heavenly Strike',['Ramuh']='Thunderstorm',['Diabolos']='Nether Blast',
-		['Cait Sith']='Level ? Holy',}
+		['Cait Sith']='Level ? Holy',['Siren']='Sonic Buffet'}
 
 	ConduitLock = true
 	ConduitLocked = nil
@@ -114,10 +114,7 @@ function job_setup()
 	autows = 'Spirit Taker'
 	autofood = 'Akamochi'
 	
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","PactSpamMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoBuffMode","AutoBuffMode",},{"Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ElementalMode","CastingMode","TreasureMode",})
-	
-	lockstyleset = 5
-	set_lockstyle()
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","PactSpamMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ElementalMode","CastingMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -362,6 +359,31 @@ end
 
 -- Modify the default idle set after it was constructed.
 function job_customize_idle_set(idleSet)
+    if buffactive['Sublimation: Activated'] then
+        if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
+            idleSet = set_combine(idleSet, sets.buff.Sublimation)
+        elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
+            idleSet = set_combine(idleSet, sets.buff.DTSublimation)
+        end
+    end
+
+    if state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere') then
+		if player.mpp < 51 then
+			if sets.latent_refresh then
+				idleSet = set_combine(idleSet, sets.latent_refresh)
+			end
+			
+			local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+			if available_ws:contains(176) and sets.latent_refresh_grip then
+				idleSet = set_combine(idleSet, sets.latent_refresh_grip)
+			end
+		end
+		
+		if player.tp > 10 and state.Weapons.value == 'None' and sets.TPEat then
+			idleSet = set_combine(idleSet, sets.TPEat)
+		end
+    end
+
     if pet.isvalid then
         if pet.element == world.day_element then
             idleSet = set_combine(idleSet, sets.perp.Day)
@@ -386,11 +408,7 @@ function job_customize_idle_set(idleSet)
 			end
         end
     end
-    
-    if player.mpp < 51 and (state.IdleMode.value == 'Normal' or state.IdleMode.value == 'Sphere') and state.DefenseMode.value == 'None' then
-        idleSet = set_combine(idleSet, sets.latent_refresh)
-    end
-    
+   
     return idleSet
 end
 
@@ -722,7 +740,7 @@ function check_favor()
 		
 		if abil_recasts[176] < latency then
 			windower.chat.input('/pet "Avatar\'s Favor" <me>')
-			tickdelay = os.clock() + 1.8
+			tickdelay = os.clock() + 1.1
 			return true
 		end
 	end
@@ -797,11 +815,11 @@ function handle_elemental(cmdParams)
 end
 
 function check_buff()
-	if state.AutoBuffMode.value and not areas.Cities:contains(world.area) then
+	if state.AutoBuffMode.value ~= 'Off' and not areas.Cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-		for i in pairs(buff_spell_lists['Auto']) do
-			if not buffactive[buff_spell_lists['Auto'][i].Buff] and (buff_spell_lists['Auto'][i].When == 'Always' or (buff_spell_lists['Auto'][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists['Auto'][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists['Auto'][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists['Auto'][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists['Auto'][i].SpellID] < latency and silent_can_use(buff_spell_lists['Auto'][i].SpellID) then
-				windower.chat.input('/ma "'..buff_spell_lists['Auto'][i].Name..'" <me>')
+		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
 				tickdelay = os.clock() + 2
 				return true
 			end
@@ -830,7 +848,7 @@ function check_buffup()
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		
 		for i in pairs(buff_spell_lists[buffup]) do
-			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < latency then
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < spell_latency then
 				windower.chat.input('/ma "'..buff_spell_lists[buffup][i].Name..'" <me>')
 				tickdelay = os.clock() + 2
 				return true
@@ -841,10 +859,6 @@ function check_buffup()
 	else
 		return false
 	end
-end
-
-function set_lockstyle()
-    send_command('wait 2; input /lockstyleset ' .. lockstyleset)
 end
 
 buff_spell_lists = {

@@ -322,25 +322,21 @@ function init_gear_sets()
     sets.midcast.Pet['Elemental Magic'].Resistant = {}
     
 	sets.midcast.Pet['Flaming Crush'] = {
-		main="Gridarvor",
+		main=gear.grioavolr_pet_staff,
 		sub="Elan Strap +1",
 		ammo="Sancus Sachet +1",
 		head=gear.apogee_hybpact_head,
 		hands=gear.merlinic_hybpact_hands,
-		--body="Apogee Dalmatica +1",
-		body = "Con. Doublet +3",
+		body="Con. Doublet +3",
 		legs=gear.apogee_physpact_legs,
 		feet=gear.apogee_hybpact_feet,
-		neck="Shulmanu Collar",
+		neck="Adad Amulet",
 		waist="Incarnation Sash",
 		left_ear="Gelos Earring",
-		right_ear="Esper earring",
+		right_ear="Lugalbanda earring",
 		left_ring="Varar Ring",
 		right_ring="Varar Ring",
 		back=gear.camp_physpact_back,
-		--back="Scintillating Cape"
-		--left_ring="Speaker's Ring",
-		--right_ring="Fervor Ring",
 	}
 	sets.midcast.Pet['Flaming Crush'].Acc = {feet="Convo. Pigaches +3"}
 	

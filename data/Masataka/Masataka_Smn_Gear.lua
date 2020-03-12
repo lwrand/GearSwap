@@ -23,6 +23,9 @@ function user_setup()
 			'Pet: Haste+10',
 		}
 	}
+	gear.phys_hands = { name="Merlinic Dastanas", augments={'Pet: Attack+27 Pet: Rng.Atk.+27','Blood Pact Dmg.+8','Pet: STR+8',}}
+		
+	gear.magic_hands = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+8 Pet: "Mag.Atk.Bns."+8','Blood Pact Dmg.+9','Pet: Mag. Acc.+9','Pet: "Mag.Atk.Bns."+13',}}
 	
     send_command('bind !` input /ja "Release" <me>')
 	send_command('bind @` gs c cycle MagicBurst')
@@ -86,28 +89,38 @@ function init_gear_sets()
 		legs = "Baayami Slops",
 		feet = "Baayami Sabots"
 	}
-
+	
     sets.precast.BloodPactRage = sets.precast.BloodPactWard
 
     -- Fast cast sets for spells
     
     sets.precast.FC = {
-		main = "Gridarvor",
-		sub = "Vivid Strap",
-		head = "Apogee Crown +1",
-		neck = "Orunmila's Torque",
-		left_ear = "Etiolation Earring",
-		right_ear = "Loquacious earring",
+		main={ name="Grioavolr", augments={'Blood Pact Dmg.+9','Pet: "Mag.Atk.Bns."+21','DMG:+10',}},
+		sub="Clerisy Strap",
+		ammo="Impatiens",
+		head="Vanya Hood",
+		--head="Amalric Coif +1",
+		neck="Twilight Torque",
+		--neck = "Voltsurge torque",
+		ear1="Mendicant's Earring",
+		--ear1 = "Etiolation Earring",
+		ear2 = "Loquacious earring",
 		hands = "Lamassu Mitts +1",
+		--hands="Volte Gloves",
 		body = "Inyanga Jubbah +2",
-		left_ring = "Rahab Ring",
-		right_ring = "Prolix Ring",
+		--ring1="Kishar Ring",
+		--ring2="Lebeche Ring",
+		left_ring="Kishar Ring",
+		right_ring="Gelatinous Ring",
 		waist = "Witful belt",
-		legs = "Psycloth Lappas",
-		feet = merlinic_feet_fc,
-		back = campestres_fc,
+		legs="Lengo Pants",
+		--feet = "Amalric Nails +1",
+		feet={ name="Helios Boots", augments={'Pet: Attack+25 Pet: Rng.Atk.+25','Pet: "Dbl. Atk."+8','Blood Pact Dmg.+6',}},
+		--back = campestres_fc
+		back="Tempered Cape +1"
 	}
-
+	
+	
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {
 		main = "Serenity",
 		sub = "Clerisy Strap +1"
@@ -121,8 +134,25 @@ function init_gear_sets()
 	
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
-    sets.precast.WS = {}
-
+    sets.precast.WS = {
+		ammo="Oreiad's Tathlum",
+		head="Inyanga Tiara",
+		body="Inyanga Jubbah +2",
+		hands="Inyan. Dastanas +1",
+		legs="Gyve Trousers",
+		feet={ name="Helios Boots", augments={'Pet: Attack+25 Pet: Rng.Atk.+25','Pet: "Dbl. Atk."+8','Blood Pact Dmg.+6',}},
+		neck="Mizu. Kubikazari",
+		waist="Refoccilation Stone",
+		left_ear="Hecate's Earring",
+		right_ear="Strophadic Earring",
+		left_ring="Adoulin Ring",
+		right_ring="Inyanga Ring",
+		back="Gwyddion's Cape",
+	
+	
+	
+	}
+	
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Myrkr'] = {ammo="Sancus Sachet +1",
         head="Beckoner's Horn +1",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Gifted Earring",
@@ -304,18 +334,18 @@ function init_gear_sets()
 		ammo="Sancus Sachet +1",
 		head="Helios Band",
 		body="Convoker's Doublet +3",
-		hands="Merlinic Dastanas",
+		hands=gear.phys_hands,
 		legs="Apogee Slacks +1",
-		--neck="Summoner's Collar",
-		neck="Shulmanu Collar",
-		waist="Incarnation Sash",
+		neck="Summoner's Collar +2",
+		waist="Regal Belt",
 		left_ear="Gelos Earring",
 		right_ear="Lugalbanda Earring",
-		left_ring="Varar Ring",
+		left_ring="Varar Ring +1",
 		right_ring="Varar Ring +1",
 		back=gear.phys_jse_back,
 		feet="Helios Boots"
 	}	
+		
     sets.midcast.Pet.PhysicalBloodPactRage.Acc = {feet="Convo. Pigaches +3"}
 
     sets.midcast.Pet.MagicalBloodPactRage = {
@@ -323,18 +353,21 @@ function init_gear_sets()
 		sub="Elan Strap +1",
 		ammo="Sancus Sachet +1",
 		head="Apogee Crown +1",
+		--neck="Summoner's Collar +2",
 		neck="Adad Amulet",
 		lear="Gelos Earring",
 		rear="Lugalbanda Earring",
 		body="Convoker's Doublet +3",
-		hands="Merlinic Dastanas",
-		lring="Varar Ring",
+		hands=gear.magic_hands,
+		lring="Varar Ring +1",
 		rring="Varar Ring +1",
 		back=gear.magic_jse_back,
-		waist="Incarnation Sash",
-		legs="Apogee Slacks +1",
+		waist="Regal Belt",
+		--legs="Apogee Slacks +1",
+		legs="Enticer's Pants",
 		feet="Apogee Pumps +1"
 	}
+	
 
     sets.midcast.Pet.MagicalBloodPactRage.Acc = {feet="Convo. Pigaches +3"}
 
@@ -512,10 +545,24 @@ function init_gear_sets()
     --------------------------------------
     
     -- Normal melee group
-    sets.engaged = {main="Gridarvor",sub="Bloodrain Strap",ammo="Sancus Sachet +1",
-        head="Beckoner's Horn +1",neck="Shulmanu Collar",ear1="Digni. Earring",ear2="Telos Earring",
-        body="Convoker's Doublet +3",hands="Gazu Bracelet +1",ring1="Ramuh Ring +1",ring2="Ramuh Ring +1",
-        back=gear.phys_jse_back,waist="Olseni Belt",legs="Assid. Pants +1",feet="Convo. Pigaches +3"}
+    sets.engaged = {
+		main="Nirvana",
+		sub="Bloodrain Strap",
+		ammo="Sancus Sachet +1",
+        head="Beckoner's Horn +1",
+		neck="Shulmanu Collar",
+		ear1="Digni. Earring",
+		ear2="Telos Earring",
+        body="Convoker's Doublet +3",
+		hands="Gazu Bracelet +1",
+		ring1="Ramuh Ring +1",
+		ring2="Ramuh Ring +1",
+        back="Blithe Mantle",
+		--waist="Olseni Belt",
+		waist="Eschan Stone",
+		legs="Assid. Pants +1",
+		feet="Convo. Pigaches +3"
+	}
 end
 
 -- Select default macro book on initial load or subjob change.
