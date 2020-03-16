@@ -84,6 +84,7 @@ gear.obi_cure_waist = "Luminary Sash"
 	send_command('bind !q gs c weapons HybridWeapons;gs c update')
 
 	select_default_macro_book()
+	set_lockstyle_custom(1)
 	end
 
 function init_gear_sets()
@@ -1357,6 +1358,7 @@ sets.TreasureHunter = set_combine(sets.TreasureHunter, {
 				'Mag. Acc.+12 "Mag.Atk.Bns."+12',
 			}
 		},
+		body={ name="Herculean Vest", augments={'STR+3','AGI+7','"Treasure Hunter"+1','Accuracy+19 Attack+19',}},
 		head="White Rarab Cap +1",
 		waist="Chaac Belt"
 	})
