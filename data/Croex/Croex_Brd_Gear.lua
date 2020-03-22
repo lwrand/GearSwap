@@ -99,8 +99,8 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring",
+		ear2="Digni. Earring",
+		ear1="Regal Earring"
 	})
 	
 	sets.precast.FC['Horde Lullaby'] = set_combine(sets.precast.FC.BardSong,{})
@@ -117,8 +117,8 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring",
+		ear2="Digni. Earring",
+		ear1="Regal Earring"
 	})
 	sets.precast.FC['Horde Lullaby II'] = set_combine(sets.precast.FC.BardSong,{
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
@@ -132,8 +132,8 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring",
+		ear2="Digni. Earring",
+		ear1="Regal Earring"
 	})
 	sets.precast.FC['Horde Lullaby II'].Resistant = set_combine(sets.precast.FC.BardSong,{
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
@@ -147,8 +147,8 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring",
+		ear2="Digni. Earring",
+		ear1="Regal Earring"
 	})
 	sets.precast.FC['Horde Lullaby II'].AoE = set_combine(sets.precast.FC.BardSong,{
 		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
@@ -162,8 +162,8 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring",
+		ear2="Digni. Earring",
+		ear1="Regal Earring"
 	})
 		
 	sets.precast.FC.Mazurka = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
@@ -218,7 +218,7 @@ function init_gear_sets()
 		ammo = "Hasty Pinion +1",
 		head = "Nahtirah Hat",
 		neck = "Voltsurge Torque",
-		--ear1 = "Enchntr. Earring +1",
+		ear1 = "Enchntr. Earring +1",
 		ear2 = "Loquacious Earring",
 		body = "Inyanga Jubbah +2",
 		hands = "Leyline Gloves",
@@ -244,8 +244,8 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
-		ear1="Lifestorm Earring",
-		ear2="Psystorm Earring"
+		ear2="Digni. Earring",
+		ear1="Regal Earring"
 	}
 	sets.midcast['Horde Lullaby'].Resistant = set_combine(sets.midcast['Horde Lullaby'], {range="Gjallarhorn"})
 	sets.midcast['Horde Lullaby'].AoE = set_combine(sets.midcast['Horde Lullaby'], {range=info.ExtraSongInstrument})
@@ -281,7 +281,7 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		waist="Flume Belt +1",
 		neck="Moonbow Whistle +1",
-		--ear1="Enchntr. Earring +1",
+		ear1="Enchntr. Earring +1",
 		ear2="Loquacious Earring",
 		ring1="Defending Ring",
 		ring2="Dark Ring",
@@ -300,7 +300,7 @@ function init_gear_sets()
 		feet="Brioso Slippers +3",
 		neck="Moonbow Whistle +1",
 		ear2="Digni. Earring",
-		ear1="Gwati Earring",
+		ear1="Regal Earring",
 		ring1="Stikini Ring",
 		ring2="Stikini Ring",
 		waist="Luminary Sash",
