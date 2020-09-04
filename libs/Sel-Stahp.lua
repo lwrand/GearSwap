@@ -72,10 +72,10 @@ RefreshAbility = S{"Refresh","Refresh II", "Refresh III"
 PhalanxAbility = S{"Phalanx II"
 				 }
 				 
-EnhancingAbility = S{"Haste","Haste II","Flurry","Flurry II","Adloquium",
+EnhancingAbility = S{"Haste","Haste II","Flurry","Flurry II","Adloquium","Erratic Flutter","Animating Wail",
 				 }
 
-windower.raw_register_event('action', function(act)
+function check_reaction(act)
 
 	--Gather Info
     local curact = T(act)
@@ -148,8 +148,7 @@ windower.raw_register_event('action', function(act)
 					['Category']     = 0x02,
 				}))
 				
-			elseif player.status == 'Idle' and not (being_attacked or midaction() or pet_midaction()) then
-				being_attacked = true
+			elseif player.status == 'Idle' and not (being_attacked or midaction() or pet_midaction() or (petWillAct + 2) > os.clock()) then
 				windower.send_command('gs c forceequip')
 			end
 			being_attacked = true
@@ -173,9 +172,20 @@ windower.raw_register_event('action', function(act)
 						lasthaste = 1
 					elseif act_info.name:startswith('Flurry') then
 						lastflurry = 1
+					elseif act_info.name == "Erratic Flutter" then
+						lasthaste = 2
+					elseif act_info.name == "Animating Wail" then
+						lasthaste = 1
 					end
 				end
 			end
+		end
+	elseif curact.category == 13 then
+		act_info = res.job_abilities[curact.param]
+		if act_info.name == 'Hastega II' then
+			lasthaste = 2
+		elseif act_info.name == 'Hastega' then
+			lasthaste = 1
 		end
 	end
 	
@@ -186,18 +196,18 @@ windower.raw_register_event('action', function(act)
 				if state.DefenseMode.value ~= 'Physical' then
 					state.DefenseMode:set('Physical')
 					send_command('gs c forceequip')
+					if state.DisplayMode.value then update_job_states()	end
 				end
-				return
 			else
 				state.DefenseMode:reset()
 				send_command('gs c forceequip')
 				if state.DisplayMode.value then update_job_states()	end
-				return
 			end
-		elseif not midaction() and not pet_midaction() and (targetsMe or (otherTarget.in_alliance and targetsDistance < 10)) then
+		elseif not (actor.id == player.id or midaction() or pet_midaction()) and (targetsMe or (otherTarget.in_alliance and targetsDistance < 10)) then
+			--reequip proper gear after curaga/recieved buffs
 			send_command('gs c forceequip')
-			return
 		end
+		return
 	end
 	
 	-- Make sure it's not US from this point on!
@@ -219,8 +229,8 @@ windower.raw_register_event('action', function(act)
 		else
 			windower.chat.input('/pcmd leave')
 		end
-
-	elseif midaction() or curact.category ~= 8 or state.DefenseMode.value ~= 'None' then
+		return
+	elseif midaction() or curact.category ~= 8 or state.DefenseMode.value ~= 'None' or ((petWillAct + 2) > os.clock()) then
 			
 	elseif targetsMe then
 		if CureAbility:contains(act_info.name) and player.hpp < 75 then
@@ -262,12 +272,12 @@ windower.raw_register_event('action', function(act)
 	end
 	
 	-- Make sure this is our target. 	send_command('input /echo Actor:'..actor.id..' Target:'..player.target.id..'')
-	if curact.param == 24931 then
+	if curact.param == 24931 then --24931 is initiation paramater for action category 7 and 8
 		if isTarget and state.AutoStunMode.value and player.target.type == "MONSTER" and not moving then
 			if StunAbility:contains(act_info.name) and not midaction() and not pet_midaction() then
 				gearswap.refresh_globals(false)				
 				if not (buffactive.silence or  buffactive.mute or buffactive.Omerta) then
-						local spell_recasts = windower.ffxi.get_spell_recasts()
+					local spell_recasts = windower.ffxi.get_spell_recasts()
 				
 					if player.main_job == 'BLM' or player.sub_job == 'BLM' or player.main_job == 'DRK' or player.sub_job == 'DRK' and spell_recasts[252] < spell_latency then
 						windower.chat.input('/ma "Stun" <t>') return
@@ -313,41 +323,50 @@ windower.raw_register_event('action', function(act)
 				end
 			end
 		end
-		if state.AutoDefenseMode.value and (targetsMe or (((otherTarget.in_alliance and targetsDistance < 10) or targetsSelf) and AoEAbility:contains(act_info.name))) then
-			local defensive_action = false
-			if not midaction() then
-				local abil_recasts = windower.ffxi.get_ability_recasts()
-				if player.main_job == 'DRG' and state.AutoJumpMode.value and abil_recasts[160] < latency then
-					windower.chat.input('/ja "Super Jump" <t>')
-					defensive_action = true
-				elseif (player.main_job == 'SAM' or player.sub_job == 'SAM') and PhysicalAbility:contains(act_info.name) and abil_recasts[133] < latency then
-					windower.chat.input('/ja "Third Eye" <me>')
-					defensive_action = true
+		if state.AutoDefenseMode.value then
+			local ability_type = nil
+			if PhysicalAbility:contains(act_info.name) then
+				ability_type = 'Physical'
+			elseif MagicalAbility:contains(act_info.name) then
+				ability_type = 'Magical'
+			elseif ResistAbility:contains(act_info.name) then
+				ability_type = 'Resist'
+			end
+			if targetsMe or (AoEAbility:contains(act_info.name) and ((otherTarget.in_alliance and targetsDistance < 10) or targetsSelf)) then
+				local defensive_action = false
+				if not midaction() then
+					local abil_recasts = windower.ffxi.get_ability_recasts()
+					if player.main_job == 'DRG' and state.AutoJumpMode.value and abil_recasts[160] < latency then
+						windower.chat.input('/ja "Super Jump" <t>')
+						defensive_action = true
+					elseif (player.main_job == 'SAM' or player.sub_job == 'SAM') and ability_type == 'Physical' and abil_recasts[133] < latency then
+						windower.chat.input('/ja "Third Eye" <me>')
+						defensive_action = true
+					end
+				end
+
+				if not defensive_action then
+					if ability_type and state.DefenseMode.value ~= ability_type then
+						state.DefenseMode:set(ability_type)
+					end
+					send_command('gs c forceequip')
+					being_attacked = true
+					if state.DisplayMode.value then update_job_states()	end
+					return
 				end
 			end
-			if PhysicalAbility:contains(act_info.name) and state.DefenseMode.value ~= 'Physical' then
-				state.DefenseMode:set('Physical')
-				send_command('gs c forceequip')
-			elseif MagicalAbility:contains(act_info.name) and state.DefenseMode.value ~= 'Magical'  then
-				state.DefenseMode:set('Magical')
-				send_command('gs c forceequip')
-			elseif ResistAbility:contains(act_info.name) and state.DefenseMode.value ~= 'Resist'  then
-				state.DefenseMode:set('Resist')
-				send_command('gs c forceequip')
-			elseif defensive_action == false then
-				send_command('gs c forceequip')
-			end
-			if state.DisplayMode.value then update_job_states()	end
 		end
 	end
 	
 	if targetsMe and actor.race == 0 and not being_attacked then
 		being_attacked = true
-		if player.status == 'Idle' and not (being_attacked or midaction() or pet_midaction()) then
+		if not (midaction() or pet_midaction()) then
 			send_command('gs c forceequip')
 		end
 	end
-end)
+end
+
+windower.raw_register_event('action', check_reaction)
 
 windower.raw_register_event('incoming chunk', function(id, data)
     if id == 0xF9 and state.AutoAcceptRaiseMode.value and data:byte(11) == 1 then

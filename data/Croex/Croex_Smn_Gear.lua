@@ -103,7 +103,7 @@ function init_gear_sets()
 		neck = "Orunmila's Torque",
 		left_ear = "Etiolation Earring",
 		right_ear = "Loquacious earring",
-		hands = merlinic_hands_fc,
+		hands = gear.merlinic_fc_hands,
 		body = "Inyanga Jubbah +1",
 		left_ring = "Rahab Ring",
 		right_ring = "Prolix Ring",

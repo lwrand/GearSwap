@@ -48,23 +48,25 @@
 -- Buff utility functions.
 -------------------------------------------------------------------------------------------------------------------
 
-local cancel_spells_to_check = S{'Sneak', 'Stoneskin', 'Spectral Jig', 'Trance', 'Monomi: Ichi', 'Utsusemi: Ichi','Utsusemi: Ni','Diamondhide','Magic Barrier'}
+local cancel_spells_to_check = S{'Sneak','Stoneskin','Spectral Jig','Trance','Monomi: Ichi','Utsusemi: Ichi','Utsusemi: Ni','Diamondhide','Magic Barrier','Valiance'}
 local cancel_types_to_check = S{'Waltz', 'Samba'}
 
 -- Function to cancel buffs if they'd conflict with using the spell you're attempting.
 -- Requirement: Must have Cancel addon installed and loaded for this to work.
 function cancel_conflicting_buffs(spell, spellMap, eventArgs)
     if cancel_spells_to_check:contains(spell.english) or cancel_types_to_check:contains(spell.type) then
-        if spell.english == 'Spectral Jig' and buffactive.sneak then
+        if spell.english == 'Spectral Jig' and buffactive['Sneak'] then
             cast_delay(0.2)
 			send_command('cancel sneak')
 			tickdelay = os.clock() + 1.5
-        elseif spell.english == 'Sneak' and spell.target.type == 'SELF' and buffactive.sneak then
+        elseif spell.english == 'Valiance' and buffactive['Vallation'] then
+            cast_delay(0.2)
+			send_command('cancel vallation')
+			tickdelay = os.clock() + 1.5
+        elseif (spell.english:startswith('Monomi') or (spell.english == 'Sneak' and spell.target.type == 'SELF')) and buffactive['Sneak'] then
             send_command('cancel sneak')
         elseif spell.english == ('Stoneskin') or spell.english == ('Diamondhide') or spell.english == ('Magic Barrier') then
             send_command('@wait 1;cancel stoneskin')
-        elseif spell.english:startswith('Monomi') then
-            send_command('@wait 1.5;cancel sneak')
         elseif spell.english == 'Utsusemi: Ni' and player.main_job == 'NIN' and lastshadow == 'Utsusemi: San' then
 			if buffactive['Copy Image (4+)'] and conserveshadows then
 				add_to_chat(123,'Abort: You have four or more shadows.')
@@ -79,11 +81,11 @@ function cancel_conflicting_buffs(spell, spellMap, eventArgs)
 			else
 				send_command('@wait '..utsusemi_cancel_delay..';cancel copy image*')
 			end
-        elseif (spell.english == 'Trance' or spell.type=='Waltz') and buffactive['saber dance'] then
+        elseif (spell.english == 'Trance' or spell.type=='Waltz') and buffactive['Saber Dance'] then
             cast_delay(0.2)
             send_command('cancel saber dance')
 			tickdelay = os.clock() + 1.7
-        elseif spell.type=='Samba' and buffactive['fan dance'] then
+        elseif spell.type=='Samba' and buffactive['Fan Dance'] then
             cast_delay(0.2)
             send_command('cancel fan dance')
 			tickdelay = os.clock() + 1.7
@@ -95,9 +97,9 @@ end
 function notify_buffs(buff, gain)
 	if state.NotifyBuffs.value and NotifyBuffs:contains(buff) then
 		if gain then
-			windower.chat.input('/p I just got hit with '..buff..'.')
+			windower.chat.input('/p '..buff:ucfirst()..' on me!')
 		else
-			windower.chat.input('/p '..buff..' is off now.')
+			windower.chat.input('/p '..buff:ucfirst()..' is off now.')
 		end
 	end
 end
@@ -207,17 +209,22 @@ waltz_tp_cost = {['Curing Waltz'] = 200, ['Curing Waltz II'] = 350, ['Curing Wal
 -- Utility function for automatically adjusting the waltz spell being used to match HP needs and TP limits.
 -- Handle spell changes before attempting any precast stuff.
 function refine_waltz(spell, spellMap, eventArgs)
-    if not state.RefineWaltz.value or spell.type ~= 'Waltz' then
-        return
-	elseif player.tp < 150 then
+    if not state.RefineWaltz.value or spell.type ~= 'Waltz' then return false end
+	
+	local effective_tp = player.tp
+	if state.DefenseMode.value == 'None' and uses_waltz_legs then
+		effective_tp = player.tp + 50
+	end
+	
+	if effective_tp < 200 then
 		add_to_chat(123, 'Abort: Insufficient TP ['..tostring(player.tp)..'] to waltz.')
 		eventArgs.cancel = true
-		return
+		return true
     end
 
     -- Don't modify anything for Healing Waltz or Divine Waltzes
     if spell.english == "Healing Waltz" or spell.english == "Divine Waltz" or spell.english == "Divine Waltz II" then
-        return
+        return false
     end
 
     local newWaltz = spell.english
@@ -238,123 +245,118 @@ function refine_waltz(spell, spellMap, eventArgs)
 			missingHP = missingHP / 2
 		end
     end
-    
+
     -- If we have an estimated missing HP value, we can adjust the preferred tier used.
-    if missingHP ~= nil then
-		local abil_recasts = windower.ffxi.get_ability_recasts()
-        if player.main_job == 'DNC' then
-            if missingHP < 40 and spell.target.name == player.name then
-                -- Not worth curing yourself for so little.
-                -- Don't block when curing others to allow for waking them up.
-                add_to_chat(123,'Abort: You have full HP!')
-                eventArgs.cancel = true
-                return
-            elseif missingHP < 200 then
-				if abil_recasts[217] < latency then
-					newWaltz = 'Curing Waltz'
-					waltzID = 190
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-            elseif missingHP < 600 then
-				if abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				elseif abil_recasts[217] < latency then
-					newWaltz = 'Curing Waltz'
-					waltzID = 190
-				end
-            elseif missingHP < 1100 then
-				if abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				elseif abil_recasts[188] < latency then	
-					newWaltz = 'Curing Waltz IV'
-					waltzID = 193
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-			elseif state.AutoContradanceMode.value and abil_recasts[229] < latency then
-                eventArgs.cancel = true
-				windower.chat.input('/ja "Contradance" <me>')
-				windower.chat.input:schedule(.5,'/ja "Curing Waltz III" '..spell.target.raw..'')
-                return
-            elseif missingHP < 1500 then
-				if abil_recasts[188] < latency then	
-					newWaltz = 'Curing Waltz IV'
-					waltzID = 193
-				elseif abil_recasts[189] < latency then	
-					newWaltz = 'Curing Waltz V'
-					waltzID = 311
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				end
-            else
-				if abil_recasts[189] < latency then	
-					newWaltz = 'Curing Waltz V'
-					waltzID = 311
-				elseif abil_recasts[188] < latency then	
-					newWaltz = 'Curing Waltz IV'
-					waltzID = 193
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				end
-            end
-        elseif player.sub_job == 'DNC' then
-            if missingHP < 40 and spell.target.name == player.name then
-                -- Not worth curing yourself for so little.
-                -- Don't block when curing others to allow for waking them up.
-                add_to_chat(123,'Abort: You have full HP!')
-                eventArgs.cancel = true
-                return
-            elseif missingHP < 150 then
-				if abil_recasts[217] < latency then
-					newWaltz = 'Curing Waltz'
-					waltzID = 190
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-            elseif missingHP < 300 then
-				if abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				elseif abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				end
-            else
-				if abil_recasts[187] < latency then
-					newWaltz = 'Curing Waltz III'
-					waltzID = 192
-				elseif abil_recasts[186] < latency then
-					newWaltz = 'Curing Waltz II'
-					waltzID = 191
-				end
-            end
-        else
-            -- Not dnc main or sub; bail out
-            return
-        end
-    end
+    if missingHP == nil then return end
 
-	local tpCost = waltz_tp_cost[newWaltz]
-
-	if state.DefenseMode.value == 'None' and uses_waltz_legs then
-		tpCost = tpCost - 50
+	local abil_recasts = windower.ffxi.get_ability_recasts()
+	if player.main_job == 'DNC' then
+		if missingHP < 40 and spell.target.name == player.name then
+			-- Not worth curing yourself for so little.
+			-- Don't block when curing others to allow for waking them up.
+			add_to_chat(123,'Abort: You have full HP!')
+			eventArgs.cancel = true
+			return true
+		elseif missingHP < 200 then
+			if abil_recasts[217] < latency then
+				newWaltz = 'Curing Waltz'
+				waltzID = 190
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		elseif missingHP < 600 then
+			if abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			elseif abil_recasts[217] < latency then
+				newWaltz = 'Curing Waltz'
+				waltzID = 190
+			end
+		elseif missingHP < 1100 then
+			if abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			elseif abil_recasts[188] < latency then	
+				newWaltz = 'Curing Waltz IV'
+				waltzID = 193
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		elseif state.AutoContradanceMode.value and abil_recasts[229] < latency then
+			eventArgs.cancel = true
+			windower.chat.input('/ja "Contradance" <me>')
+			windower.chat.input:schedule(.5,'/ja "Curing Waltz III" '..spell.target.raw..'')
+			return true
+		elseif missingHP < 1500 then
+			if abil_recasts[188] < latency then	
+				newWaltz = 'Curing Waltz IV'
+				waltzID = 193
+			elseif abil_recasts[189] < latency then	
+				newWaltz = 'Curing Waltz V'
+				waltzID = 311
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			end
+		else
+			if abil_recasts[189] < latency then	
+				newWaltz = 'Curing Waltz V'
+				waltzID = 311
+			elseif abil_recasts[188] < latency then	
+				newWaltz = 'Curing Waltz IV'
+				waltzID = 193
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			end
+		end
+	elseif player.sub_job == 'DNC' then
+		if missingHP < 40 and spell.target.name == player.name then
+			-- Not worth curing yourself for so little.
+			-- Don't block when curing others to allow for waking them up.
+			add_to_chat(123,'Abort: You have full HP!')
+			eventArgs.cancel = true
+			return true
+		elseif missingHP < 150 then
+			if abil_recasts[217] < latency then
+				newWaltz = 'Curing Waltz'
+				waltzID = 190
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		elseif missingHP < 300 then
+			if abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			elseif abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			end
+		else
+			if abil_recasts[187] < latency then
+				newWaltz = 'Curing Waltz III'
+				waltzID = 192
+			elseif abil_recasts[186] < latency then
+				newWaltz = 'Curing Waltz II'
+				waltzID = 191
+			end
+		end
+	else
+		-- Not dnc main or sub; bail out
+		return false
 	end
 
+	local tpCost = waltz_tp_cost[newWaltz]
     local downgrade
 
     -- Downgrade the spell to what we can afford
-    if player.tp < tpCost and not buffactive.trance then
+    if effective_tp < tpCost and not buffactive.trance then
         --[[ Costs:
             Curing Waltz:     200 TP
             Curing Waltz II:  350 TP
@@ -364,11 +366,6 @@ function refine_waltz(spell, spellMap, eventArgs)
             Divine Waltz:     400 TP
             Divine Waltz II:  800 TP
         --]]
-		local effective_tp
-		if state.DefenseMode.value == 'None' and uses_waltz_legs then
-			effective_tp = player.tp + 50
-        end
-
 		if effective_tp < 350 and abil_recasts[217] < latency then
             newWaltz = 'Curing Waltz'
         elseif effective_tp < 500 then
@@ -402,104 +399,19 @@ function refine_waltz(spell, spellMap, eventArgs)
 
     
     if newWaltz ~= spell.english then
-        send_command('@input /ja "'..newWaltz..'" '..tostring(spell.target.raw))
+        windower.chat.input('/ja "'..newWaltz..'" '..tostring(spell.target.raw))
         if downgrade then
             add_to_chat(122, downgrade)
         end
         eventArgs.cancel = true
-        return
-    end
-
-    if missingHP and missingHP > 0 then
-        add_to_chat(122,'Trying to cure '..tostring(missingHP)..' HP using '..newWaltz..'.')
+		add_to_chat(122,'Trying to cure '..tostring(missingHP)..' HP using '..newWaltz..'.')
+        return true
     end
 end
-
-
--- Function to allow for automatic adjustment of the spell target type based on preferences.
-function auto_change_target(spell, spellMap)
-    -- Don't adjust targetting for explicitly named targets
-    if not spell.target.raw:startswith('<') then
-        return
-    end
-
-    -- Do not modify target for spells where we get <lastst> or <me>.
-    if spell.target.raw == ('<lastst>') or spell.target.raw == ('<me>') then
-        return
-    end
-    
-    -- init a new eventArgs with current values
-    local eventArgs = {handled = false, PCTargetMode = state.PCTargetMode.value, SelectNPCTargets = state.SelectNPCTargets.value}
-
-    -- Allow the job to do custom handling, or override the default values.
-    -- They can completely handle it, or set one of the secondary eventArgs vars to selectively
-    -- override the default state vars.
-    if job_auto_change_target then
-        job_auto_change_target(spell, action, spellMap, eventArgs)
-    end
-    
-    -- If the job handled it, we're done.
-    if eventArgs.handled then
-        return
-    end
-    
-    local pcTargetMode = eventArgs.PCTargetMode
-    local selectNPCTargets = eventArgs.SelectNPCTargets
-
-    
-    local validPlayers = S{'Self', 'Player', 'Party', 'Ally', 'NPC'}
-
-    local intersection = spell.targets * validPlayers
-    local canUseOnPlayer = not intersection:empty()
-    
-    local newTarget
-    
-    -- For spells that we can cast on players:
-    if canUseOnPlayer and pcTargetMode ~= 'default' then
-        -- Do not adjust targetting for player-targettable spells where the target was <t>
-        if spell.target.raw ~= ('<t>') then
-            if pcTargetMode == 'stal' then
-                -- Use <stal> if possible, otherwise fall back to <stpt>.
-                if spell.targets.Ally then
-                    newTarget = '<stal>'
-                elseif spell.targets.Party then
-                    newTarget = '<stpt>'
-                end
-            elseif pcTargetMode == 'stpt' then
-                -- Even ally-possible spells are limited to the current party.
-                if spell.targets.Ally or spell.targets.Party then
-                    newTarget = '<stpt>'
-                end
-            elseif pcTargetMode == 'stpc' then
-                -- If it's anything other than a self-only spell, can change to <stpc>.
-                if spell.targets.Player or spell.targets.Party or spell.targets.Ally or spell.targets.NPC then
-                    newTarget = '<stpc>'
-                end
-            end
-        end
-    -- For spells that can be used on enemies:
-    elseif spell.targets and spell.targets.Enemy and selectNPCTargets then
-        -- Note: this means macros should be written for <t>, and it will change to <stnpc>
-        -- if the flag is set.  It won't change <stnpc> back to <t>.
-        newTarget = '<stnpc>'
-    end
-    
-    -- If a new target was selected and is different from the original, call the change function.
-    if newTarget and newTarget ~= spell.target.raw then
-        change_target(newTarget)
-    end
-end
-
 
 -------------------------------------------------------------------------------------------------------------------
 -- Environment utility functions.
 -------------------------------------------------------------------------------------------------------------------
-
--- Function to get the current weather intensity: 0 for none, 1 for single weather, 2 for double weather.
-function get_weather_intensity()
-    return gearswap.res.weather[world.weather_id].intensity
-end
-
 
 -- Returns true if you're in a party solely comprised of Trust NPCs.
 -- TODO: Do we need a check to see if we're in a party partly comprised of Trust NPCs?
@@ -519,7 +431,7 @@ function is_trust_party()
     -- are flagged is_npc.
     for i = 2,6 do
         if party[i] then
-            if not npcs.Trust:contains(party[i].name) then
+            if not data.npcs.trusts:contains(party[i].name) then
                 return false
             end
             if party[i].mob and party[i].mob.is_npc == false then
@@ -564,7 +476,7 @@ function set_elemental_gear(spell, spellMap)
 	--No longer needed because of Fotia.
     --set_elemental_gorget_belt(spell)
     set_elemental_obi_cape_ring(spell, spellMap)
-    set_elemental_staff(spell, spellMap)
+    --set_elemental_staff(spell, spellMap)
 end
 
 
@@ -607,7 +519,7 @@ function set_elemental_obi_cape_ring(spell, spellMap)
 			end
 		else
 			local hachirin_avail = item_available('Hachirin-no-Obi')
-			if hachirin_avail and spell.element == world.weather_element and gearswap.res.weather[world.weather_id].intensity == 2 then
+			if hachirin_avail and spell.element == world.weather_element and world.weather_intensity == 2 then
 				gear.ElementalObi.name = "Hachirin-no-Obi"
 			elseif orpheus_avail and spell.target.distance < 3 then
 				gear.ElementalObi.name = "Orpheus's Sash"
@@ -635,6 +547,7 @@ end
 
 
 -- Function to get the appropriate fast cast and/or recast staves for the current spell.
+--[[
 function set_elemental_staff(spell)
     if spell.action_type ~= 'Magic' then
         return
@@ -643,7 +556,7 @@ function set_elemental_staff(spell)
     gear.FastcastStaff.name = get_elemental_item_name("fastcast_staff", S{spell.element}) or gear.default.fastcast_staff  or ""
     gear.RecastStaff.name   = get_elemental_item_name("recast_staff", S{spell.element})   or gear.default.recast_staff    or ""
 end
-
+]]
 
 -- Gets the name of an elementally-aligned piece of gear within the player's
 -- inventory that matches the conditions set in the parameters.
@@ -661,16 +574,17 @@ end
 -- Returns: Nil if no match was found (either due to elemental restrictions,
 -- or the gear isn't in the player inventory), or the name of the piece of
 -- gear that matches the query.
-function get_elemental_item_name(item_type, valid_elements, restricted_to_elements)
-    local potential_elements = restricted_to_elements or elements.list
-    local item_map = elements[item_type:lower()..'_of']
+
+-- function get_elemental_item_name(item_type, valid_elements, restricted_to_elements)
+    -- local potential_elements = restricted_to_elements or data.elements.list
+    -- local item_map = elements[item_type:lower()..'_of']
     
-    for element in (potential_elements.it or it)(potential_elements) do
-        if valid_elements:contains(element) and (player.inventory[item_map[element]] or player.wardrobe[item_map[element]] or player.wardrobe2[item_map[element]]) or player.wardrobe3[item_map[element]] or player.wardrobe4[item_map[element]] then
-            return item_map[element]
-        end
-    end
-end
+    -- for element in (potential_elements.it or it)(potential_elements) do
+        -- if valid_elements:contains(element) and (player.inventory[item_map[element]] or player.wardrobe[item_map[element]] or player.wardrobe2[item_map[element]]) or player.wardrobe3[item_map[element]] or player.wardrobe4[item_map[element]] then
+            -- return item_map[element]
+        -- end
+    -- end
+-- end
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -709,7 +623,7 @@ function optional_include(filename)
 	if path then
 		include(filename)
 	else
-		print('Missing optional file: '..filename..'')
+		print('Missing optional file: '..filename..', this is not an error, only diagnostic information.')
 		return false
     end
 end
@@ -764,7 +678,7 @@ function silent_can_use(spellid)
 		(spell_jobs[player.main_job_id] >= 100 and number_of_jps(player.job_points[(res.jobs[player.main_job_id].ens):lower()]) >= spell_jobs[player.main_job_id]) ) ) and
 		(not spell_jobs[player.sub_job_id] or not (spell_jobs[player.sub_job_id] <= player.sub_job_level)) then
 		return false
-	elseif res.spells[spellid].type == 'BlueMagic' and not ((player.main_job_id == 16 and (unbridled_learning_set[res.spells[spellid].en] or table.contains(windower.ffxi.get_mjob_data().spells,spellid))) or (player.sub_job_id == 16 and table.contains(windower.ffxi.get_sjob_data().spells,spellid))) then	
+	elseif res.spells[spellid].type == 'BlueMagic' and not ((player.main_job_id == 16 and (data.spells.unbridled:contains(res.spells[spellid].en) or table.contains(windower.ffxi.get_mjob_data().spells,spellid))) or (player.sub_job_id == 16 and table.contains(windower.ffxi.get_sjob_data().spells,spellid))) then	
 		return false
 	else
 		return true
@@ -772,7 +686,7 @@ function silent_can_use(spellid)
 end
 
 function can_use(spell)
-    local category = outgoing_action_category_table[unify_prefix[spell.prefix]]
+    local category = data.command.outgoing_action_category_table[data.command.unify_prefix[spell.prefix]]
     if world.in_mog_house then
         add_to_chat(123,"Abort: You are currently in a Mog House zone.")
         return false
@@ -788,26 +702,26 @@ function can_use(spell)
             if player.main_job_id ~= 13 and player.sub_job_id ~= 13 then
                 add_to_chat(123,"Abort: You don't have access to ["..(spell[language] or spell.id).."].")
                 return false
-            elseif not player.inventory[tool_map[spell.english][language]] and not (player.main_job_id == 13 and player.inventory[universal_tool_map[spell.english][language]]) then
-				if player.main_job == 'NIN' and player.satchel[universal_tool_map[spell.english][language]] then
-					windower.send_command('get "'..universal_tool_map[spell.english][language]..'" satchel 99')
+            elseif not player.inventory[data.tools.tool_map[spell.english][language]] and not (player.main_job_id == 13 and player.inventory[data.tools.universal_tool_map[spell.english][language]]) then
+				if player.main_job == 'NIN' and player.satchel[data.tools.universal_tool_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.universal_tool_map[spell.english][language]..'" satchel 99')
 					windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.satchel[tool_map[spell.english][language]] then
-					windower.send_command('get "'..tool_map[spell.english][language]..'" satchel 99')
+				elseif player.satchel[data.tools.tool_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.tool_map[spell.english][language]..'" satchel 99')
 					windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.main_job == 'NIN' and player.inventory[universal_toolbag_map[spell.english][language]] then
-					windower.chat.input('/item "'..universal_toolbag_map[spell.english][language]..'" <me>')
+				elseif player.main_job == 'NIN' and player.inventory[data.tools.universal_toolbag_map[spell.english][language]] then
+					windower.chat.input('/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(4,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.main_job == 'NIN' and player.satchel[universal_toolbag_map[spell.english][language]] then
-					windower.send_command('get "'..universal_toolbag_map[spell.english][language]..'" satchel 1')
-					windower.chat.input:schedule(2,'/item "'..universal_toolbag_map[spell.english][language]..'" <me>')
+				elseif player.main_job == 'NIN' and player.satchel[data.tools.universal_toolbag_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.universal_toolbag_map[spell.english][language]..'" satchel 1')
+					windower.chat.input:schedule(2,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(6,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.inventory[toolbag_map[spell.english][language]] then
-					windower.chat.input('/item "'..toolbag_map[spell.english][language]..'" <me>')
+				elseif player.inventory[data.tools.toolbag_map[spell.english][language]] then
+					windower.chat.input('/item "'..data.tools.toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(4,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.satchel[toolbag_map[spell.english][language]] then
-					windower.send_command('get "'..toolbag_map[spell.english][language]..'" satchel 1')
-					windower.chat.input:schedule(2,'/item "'..universal_toolbag_map[spell.english][language]..'" <me>')
+				elseif player.satchel[data.tools.toolbag_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.toolbag_map[spell.english][language]..'" satchel 1')
+					windower.chat.input:schedule(2,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(6,'/ma "'..spell.english..'" '..spell.target.raw..'')
 				else
 					add_to_chat(123,"Abort: You don't have the proper ninja tool available.")
@@ -821,53 +735,58 @@ function can_use(spell)
             add_to_chat(123,"Abort: You don't have access to ["..(res.spells[spell.id][language] or spell.id).."].")
             return false
         -- At this point, we know that it is technically castable by this job combination if the right conditions are met.
-        elseif player.main_job_id == 20 and ((addendum_white[spell.id] and not buffactive[401] and not buffactive[416]) or
-            (addendum_black[spell.id] and not buffactive[402] and not buffactive[416])) and
-            not (spell_jobs[player.sub_job_id] and spell_jobs[player.sub_job_id] <= player.sub_job_level) then
-            
-            if addendum_white[spell.id] then
-				if state.AutoArts.value and not buffactive["Addendum: White"] and not silent_check_amnesia() and get_current_strategem_count() > 0 then
+		elseif player.main_job == 'SCH'then
+			if (spell_jobs[player.sub_job_id] and spell_jobs[player.sub_job_id] <= player.sub_job_level) or state.Buff['Enlightenment'] then
+				return true
+			elseif data.spells.addendum_white:contains(spell.english) and not state.Buff['Addendum: White'] then
+				if state.AutoArts.value and not state.Buff['Addendum: White'] and not silent_check_amnesia() and get_current_strategem_count() > 0 then
 					if state.Buff['Light Arts'] then
 						windower.chat.input('/ja "Addendum: White" <me>')
 						windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
-						tickdelay = os.clock() + 5
+						tickdelay = os.clock() + 4.5
 					else
 						local abil_recasts = windower.ffxi.get_ability_recasts()
 						if abil_recasts[228] < latency then
 							windower.chat.input('/ja "Light Arts" <me>')
 							windower.chat.input:schedule(1.5,'/ja "Addendum: White" <me>')
-							windower.chat.input:schedule(3.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
-							tickdelay = os.clock() + 6.5
+							windower.chat.input:schedule(3,'/ma "'..spell.english..'" '..spell.target.raw..'')
+							tickdelay = os.clock() + 6
+						else
+							add_to_chat(123,"Abort: Addendum: White required for ["..spell.name.."].")
 						end
 					end
 				else
-					add_to_chat(123,"Abort: Addendum: White required for ["..(res.spells[spell.id][language] or spell.id).."].")
+					add_to_chat(123,"Abort: Addendum: White required for ["..spell.name.."].")
 				end
-            end
-            if addendum_black[spell.id] then
-				if state.AutoArts.value and not buffactive["Addendum: Black"] and not silent_check_amnesia() and get_current_strategem_count() > 0 then
-					if buffactive["Dark Arts"] then
+				return false
+            elseif data.spells.addendum_black:contains(spell.english) and not state.Buff['Addendum: Black'] then
+				if state.AutoArts.value and not state.Buff['Addendum: Black'] and not silent_check_amnesia() and get_current_strategem_count() > 0 then
+					if state.Buff['Dark Arts'] then
 						windower.chat.input('/ja "Addendum: Black" <me>')
 						windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
+						tickdelay = os.clock() + 4.5
 					else
 						local abil_recasts = windower.ffxi.get_ability_recasts()
 						if abil_recasts[232] < latency then
 							windower.chat.input('/ja "Dark Arts" <me>')
 							windower.chat.input:schedule(1.5,'/ja "Addendum: Black" <me>')
-							windower.chat.input:schedule(3.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
+							windower.chat.input:schedule(3,'/ma "'..spell.english..'" '..spell.target.raw..'')
+							tickdelay = os.clock() + 6
+						else
+							add_to_chat(123,"Abort: Addendum: Black required for ["..spell.name.."].")
 						end
 					end
 				else
-					add_to_chat(123,"Abort: Addendum: Black required for ["..(res.spells[spell.id][language] or spell.id).."].")
+					add_to_chat(123,"Abort: Addendum: Black required for ["..spell.name.."].")
 				end
+				return false
             end
-            return false
-        elseif player.sub_job_id == 20 and ((addendum_white[spell.id] and not buffactive[401] and not buffactive[416]) or
-            (addendum_black[spell.id] and not buffactive[402] and not buffactive[416])) and
+        elseif player.sub_job_id == 20 and ((data.spells.addendum_white:contains(spell.english) and not buffactive[401] and not buffactive[416]) or
+            (data.spells.addendum_black:contains(spell.english) and not buffactive[402] and not buffactive[416])) and
             not (spell_jobs[player.main_job_id] and (spell_jobs[player.main_job_id] <= player.main_job_level or
             (spell_jobs[player.main_job_id] >= 100 and number_of_jps(player.job_points[__raw.lower(res.jobs[player.main_job_id].ens)]) >= spell_jobs[player.main_job_id]) ) ) then
                         
-            if addendum_white[spell.id] then
+            if data.spells.addendum_white:contains(spell.english) then
 				if state.AutoArts.value and not buffactive["Addendum: White"] and not silent_check_amnesia() and get_current_strategem_count() > 0 then
 					if state.Buff['Light Arts'] then
 						windower.chat.input('/ja "Addendum: White" <me>')
@@ -884,7 +803,7 @@ function can_use(spell)
 					add_to_chat(123,"Abort: Addendum: White required for ["..(res.spells[spell.id][language] or spell.id).."].")
 				end
             end
-            if addendum_black[spell.id] then
+            if data.spells.addendum_black:contains(spell.english) then
 				if state.AutoArts.value and not buffactive["Addendum: Black"] and not silent_check_amnesia() and get_current_strategem_count() > 0 then
 					if buffactive["Dark Arts"] then
 						windower.chat.input('/ja "Addendum: Black" <me>')
@@ -903,7 +822,7 @@ function can_use(spell)
             end
             return false
         elseif spell.type == 'BlueMagic' and not ((player.main_job_id == 16 and table.contains(windower.ffxi.get_mjob_data().spells,spell.id)) 
-            or unbridled_learning_set[spell.english]) and
+            or data.spells.unbridled:contains(spell.english)) and
             not (player.sub_job_id == 16 and table.contains(windower.ffxi.get_sjob_data().spells,spell.id)) then
             -- This code isn't hurting anything, but it doesn't need to be here either.
             add_to_chat(123,"Abort: You haven't set ["..(res.spells[spell.id][language] or spell.id).."].")
@@ -1116,8 +1035,8 @@ function check_doom(spell, spellMap, eventArgs)
 end
 
 function check_midaction(spell, spellMap, eventArgs)
-	if os.clock() < next_cast then
-		if eventArgs then
+	if os.clock() < next_cast and not state.RngHelper.value then
+		if eventArgs and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
 			eventArgs.cancel = true
 			if delayed_cast == '' then
 				windower.send_command:schedule((next_cast - os.clock()),'gs c delayedcast')
@@ -1274,7 +1193,7 @@ function check_cost(spell, spellMap, eventArgs)
 			eventArgs.cancel = true
 			return true
 		end
-	elseif spell.type:startswith('BloodPact') and not buffactive['Astral Conduit'] and player.mp < spellCost then
+	elseif spell.type:startswith('BloodPact') and not state.Buff["Astral Conduit"] and player.mp < spellCost then
 		add_to_chat(123,'Abort: '..spell.english..' costs more MP. ('..player.mp..'/'..spellCost..')')
 		cancel_spell()
 		eventArgs.cancel = true
@@ -1329,60 +1248,30 @@ end
 function check_abilities(spell, spellMap, eventArgs)
 
 	if spell.action_type == 'Ability' then
-		if spell.english == "Light Arts" and state.Buff['Light Arts'] then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Addendum: White" <me>')
-			return true
-		elseif spell.english == "Dark Arts" and state.Buff['Dark Arts'] then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Addendum: Black" <me>')
-			return true
-		elseif spell.english == "Seigan" and buffactive['Seigan'] then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Third Eye" <me>')
-			return true
-		elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
-			if spell.english == "Penury" then
-				windower.chat.input('/ja "Parsimony" <me>')
+		if spell.english == "Seigan" and buffactive['Seigan'] then
+			if windower.ffxi.get_ability_recasts()[133] < latency then
 				eventArgs.cancel = true
-				return true
-			elseif spell.english == "Celerity" then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Alacrity" <me>')
-				return true
-			elseif spell.english == "Accession" then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Manifestation" <me>')
-				return true
-			elseif spell.english == "Rapture" then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Ebullience" <me>')
-				return true
-			elseif spell.english == "Altruism" then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Focalization" <me>')
+				windower.chat.input('/ja "Third Eye" <me>')
 				return true
 			end
-		elseif state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
-			if spell.english == "Parsimony" then
+		elseif data.abilities.white_stratagems:contains(spell.english) then
+			if state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
+				windower.chat.input('/ja "'..data.abilities.white_to_black_stratagems[spell.english]..'" <me>')
 				eventArgs.cancel = true
-				windower.chat.input('/ja "Penury" <me>')
 				return true
-			elseif spell.english == "Alacrity" then
+			elseif spell.english == "Light Arts" and state.Buff['Light Arts'] then
 				eventArgs.cancel = true
-				windower.chat.input('/ja "Celerity" <me>')
+				windower.chat.input('/ja "Addendum: White" <me>')
 				return true
-			elseif spell.english == "Ebullience" then
+			end
+		elseif data.abilities.black_stratagems:contains(spell.english) then
+			if state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
+				windower.chat.input('/ja "'..data.abilities.black_to_white_stratagems[spell.english]..'" <me>')
 				eventArgs.cancel = true
-				windower.chat.input('/ja "Rapture" <me>')
 				return true
-			elseif spell.english == "Manifestation"  then
+			elseif spell.english == "Dark Arts" and state.Buff['Dark Arts'] then
 				eventArgs.cancel = true
-				windower.chat.input('/ja "Accession" <me>')
-				return true
-			elseif spell.english == "Focalization" then
-				eventArgs.cancel = true
-				windower.chat.input('/ja "Altruism" <me>')
+				windower.chat.input('/ja "Addendum: Black" <me>')
 				return true
 			end
 		end
@@ -1452,7 +1341,7 @@ function check_samba()
 end
 
 function check_sub()
-	if state.AutoSubMode.value and not areas.Cities:contains(world.area) then
+	if state.AutoSubMode.value and not data.areas.cities:contains(world.area) then
 		if player.mpp < 70 and player.tp > 999 then
 			local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
 			
@@ -1466,25 +1355,25 @@ function check_sub()
 				return true
 			end
 		end
-		if (player.main_job == 'SCH' or player.sub_job == 'SCH') and not buffactive['Refresh'] then
+		if (player.main_job == 'SCH' or player.sub_job == 'SCH') then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
-			if (not (buffactive['Sublimation: Activated'] or buffactive['Sublimation: Complete'])) and abil_recasts[234] < latency then
-				windower.chat.input('/ja Sublimation <me>')
-				tickdelay = os.clock() + 1.5
-				return true
-			elseif buffactive['Sublimation: Complete'] and player.mpp < 70 and abil_recasts[234] < latency then
-				windower.chat.input('/ja Sublimation <me>')
-				tickdelay = os.clock() + 1.5
-				return true
-			else
-				return false
+			if abil_recasts[234] < latency then
+				if buffactive['Sublimation: Complete'] then
+					if player.mpp < 70 then
+						windower.chat.input('/ja Sublimation <me>')
+						tickdelay = os.clock() + 1.5
+						return true
+					end
+					
+				elseif not buffactive['Sublimation: Activated'] then
+					windower.chat.input('/ja Sublimation <me>')
+					tickdelay = os.clock() + 1.5
+					return true
+				end
 			end
-		else
-			return false
 		end
-	else
-		return false
 	end
+	return false
 end
 
 function check_cleanup()
@@ -1521,7 +1410,7 @@ function check_cleanup()
 		
 		if not state.Capacity.value then
 			if player.inventory['Mecisto. Mantle'] then send_command('put "Mecisto. Mantle" satchel') moveditem = true end
-      if player.inventory['Endorsement Ring'] then send_command('put "Endorsement Ring" satchel')  moveditem = true end
+			if player.inventory['Endorsement Ring'] then send_command('put "Endorsement Ring" satchel')  moveditem = true end
 			if player.inventory['Trizek Ring'] then send_command('put "Trizek Ring" satchel')  moveditem = true end
 			if player.inventory['Capacity Ring'] then send_command('put "Capacity Ring" satchel') moveditem = true end
 			if player.inventory['Vocation Ring'] then send_command('put "Vocation Ring" satchel')  moveditem = true end
@@ -1551,7 +1440,7 @@ function check_cleanup()
 end
 
 function check_trust()
-	if not moving and state.AutoTrustMode.value and not areas.Cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not player.in_combat) then
+	if not moving and state.AutoTrustMode.value and not data.areas.cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not player.in_combat) then
 		local party = windower.ffxi.get_party()
 		if party.p5 == nil then
 			local spell_recasts = windower.ffxi.get_spell_recasts()
@@ -1591,11 +1480,11 @@ end
 
 function check_auto_tank_ws()
 	if state.AutoWSMode.value and state.AutoTankMode.value and player.target.type == "MONSTER" and not moving and player.status == 'Engaged' and not silent_check_amnesia() then
-		if player.tp > 999 and relic_weapons:contains(player.equipment.main) and state.MaintainAftermath.value and (not buffactive['Aftermath']) then
+		if player.tp > 999 and data.equipment.relic_weapons:contains(player.equipment.main) and state.MaintainAftermath.value and (not buffactive['Aftermath']) then
 			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
 			tickdelay = os.clock() + 2
 			return true
-		elseif player.tp > 999 and (buffactive['Aftermath: Lv.3'] or not state.MaintainAftermath.value or not mythic_weapons:contains(player.equipment.main)) then
+		elseif player.tp > 999 and (buffactive['Aftermath: Lv.3'] or not state.MaintainAftermath.value or not data.equipment.mythic_weapons:contains(player.equipment.main)) then
 			windower.chat.input('/ws "'..autows..'" <t>')
 			tickdelay = os.clock() + 2
 			return true
@@ -1611,17 +1500,22 @@ end
 
 function check_use_item()
 	if useItem then
-		local CurrentTime = (os.time(os.date('!*t')) + time_offset)
+		local Offset = 18000-os.time()
+		
+		if time_test then
+			windower.add_to_chat(tostring(seconds_to_clock(get_usable_item('Warp Ring').next_use_time + Offset)))
+		end
+		
 		if useItemSlot == 'item' and (player.inventory[useItemName] or player.temporary[useItemName]) then
 			windower.chat.input('/item "'..useItemName..'" <me>')
 			tickdelay = os.clock() + 3.5
 			return true
 		elseif useItemSlot == 'set' then
-			if item_equipped(set_to_item(useItemName)) and get_item_next_use(set_to_item(useItemName)).usable then
+			if item_equipped(set_to_item(useItemName)) and get_usable_item(set_to_item(useItemName)).usable then
 				windower.chat.input('/item "'..set_to_item(useItemName)..'" <me>')
 				tickdelay = os.clock() + 3
 				return true
-			elseif item_available(set_to_item(useItemName)) and ((get_item_next_use(set_to_item(useItemName)).next_use_time) - CurrentTime) < 10 then
+			elseif item_available(set_to_item(useItemName)) and ((get_usable_item(set_to_item(useItemName)).next_use_time) + Offset) < 10 then
 				windower.send_command('gs c forceequip '..useItemSlot..' '..useItemName..'')
 				tickdelay = os.clock() + 2
 				return true
@@ -1634,11 +1528,11 @@ function check_use_item()
 				useItem = false
 				return false
 			end
-		elseif item_equipped(useItemName) and get_item_next_use(useItemName).usable then
+		elseif item_equipped(useItemName) and get_usable_item(useItemName).usable then
 			windower.chat.input('/item "'..useItemName..'" <me>')
 			tickdelay = os.clock() + 3
 			return true
-		elseif item_available(useItemName) and ((get_item_next_use(useItemName).next_use_time) - CurrentTime) < 10 then
+		elseif item_available(useItemName) and ((get_usable_item(useItemName).next_use_time) + Offset) < 10 then
 			windower.send_command('gs c forceequip '..useItemSlot..' '..useItemName..'')
 			tickdelay = os.clock() + 2
 			return true
@@ -1661,8 +1555,22 @@ function check_use_item()
 	return false
 end
 
+function check_lockstyle()
+	if state.AutoLockstyle.value and style_lock and os.clock() > style_delay then
+		if user_job_lockstyle then
+			user_job_lockstyle()
+		elseif user_lockstyle then
+			user_lockstyle()
+		else
+			windower.chat.input('/lockstyle on')
+		end
+		style_lock = false
+		style_delay = os.clock() + 13
+	end
+end
+
 function check_food()
-	if state.AutoFoodMode.value and not buffactive['Food'] and not areas.Cities:contains(world.area) then
+	if state.AutoFoodMode.value and not buffactive['Food'] and not data.areas.cities:contains(world.area) then
 	
 		if player.inventory[''..autofood..''] then
 			windower.chat.input('/item "'..autofood..'" <me>')
@@ -1738,13 +1646,13 @@ function check_ws()
 			windower.chat.input('/ws "Mystic Boon" <t>')
 			tickdelay = os.clock() + 2.8
 			return true
-		elseif player.target.distance > (3.2 + player.target.model_size) and not ranged_weaponskills:contains(autows) then
+		elseif player.target.distance > (3.2 + player.target.model_size) and not data.weaponskills.ranged:contains(autows) then
 			return false
-		elseif relic_weapons:contains(player.equipment.main) and state.MaintainAftermath.value and (not buffactive['Aftermath']) then
+		elseif data.equipment.relic_weapons:contains(player.equipment.main) and state.MaintainAftermath.value and (not buffactive['Aftermath']) then
 			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
 			tickdelay = os.clock() + 2.8
 			return true
-		elseif (buffactive['Aftermath: Lv.3'] or not state.MaintainAftermath.value or not mythic_weapons:contains(player.equipment.main)) and player.tp >= autowstp then
+		elseif (buffactive['Aftermath: Lv.3'] or not state.MaintainAftermath.value or not data.equipment.mythic_weapons:contains(player.equipment.main)) and player.tp >= autowstp then
 			windower.chat.input('/ws "'..autows..'" <t>')
 			tickdelay = os.clock() + 2.8
 			return true
@@ -1788,7 +1696,7 @@ function is_party_member(playerid)
 	return false
 end
 
-function get_item_next_use(name)--returns time that you can use the item again
+function get_usable_item(name)--returns time that you can use the item again
     for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4"}) do
         for _,v in pairs(gearswap.items[n]) do
             if type(v) == "table" and v.id ~= 0 and res.items[v.id].english:lower() == name:lower() then
@@ -1799,132 +1707,178 @@ function get_item_next_use(name)--returns time that you can use the item again
 end
 
 function cp_ring_equip(ring)--equips given ring
-	enable("left_ring")
-    gearswap.equip_sets('equip_command',nil,{left_ring=ring})
-    disable("left_ring")
+	enable("ring1")
+    gearswap.equip_sets('equip_command',nil,{ring1=ring})
+    disable("ring1")
 end
 
 function check_cpring()
---	local CurrentTime = (os.time(os.date("!*t", os.time())) + time_offset)
-	local CurrentTime = (os.time(os.date('!*t')) + time_offset)
+	local Offset = 18000-os.time()
 	
-	if player.main_job_level < 99 then
-			if player.equipment.head and player.equipment.head == 'Sprout Beret' and get_item_next_use(player.equipment.head).usable then
-				send_command('input /item "'..player.equipment.head..'" <me>')
+	if player.main_job_level < 99 or buffactive["Emporox's Gift"] then
+
+		if data.equipment.xprings:contains(player.equipment.left_ring) and get_usable_item(player.equipment.left_ring).usable then
+			send_command('input /item "'..player.equipment.left_ring..'" <me>')
+			cp_delay = 0
+			return true
+		end
+
+		if item_available('Sprout Beret') then
+			local sprout_beret = get_usable_item('Sprout Beret')
+			if player.equipment.head and player.equipment.head == 'Sprout Beret' and sprout_beret.usable then
+				windower.chat.input('/item "'..player.equipment.head..'" <me>')
 				cp_delay = 0
 				return true
 			   
-			elseif item_available('Sprout Beret') and ((get_item_next_use('Sprout Beret').next_use_time) - CurrentTime) < 15 and (get_item_next_use('Sprout Beret').charges_remaining > 0) then
+			elseif ((sprout_beret.next_use_time + Offset) < 6 and sprout_beret.charges_remaining > 0) then
 				enable("head")
 				gearswap.equip_sets('equip_command',nil,{head="Sprout Beret"})
 				disable("head")
 				cp_delay = 10
 				return true
-			   
-			elseif player.equipment.left_ring == 'Echad Ring' and get_item_next_use('Echad Ring').usable then
-				send_command('input /item "'..player.equipment.left_ring..'" <me>')
-				cp_delay = 0
-				return true
-			elseif item_available('Echad Ring') and ((get_item_next_use('Echad Ring').next_use_time) - CurrentTime) < 15 then
+			end
+		end
+		
+		if item_available('Echad Ring') then
+			local echad_ring = get_usable_item('Echad Ring')
+		
+			if ((echad_ring.next_use_time + Offset) < 6 and echad_ring.charges_remaining > 0) then
 				cp_ring_equip('Echad Ring')
 				cp_delay = 10
 				return true
+			end
+		end
 			   
-			elseif player.equipment.left_ring == 'Caliber Ring' and get_item_next_use('Caliber Ring').usable then
-				send_command('input /item "'..player.equipment.left_ring..'" <me>')
-				cp_delay = 0
-				return true
-			elseif item_available('Caliber Ring') and ((get_item_next_use('Caliber Ring').next_use_time) - CurrentTime) < 15 then
+		if item_available('Caliber Ring') then
+			local caliber_ring = get_usable_item('Caliber Ring')
+		
+			if ((caliber_ring.next_use_time + Offset) < 6 and caliber_ring.charges_remaining > 0) then
 				cp_ring_equip('Caliber Ring')
 				cp_delay = 10
 				return true
-			   
-			elseif player.equipment.left_ring == 'Emperor Band' and get_item_next_use('Emperor Band').usable then
-				send_command('input /item "'..player.equipment.left_ring..'" <me>')
-				cp_delay = 0
-				return true
-			elseif item_available('Emperor Band') and ((get_item_next_use('Emperor Band').next_use_time) - CurrentTime) < 15 then
+			end
+		end
+
+		if item_available('Emperor Band') then
+			local emperor_band = get_usable_item('Emperor Band')
+		
+			if ((emperor_band.next_use_time + Offset) < 6 and emperor_band.charges_remaining > 0) then
 				cp_ring_equip('Emperor Band')
 				cp_delay = 10
 				return true
-				
-			elseif player.equipment.left_ring == 'Empress Band' and get_item_next_use('Empress Band').usable then
-				send_command('input /item "'..player.equipment.left_ring..'" <me>')
-				cp_delay = 0
-				return true
-			elseif item_available('Empress Band') and ((get_item_next_use('Empress Band').next_use_time) - CurrentTime) < 15 then
+			end
+		end
+
+		if item_available('Empress Band') then
+			local empress_band = get_usable_item('Empress Band')
+		
+			if ((empress_band.next_use_time + Offset) < 6 and empress_band.charges_remaining > 0) then
 				cp_ring_equip('Empress Band')
 				cp_delay = 10
 				return true
-				
-			elseif player.equipment.left_ring == 'Resolution Ring' and get_item_next_use('Resolution Ring').usable then
-				send_command('input /item "'..player.equipment.left_ring..'" <me>')
-				cp_delay = 0
-				return true
-			elseif item_available('Resolution Ring') and ((get_item_next_use('Resolution Ring').next_use_time) - CurrentTime) < 15 then
+			end
+		end
+		
+		if item_available('Resolution Ring') then
+			local resolution_ring = get_usable_item('Resolution Ring')
+		
+			if ((resolution_ring.next_use_time + Offset) < 6 and resolution_ring.charges_remaining > 0) then
 				cp_ring_equip('Resolution Ring')
 				cp_delay = 10
 				return true
-	 
-			else
-				cp_delay = 0
-				return false
 			end
-		
-	elseif cprings:contains(player.equipment.left_ring) and get_item_next_use(player.equipment.left_ring).usable then
-		send_command('input /item "'..player.equipment.left_ring..'" <me>')
-		cp_delay = 0
-		return true
+		end
+	end
+
+	if player.main_job_level == 99 then
 	
-	elseif player.equipment.head and player.equipment.head == 'Guide Beret' and get_item_next_use(player.equipment.head).usable then
-		send_command('input /item "'..player.equipment.head..'" <me>')
-		cp_delay = 0
-		return true
+		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent == 2100 and not buffactive["Emporox's Gift"] then
+			if item_available("Emporox's Ring") then
+				local emporox_ring = get_usable_item("Emporox's Ring")
+				if player.equipment.left_ring and player.equipment.left_ring == "Emporox's Ring" and emporox_ring.usable then
+					windower.chat.input('/item "Emporox\'s Ring" <me>')
+					cp_delay = 0
+					return true
+				   
+				elseif ((emporox_ring.next_use_time + Offset) < 6 and emporox_ring.charges_remaining > 0) then
+					cp_ring_equip("Emporox's Ring")
+					cp_delay = 10
+					return true
+				end
+			end
+		end
 		
-	elseif item_available('Guide Beret') and ((get_item_next_use('Guide Beret').next_use_time) - CurrentTime) < 15 and (get_item_next_use('Guide Beret').charges_remaining > 0) then
-		enable("head")
-		gearswap.equip_sets('equip_command',nil,{head="Guide Beret"})
-		disable("head")
-		cp_delay = 10
-		return true
-  
-  elseif item_available('Endorsement Ring') and ((get_item_next_use('Endorsement Ring').next_use_time) - CurrentTime) < 15 then
-		cp_ring_equip('Endorsement Ring')
-		cp_delay = 10
-		return true
+		if data.equipment.cprings:contains(player.equipment.left_ring) and get_usable_item(player.equipment.left_ring).usable then
+			send_command('input /item "'..player.equipment.left_ring..'" <me>')
+			cp_delay = 0
+			return true
+		end
 		
-	elseif item_available('Trizek Ring') and ((get_item_next_use('Trizek Ring').next_use_time) - CurrentTime) < 15 then
-		cp_ring_equip('Trizek Ring')
-		cp_delay = 10
-		return true
+		if item_available('Guide Beret') then
+			local guide_beret = get_usable_item('Guide Beret')
+			if player.equipment.head and player.equipment.head == 'Guide Beret' and guide_beret.usable then
+				windower.chat.input('/item "'..player.equipment.head..'" <me>')
+				cp_delay = 0
+				return true
+			   
+			elseif ((guide_beret.next_use_time + Offset) < 6 and guide_beret.charges_remaining > 0) then
+				enable("head")
+				gearswap.equip_sets('equip_command',nil,{head="Guide Beret"})
+				disable("head")
+				cp_delay = 10
+				return true
+			end
+		end
+
+		if item_available('Endorsement Ring') then
+			local endorsement_ring = get_usable_item('Endorsement Ring')
 		
-	elseif item_available('Capacity Ring') and ((get_item_next_use('Capacity Ring').next_use_time) - CurrentTime) < 15 and (get_item_next_use('Capacity Ring').charges_remaining > 0) then
-		cp_ring_equip('Capacity Ring')
-		cp_delay = 10
-		return true
-			
-	elseif item_available('Vocation Ring') and ((get_item_next_use('Vocation Ring').next_use_time) - CurrentTime) < 15 and (get_item_next_use('Vocation Ring').charges_remaining > 0) then
-		cp_ring_equip('Vocation Ring')
-		cp_delay = 10
-		return true
+			if ((endorsement_ring.next_use_time + Offset) < 6 and endorsement_ring.charges_remaining > 0) then
+				cp_ring_equip('Endorsement Ring')
+				cp_delay = 10
+				return true
+			end
+		end
+
+		if item_available('Trizek Ring') then
+			local trizek_ring = get_usable_item('Trizek Ring')
+		
+			if ((trizek_ring.next_use_time + Offset) < 6 and trizek_ring.charges_remaining > 0) then
+				cp_ring_equip('Trizek Ring')
+				cp_delay = 10
+				return true
+			end
+		end
+
+		if item_available('Capacity Ring') then
+			local capacity_ring = get_usable_item('Capacity Ring')
+		
+			if ((capacity_ring.next_use_time + Offset) < 6 and capacity_ring.charges_remaining > 0) then
+				cp_ring_equip('Capacity Ring')
+				cp_delay = 10
+				return true
+			end
+		end
 	
-	elseif item_available('Facility Ring') and ((get_item_next_use('Facility Ring').next_use_time) - CurrentTime) < 15 and (get_item_next_use('Facility Ring').charges_remaining > 0) then
-		cp_ring_equip('Facility Ring')
-		cp_delay = 10
-		return true
-	
-	elseif player.equipment.head and player.equipment.head == 'Guide Beret' and (((get_item_next_use(player.equipment.head).next_use_time) - CurrentTime) > 15 or (get_item_next_use(player.equipment.head).charges_remaining == 0)) then
-		enable("head")
-		handle_equipping_gear(player.status)
-		cp_delay = 19
-		return true
+		if item_available('Vocation Ring') then
+			local vocation_ring = get_usable_item('Vocation Ring')
 		
-	elseif cprings:contains(player.equipment.left_ring) and (((get_item_next_use(player.equipment.left_ring).next_use_time) - CurrentTime) > 15 or (get_item_next_use(player.equipment.left_ring).charges_remaining == 0)) then
-		enable("left_ring")
-		handle_equipping_gear(player.status)
-		cp_delay = 19
-		return true
-	
+			if ((vocation_ring.next_use_time + Offset) < 6 and vocation_ring.charges_remaining > 0) then
+				cp_ring_equip('Vocation Ring')
+				cp_delay = 10
+				return true
+			end
+		end
+
+		if item_available('Facility Ring') then
+			local facility_ring = get_usable_item('Facility Ring')
+		
+			if ((facility_ring.next_use_time + Offset) < 6 and facility_ring.charges_remaining > 0) then
+				cp_ring_equip('Facility Ring')
+				cp_delay = 10
+				return true
+			end
+		end
 	end
 	
 	cp_delay = 0
@@ -1934,21 +1888,21 @@ end
 function check_cpring_buff()-- returs true if you do not have the buff from xp cp ring
 	cp_delay = cp_delay + 1
 	
-	if time_test then
-		local CurrentTime = (os.time(os.date("!*t", os.time())) + time_offset)
-		windower.add_to_chat(123,"Capacity Ring Next Use: "..(get_item_next_use('Capacity Ring').next_use_time - CurrentTime).."")
-	end
-	
-	if state.Capacity.value and cp_delay > 20 and not moving and not areas.Cities:contains(world.area) then
+	if state.Capacity.value and cp_delay > 20 and not moving and not data.areas.cities:contains(world.area) then
 	
 		if player.satchel['Mecisto. Mantle'] then send_command('get "Mecisto. Mantle" satchel;wait 2;gs c update') end
-    if player.satchel['Endorsement Ring'] then send_command('get "Endorsement Ring" satchel') end
+		if player.satchel['Endorsement Ring'] then send_command('get "Endorsement Ring" satchel') end
 		if player.satchel['Trizek Ring'] then send_command('get "Trizek Ring" satchel') end
 		if player.satchel['Capacity Ring'] then send_command('get "Capacity Ring" satchel') end
 		if player.satchel['Vocation Ring'] then send_command('get "Vocation Ring" satchel') end
 		if player.satchel['Facility Ring'] then send_command('get "Facility Ring" satchel') end
 		if player.satchel['Guide Beret'] then send_command('get "Guide Beret" satchel') end
-		if player.satchel['Echad Ring'] and player.main_job_level < 99 then send_command('get "Echad Ring" satchel') end
+		if player.main_job_level < 99 or buffactive["Emporox's Gift"] then
+			if player.satchel['Echad Ring'] then send_command('get "Echad Ring" satchel') end
+			if player.satchel['Caliber Ring'] then send_command('get "Caliber Ring" satchel') end
+		elseif player.satchel["Emporox's Ring"] and player.main_job_level == 99 and player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent == 2100 then
+			send_command('get "Emporox\'s Ring" satchel')
+		end
 	
 		if buffactive['Commitment'] then
 			return false
@@ -1996,6 +1950,75 @@ function has_shadows()
 		return 1
 	else
 		return 0
+	end
+end
+
+function check_shadows()
+	if not state.AutoShadowMode.value or moving or data.areas.cities:contains(world.area) then return false end
+	local spell_recasts = windower.ffxi.get_spell_recasts()
+	local currentshadows = has_shadows()
+	if player.main_job == 'NIN' then
+		if currentshadows < 3 and player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 99 and spell_recasts[340] < spell_latency then
+			windower.chat.input('/ma "Utsusemi: San" <me>')
+			tickdelay = os.clock() + 1.8
+			return true
+		elseif currentshadows < 2 then
+			if spell_recasts[339] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ni" <me>')
+				tickdelay = os.clock() + 1.8
+				return true
+			elseif spell_recasts[338] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ichi" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	elseif player.sub_job == 'NIN' then
+		if currentshadows < 2 then
+			if spell_recasts[339] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ni" <me>')
+				tickdelay = os.clock() + 1.8
+				return true
+			elseif spell_recasts[338] < spell_latency then
+				windower.chat.input('/ma "Utsusemi: Ichi" <me>')
+				tickdelay = os.clock() + 2
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	elseif currentshadows == 0 then
+		if player.main_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
+			windower.chat.input('/ja "Third Eye" <me>')
+			tickdelay = os.clock() + 1.1
+			return true
+		elseif silent_can_use(679) and spell_recasts[679] < spell_latency then
+			windower.chat.input('/ma "Occultation" <me>')
+			tickdelay = os.clock() + 2
+			return true
+		elseif silent_can_use(53) and spell_recasts[53] < spell_latency then
+			windower.chat.input('/ma "Blink" <me>')
+			tickdelay = os.clock() + 2
+			return true
+		elseif silent_can_use(647) and spell_recasts[647] < spell_latency then
+			windower.chat.input('/ma "Zephyr Mantle" <me>')
+			tickdelay = os.clock() + 2
+			return true
+		elseif player.sub_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
+			windower.chat.input('/ja "Third Eye" <me>')
+			tickdelay = os.clock() + 1.1
+			return true
+		else
+			return false
+		end
+	else
+		return false
 	end
 end
 
@@ -2131,24 +2154,23 @@ function check_ammo()
 
 	if state.AutoAmmoMode.value and player.equipment.range and not player.in_combat and not world.in_mog_house and not useItem then
 		local ammo_to_stock
-		if type(ammostock) == 'table' and ammostock[rema_ranged_weapons_ammo[player.equipment.range]] then
-			ammo_to_stock = ammostock[rema_ranged_weapons_ammo[player.equipment.range]]
+		if type(ammostock) == 'table' and ammostock[data.equipment.rema_ranged_weapons_ammo[player.equipment.range]] then
+			ammo_to_stock = ammostock[data.equipment.rema_ranged_weapons_ammo[player.equipment.range]]
 		else
 			ammo_to_stock = ammostock
 		end
 	
-		if rema_ranged_weapons:contains(player.equipment.range) and count_total_ammo(rema_ranged_weapons_ammo[player.equipment.range]) < ammo_to_stock then
-			if get_item_next_use(player.equipment.range).usable then
+		if data.equipment.rema_ranged_weapons:contains(player.equipment.range) and count_total_ammo(data.equipment.rema_ranged_weapons_ammo[player.equipment.range]) < ammo_to_stock then
+			if get_usable_item(player.equipment.range).usable then
 				windower.chat.input("/item '"..player.equipment.range.."' <me>")
-				add_to_chat(217,"You're low on "..rema_ranged_weapons_ammo[player.equipment.range]..", using "..player.equipment.range..".")
+				add_to_chat(217,"You're low on "..data.equipment.rema_ranged_weapons_ammo[player.equipment.range]..", using "..player.equipment.range..".")
 				tickdelay = os.clock() + 2
 				return true
-			elseif item_available(rema_ranged_weapons_ammo_pouch[player.equipment.range]) then
-				local CurrentTime = (os.time(os.date('!*t')) + time_offset)
-				if ((get_item_next_use(rema_ranged_weapons_ammo_pouch[player.equipment.range]).next_use_time) - CurrentTime) < 10 then
-					add_to_chat(217,"You're low on "..rema_ranged_weapons_ammo[player.equipment.range]..", using "..rema_ranged_weapons_ammo_pouch[player.equipment.range]..".")
+			elseif item_available(data.equipment.rema_ranged_weapons_ammo_pouch[player.equipment.range]) then
+				if ((get_usable_item(data.equipment.rema_ranged_weapons_ammo_pouch[player.equipment.range]).next_use_time) + 18000 -os.time()) < 10 then
+					add_to_chat(217,"You're low on "..data.equipment.rema_ranged_weapons_ammo[player.equipment.range]..", using "..data.equipment.rema_ranged_weapons_ammo_pouch[player.equipment.range]..".")
 					useItem = true
-					useItemName = rema_ranged_weapons_ammo_pouch[player.equipment.range]
+					useItemName = data.equipment.rema_ranged_weapons_ammo_pouch[player.equipment.range]
 					useItemSlot = 'waist'
 					return true
 				end				
@@ -2182,16 +2204,6 @@ function count_total_ammo(ammo_name)
 	return ammo_count
 end
 
-function check_shadows()
-	if not state.AutoShadowMode.value or moving or areas.Cities:contains(world.area) then 
-		return false
-	elseif handle_shadows() then
-		return true
-	else
-		return false
-	end
-end
-
 function check_rune()
 
 	if state.AutoRuneMode.value and (player.main_job == 'RUN' or player.sub_job == 'RUN') then
@@ -2199,42 +2211,47 @@ function check_rune()
 
 		if player.main_job == 'RUN' and (not buffactive[state.RuneElement.value] or buffactive[state.RuneElement.value] < 3) then
 			if abil_recasts[92] > 0 then return false end		
-			send_command('input /ja "'..state.RuneElement.value..'" <me>')
+			windower.chat.input('/ja "'..state.RuneElement.value..'" <me>')
 			tickdelay = os.clock() + 1.8
 			return true
 
 		elseif not buffactive[state.RuneElement.value] or buffactive[state.RuneElement.value] < 2 then
 			if abil_recasts[92] > 0 then return false end		
-			send_command('input /ja "'..state.RuneElement.value..'" <me>')
+			windower.chat.input('/ja "'..state.RuneElement.value..'" <me>')
+			tickdelay = os.clock() + 1.8
+			return true
+
+		elseif player.main_job == 'RUN' and abil_recasts[242] < latency and (player.hpp < 50 or (state.RuneElement.Value == 'Tenebrae' and player.mpp < 75)) then
+			windower.chat.input('/ja "Vivacious Pulse" <me>')
 			tickdelay = os.clock() + 1.8
 			return true
 			
 		elseif not player.in_combat then
 			return false
 			
-		elseif not buffactive['Pflug'] then
-			if abil_recasts[59] < latency then
-				send_command('input /ja "Pflug" <me>')
-				tickdelay = os.clock() + 1.8
-				return true
+		elseif not buffactive['Pflug'] and abil_recasts[59] < latency then
+			windower.chat.input('/ja "Pflug" <me>')
+			tickdelay = os.clock() + 1.8
+			return true
+		elseif player.main_job == 'RUN' then
+			if not (state.Buff['Vallation'] or state.Buff['Valiance']) then
+				if abil_recasts[113] < latency then
+					windower.chat.input('/ja "Valiance" <me>')
+					tickdelay = os.clock() + 2.5
+					return true
+				elseif abil_recasts[23] < latency then
+					windower.chat.input('/ja "Vallation" <me>')
+					tickdelay = os.clock() + 2.5
+					return true
+				end
 			end
-			
 		elseif not (buffactive['Vallation'] or buffactive['Valiance']) then
-			if player.main_job == 'RUN' and abil_recasts[113] < latency then
-				send_command('input /ja "Valiance" <me>')
+			if abil_recasts[23] < latency then
+				windower.chat.input('/ja "Vallation" <me>')
 				tickdelay = os.clock() + 2.5
 				return true
-			elseif abil_recasts[23] < latency then
-				send_command('input /ja "Vallation" <me>')
-				tickdelay = os.clock() + 2.5
-				return true
-			else
-				return false
 			end
-		else
-			return false
 		end
-	
 	end
 	
 	return false
@@ -2265,8 +2282,8 @@ function is_fencing()
 end
 
 function main_weapon_is_one_handed()
-	if player.equipment.main == nil then return false end
-	return S{2,3,5,9,11}:contains(res.items[item_name_to_id(player.equipment.main)].skill) or false
+	if player.equipment.main == nil or player.equipment.main == 'empty' then return false end
+	return data.skills.one_handed_combat:contains(res.items[item_name_to_id(player.equipment.main)].skill) or false
 end
 
 -- Generic combat form handling
@@ -2291,7 +2308,21 @@ function update_combat_form()
 end
 
 function item_name_to_id(name)
-    return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or {}).id
+    return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or {id=nil}).id
+end
+
+function get_item_table(item)
+	if item then
+		local item_type = type(item)
+			
+		if item_type == 'string' then
+			return res.items[item_name_to_id(item)] or nil
+		elseif item_type == 'table' then
+			return res.items[item_name_to_id(item.name)] or nil
+		end
+	else
+		return nil
+	end
 end
 
 function set_to_item(set)
@@ -2367,18 +2398,21 @@ windower.raw_register_event('outgoing chunk',function(id,data,modified,is_inject
         lastlocation = modified:sub(5, 16)
 		
 		if wasmoving ~= moving then
-			if moving and buffup~= '' then
-				buffup = ''
-				add_to_chat(123,'Buffup cancelled due to movement.')
-			end
-			if not (midaction() or pet_midaction()) then
+			if not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
 				send_command('gs c forceequip')
 			end
 		end
-		
+
 		if moving then
+			if player.movement_speed <= 5 and sets.Kiting and not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
+				send_command('gs c forceequip')
+			end
 			if state.RngHelper.value then
 				send_command('gs rh clear')
+			end
+			if buffup~= '' then
+				buffup = ''
+				add_to_chat(123,'Buffup cancelled due to movement.')
 			end
 			
 			if not state.Uninterruptible.value then delayed_cast = '' end
@@ -2395,7 +2429,7 @@ fixed_pos = ''
 
 windower.raw_register_event('outgoing chunk',function(id,original,modified,injected,blocked)
 	if not blocked and id == 0x15 and state.Uninterruptible.value then
-		if player.status ~= 'Event' and (gearswap.cued_packet or midaction()) and fixed_pos ~= '' then
+		if player.status ~= 'Event' and (gearswap.cued_packet or check_midaction()) and fixed_pos ~= '' then
 			return original:sub(1,4)..fixed_pos..original:sub(17)
 		else
 			fixed_pos = original:sub(5,16)
@@ -2408,15 +2442,15 @@ function get_effective_player_tp(spell, WSset)
 	local effective_tp = player.tp
 	if is_fencing() then effective_tp = effective_tp + get_fencer_tp_bonus(WSset) end
 	if buffactive['Crystal Blessing'] then effective_tp = effective_tp + 250 end
-	if magian_tp_bonus_melee_weapons:contains(player.equipment.sub) then effective_tp = effective_tp + 1000 end
-	if magian_tp_bonus_ranged_weapons:contains(player.equipment.range) then effective_tp = effective_tp + 1000 end
+	if data.equipment.magian_tp_bonus_melee_weapons:contains(player.equipment.sub) then effective_tp = effective_tp + 1000 end
+	if data.equipment.magian_tp_bonus_ranged_weapons:contains(player.equipment.range) then effective_tp = effective_tp + 1000 end
 	if state.Buff['Warcry'] and player.main_job == "WAR" and lastwarcry == player.name then effective_tp = effective_tp + warcry_tp_bonus end
 	if WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring" then effective_tp = effective_tp + 250 end
 	
-	if S{25,26}:contains(spell.skill) then
-		if aeonic_weapons:contains(player.equipment.range) then effective_tp = effective_tp + 500 end
+	if spell.skill == 25 or spell.skill == 26 then
+		if data.equipment.aeonic_weapons:contains(player.equipment.range) then effective_tp = effective_tp + 500 end
 	else
-		if aeonic_weapons:contains(player.equipment.main) then effective_tp = effective_tp + 500 end
+		if data.equipment.aeonic_weapons:contains(player.equipment.main) then effective_tp = effective_tp + 500 end
 	end
 
 	return effective_tp
@@ -2426,7 +2460,7 @@ function standardize_set(set)
 	local standardized_set = {}
 	
     for slot, inner in pairs(set) do
-		if slot_names:contains(slot) then
+		if data.slots.slot_names:contains(slot) then
 			if type(inner) == 'table' then
 				standardized_set[slot] = inner.name
 			else
@@ -2444,42 +2478,55 @@ function standardize_set(set)
 	return standardized_set
 end
 
-function get_fencer_tp_bonus(WSset)
-	local fencer_tp_bonus = 0
-	local fencer_tier_bonuses = {[0]=0,[1]=200,[2]=300,[3]=400,[4]=450,[5]=500,[6]=550,[7]=600,[8]=660,[9]=730}
-	local fencer_tp_bonus = fencer_tier_bonuses[base_fencer_tier] + jp_fencer_tp_bonus
-	
-	if WSset.legs then
-		if WSset.legs == 'Boii Cuisses' then fencer_tp_bonus = fencer_tp_bonus + 50 
-		elseif WSset.legs and WSset.legs == 'Boii Cuisses +1' then fencer_tp_bonus = fencer_tp_bonus + 100
+do
+	local fencer_tier_bonuses = {[0]=0,[1]=200,[2]=300,[3]=400,[4]=450,[5]=500,[6]=550,[7]=600}
+	function get_fencer_tp_bonus(WSset)
+		local fencer_tp_bonus = 0
+		local adjusted_fencer_tier = base_fencer_tier
+		
+		if WSset.legs and WSset.legs:startswith('Boii Cuisses') then 
+			if WSset.legs:endswith('+1') then
+				adjusted_fencer_tier = adjusted_fencer_tier + 2
+			else
+				adjusted_fencer_tier = adjusted_fencer_tier + 1
+			end
 		end
-	end
-	if WSset.neck then
-		if WSset.neck:contains('War. Beads') or WSset.neck:contains("Warrior's Beads") then
-			fencer_tp_bonus = fencer_tp_bonus + 50
+		if WSset.neck and (WSset.neck:contains('War. Beads') or WSset.neck:contains("Warrior's Beads")) then
+			adjusted_fencer_tier = adjusted_fencer_tier + 1
 		end
+		if WSset.sub and WSset.sub == 'Blurred Shield +1' then
+			adjusted_fencer_tier = adjusted_fencer_tier + 1
+		end
+		if WSset.hands and WSset.hands == 'Agoge Mufflers +3' then
+			adjusted_fencer_tier = adjusted_fencer_tier + 1
+		end	
+
+		if adjusted_fencer_tier > 7 then
+			fencer_tp_bonus = 630
+		else
+			fencer_tp_bonus = fencer_tier_bonuses[adjusted_fencer_tier]
+		end
+		
+		fencer_tp_bonus = fencer_tp_bonus + jp_fencer_tp_bonus
+		return fencer_tp_bonus
 	end
-	
-	if player.equipment.sub and player.equipment.sub == 'Blurred Shield +1' then fencer_tp_bonus = fencer_tp_bonus + 50 end
-	
-	return fencer_tp_bonus
 end
 
 function get_fencer_gifts()
 	local war_fencer_gift_tiers = {[80]=50,[405]=50,[980]=60,[1805]=70}
 	local bst_fencer_gift_tiers = {[150]=50,[500]=50,[1125]=60,[2000]=70}
-	local jp_spent_on_war = windower.ffxi.get_player().job_points[string.lower(player.main_job)].jp_spent
+	local jp_spent_on_job = windower.ffxi.get_player().job_points[string.lower(player.main_job)].jp_spent
 	local tp_bonus_from_jp = 0
 	
 	if player.main_job == "WAR" then
 		for tier_threshold,tp_bonus in ipairs(war_fencer_gift_tiers) do
-			if jp_spent_on_war >= tier_threshold then
+			if jp_spent_on_job >= tier_threshold then
 				tp_bonus_from_jp = tp_bonus_from_jp + tp_bonus
 			end
 		end
 	elseif player.main_job == "BST" then
 		for tier_threshold,tp_bonus in ipairs(bst_fencer_gift_tiers) do
-			if jp_spent_on_war >= tier_threshold then
+			if jp_spent_on_job >= tier_threshold then
 				tp_bonus_from_jp = tp_bonus_from_jp + tp_bonus
 			end
 		end
@@ -2526,3 +2573,65 @@ function get_warcry_tp_bonus()
 end
 
 warcry_tp_bonus = get_warcry_tp_bonus()
+
+function set_dual_wield()
+	if (data.jobs.dual_wield_jobs:contains(player.main_job) or (player.sub_job == 'DNC' or player.sub_job == 'NIN')) then
+		can_dual_wield = true
+	else
+		can_dual_wield = false
+	end
+end
+
+function get_closest_mob_id_by_name(name)
+	local name = get_fuzzy_name(name)
+	local mobs = windower.ffxi.get_mob_array()
+	local fuzzy_list = T{}
+	local best_match = T{}
+
+	for i, mob in pairs(mobs) do
+		if mob.valid_target then
+			local fuzzy_mob_name = get_fuzzy_name(mob.name)
+			if (name:length() >= 3 and fuzzy_mob_name:contains(name)) or fuzzy_mob_name == name then
+				fuzzy_list[mob.id] = mob
+				fuzzy_list[mob.id].score = fuzzy_mob_name:length() - name:length()
+			end
+		end
+	end
+	
+	for i, mob in pairs(fuzzy_list) do
+		if (not best_match.score or mob.score < best_match.score) or (mob.score == best_match.score and (mob.distance < best_match.distance)) then
+			best_match = mob
+		end
+	end
+
+	return best_match.id or false
+end
+
+function get_closest_mob_by_name(name)
+	local name = get_fuzzy_name(name)
+	local mobs = windower.ffxi.get_mob_array()
+	local fuzzy_list = T{}
+	local best_match = T{}
+
+	for i, mob in pairs(mobs) do
+		if mob.valid_target then
+			local fuzzy_mob_name = get_fuzzy_name(mob.name)
+			if (name:length() >= 3 and fuzzy_mob_name:contains(name)) or fuzzy_mob_name == name then
+				fuzzy_list[mob.id] = mob
+				fuzzy_list[mob.id].score = fuzzy_mob_name:length() - name:length()
+			end
+		end
+	end
+	
+	for i, mob in pairs(fuzzy_list) do
+		if (not best_match.score or mob.score < best_match.score) or (mob.score == best_match.score and (mob.distance < best_match.distance)) then
+			best_match = mob
+		end
+	end
+
+	return best_match or false
+end
+
+function get_fuzzy_name(name)
+	return name:lower():gsub("%s", ""):gsub("%p", "")
+end

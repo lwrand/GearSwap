@@ -138,13 +138,14 @@ end
 
 -- Set locked TH flag to false, and enable relevant gear slots.
 function unlock_TH()
-	if state.TreasureMode.value == 'None' then return end
-    state.th_gear_is_locked = false
-    local slots = T{}
-    for slot,item in pairs(sets.TreasureHunter) do
-        slots:append(slot)
-    end
-    enable(slots)
+	if state.th_gear_is_locked then
+		local slots = T{}
+		for slot,item in pairs(sets.TreasureHunter) do
+			slots:append(slot)
+		end
+		enable(slots)
+	end
+	state.th_gear_is_locked = false
     send_command('gs c update auto')
 end
 
@@ -174,20 +175,18 @@ end
 -- On engaging a mob, attempt to add TH gear.  For any other status change, unlock TH gear slots.
 function on_status_change_for_th(new_status_id, old_status_id)
 	if not (gearswap and gearswap.res and gearswap.res.statuses and new_status_id and old_status_id) then return end
-    if gearswap.gearswap_disabled or T{2,3,4}:contains(old_status_id) or T{2,3,4}:contains(new_status_id) then return end
-
-    local new_status = gearswap.res.statuses[new_status_id].english or 'None'
-    local old_status = gearswap.res.statuses[old_status_id].english or 'None'
-
-    if new_status == 'Engaged' then
-        if _settings.debug_mode then add_to_chat(123,'Engaging '..player.target.id..'.') end
-        info.last_player_target_index = player.target.index
-        TH_for_first_hit()
-    elseif old_status == 'Engaged' then
-        if _settings.debug_mode and state.th_gear_is_locked then add_to_chat(123,'Disengaging. Unlocking TH.') end
-        info.last_player_target_index = 0
-        unlock_TH()
-    end
+    if gearswap.gearswap_disabled then return end
+	
+	-- 1 Is the status ID for Engaged.
+	if new_status_id == 1 then
+		if _settings.debug_mode then add_to_chat(123,'Engaging '..player.target.id..'.') end
+		info.last_player_target_index = player.target.index
+		TH_for_first_hit()
+	elseif old_status_id == 1 then
+		if _settings.debug_mode and state.th_gear_is_locked then add_to_chat(123,'Disengaging. Unlocking TH.') end
+		info.last_player_target_index = 0
+		unlock_TH()
+	end
 end
 
 
