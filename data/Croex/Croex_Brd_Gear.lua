@@ -69,7 +69,7 @@ function init_gear_sets()
 	sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
 	
 	sets.precast.FC.BardSong = {
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		head="Fili Calot +1",
 		body="Inyanga Jubbah +2",
@@ -88,7 +88,7 @@ function init_gear_sets()
 	sets.precast.FC.SongDebuff = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
 	sets.precast.FC.SongDebuff.Resistant = set_combine(sets.precast.FC.BardSong,{range="Gjallarhorn"})
 	sets.precast.FC['Magic Finale'] = set_combine(sets.precast.FC.BardSong,{
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
@@ -106,7 +106,7 @@ function init_gear_sets()
 	sets.precast.FC['Horde Lullaby'] = set_combine(sets.precast.FC.BardSong,{})
 	sets.precast.FC['Horde Lullaby'].Resistant = set_combine(sets.precast.FC.BardSong,{})
 	sets.precast.FC['Horde Lullaby'].AoE = set_combine(sets.precast.FC.BardSong,{
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
@@ -121,7 +121,7 @@ function init_gear_sets()
 		ear1="Regal Earring"
 	})
 	sets.precast.FC['Horde Lullaby II'] = set_combine(sets.precast.FC.BardSong,{
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
@@ -136,7 +136,7 @@ function init_gear_sets()
 		ear1="Regal Earring"
 	})
 	sets.precast.FC['Horde Lullaby II'].Resistant = set_combine(sets.precast.FC.BardSong,{
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
@@ -151,7 +151,7 @@ function init_gear_sets()
 		ear1="Regal Earring"
 	})
 	sets.precast.FC['Horde Lullaby II'].AoE = set_combine(sets.precast.FC.BardSong,{
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		head="Brioso Roundlet +3",
 		body="Brioso Justaucorps +3",
@@ -202,6 +202,22 @@ function init_gear_sets()
 		waist="Prosilio Belt +1"
 	})
 	
+	sets.precast.WS["Mordant Rime"] = set_combine(sets.precast.WS, {
+		range="Linos",
+		head="Bihu Roundlet +3",
+		hands="Bihu Cuffs +3",
+		legs="Bihu Cannions +3",
+		feet="Bihu Slippers +3",
+		body="Bihu Justaucorps +3",
+		neck="Bard's Charm +2",
+		ear1="Regal Earring",
+		ear2="Ishvara Earring",
+		ring1="Karieyh Ring +1",
+		ring2="Ilabrat Ring",
+		back={name="Intarabus's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}},
+		waist="Grunfeld Rope"
+	})
+	
 	-- Swap to these on Moonshade using WS if at 3000 TP
 	sets.MaxTP = {ear1="Ishvara Earring",ear2="Telos Earring",}
 	sets.AccMaxTP = {ear1="Zennaroi Earring",ear2="Telos Earring"}
@@ -232,7 +248,7 @@ function init_gear_sets()
 	-- Gear to enhance certain classes of songs.  No instruments added here since Gjallarhorn is being used.
 	sets.midcast.Lullaby = {}
 	sets.midcast['Horde Lullaby'] = {
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		range="Marsyas",
 		head="Brioso Roundlet +3",
@@ -271,7 +287,7 @@ function init_gear_sets()
 	
 	-- For song buffs (duration and AF3 set bonus)
 	sets.midcast.SongEffect = {
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		range="Gjallarhorn",
 		head="Fili Calot +1",
@@ -290,7 +306,7 @@ function init_gear_sets()
 
 	-- For song defbuffs (duration primary, accuracy secondary)
 	sets.midcast.SongDebuff = {
-		main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
+		main="Carnwenhan",
 		sub="Ammurapi Shield",
 		range="Gjallarhorn", --more duration with "Marsyas"
 		head="Brioso Roundlet +3",
@@ -308,7 +324,7 @@ function init_gear_sets()
 	}
 
 	-- For song defbuffs (accuracy primary, duration secondary)
-	sets.midcast.SongDebuff.Resistant = {main="Kali",sub="Ammurapi Shield",range="Gjallarhorn",ammo=empty,
+	sets.midcast.SongDebuff.Resistant = {main="Carnwenhan",sub="Ammurapi Shield",range="Gjallarhorn",ammo=empty,
 		head="Aya. Zucchetto +2",neck="Moonbow Whistle +1",ear1="Gwati Earring",ear2="Digni. Earring",
 		body="Inyanga Jubbah +2",hands="Inyan. Dastanas +2",ring1="Stikini Ring",ring2="Stikini Ring",
 		back="Intarabus's Cape",waist="Luminary Sash",legs="Inyanga Shalwar +2",feet="Aya. Gambieras +1"}
@@ -415,7 +431,8 @@ function init_gear_sets()
 	-- EG: sets.engaged.Dagger.Accuracy.Evasion
 	
 	sets.engaged = {
-		main = "Naegling",
+		--main = "Naegling",
+		main = "Carnwenhan",
 		sub = "Blurred Knife +1",
 		ammo = "Ginsen",
 		head = "Ayanmo Zucchetto +2",

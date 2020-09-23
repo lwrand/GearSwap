@@ -80,7 +80,7 @@ function job_setup()
 	state.Buff['Nightingale'] = buffactive['Nightingale'] or false
 	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
 
-	autows = "Rudra's Storm"
+	autows = "Mordant Rime"
 	autofood = 'Pear Crepe'
 	
 	state.AutoSongMode = M(false, 'Auto Song Mode')
@@ -396,16 +396,16 @@ function check_song()
 	if state.AutoSongMode.value then
 		if not buffactive.march then
 			windower.chat.input('/ma "Honor March" <me>')
-			tickdelay = os.clock() + 2
+			tickdelay = os.clock() + 20
 			return true
-		elseif not buffactive.minuet then
-			windower.chat.input('/ma "Valor Minuet V" <me>')
-			tickdelay = os.clock() + 2
-			return true
-		elseif not buffactive.madrigal then
-			windower.send_command('gs c set ExtraSongsMode FullLength;input /ma "Blade Madrigal" <me>')
-			tickdelay = os.clock() + 2
-			return true
+		--elseif not buffactive.minuet then
+		--	windower.chat.input('/ma "Valor Minuet V" <me>')
+		--	tickdelay = os.clock() + 2
+		--	return true
+		--elseif not buffactive.madrigal then
+		--	windower.send_command('gs c set ExtraSongsMode FullLength;input /ma "Blade Madrigal" <me>')
+		--	tickdelay = os.clock() + 2
+		--	return true
 		else
 			return false
 		end
