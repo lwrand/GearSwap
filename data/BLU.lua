@@ -65,7 +65,8 @@ function job_setup()
 	
 	state.LearningMode = M(false, 'Learning Mode')
 	state.AutoUnbridled = M(false, 'Auto Unbridled Learning Mode')
-	autows = 'Chant Du Cygne'
+	--autows = 'Chant Du Cygne'
+	autows = 'Chant du Cygne'
 	autofood = 'Coeurl Sub'
 	
     blue_magic_maps = {}
@@ -515,17 +516,18 @@ function update_melee_groups()
 end
 
 function check_buff()
-	if state.AutoBuffMode.value ~= 'Off' and not areas.Cities:contains(world.area) then
-		local spell_recasts = windower.ffxi.get_spell_recasts()
-		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
-				if not unbridled_spells:contains(buff_spell_lists[state.AutoBuffMode.Value][i].Name) or unbridled_ready() then
-					windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
-					tickdelay = os.clock() + 2
-					return true
-				end
-			end
-		end
+	--if state.AutoBuffMode.value ~= 'Off' and not areas.Cities:contains(world.area) then
+	if state.AutoBuffMode.value ~= 'Off' then
+		--local spell_recasts = windower.ffxi.get_spell_recasts()
+		--for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
+		--	if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+		--		if not unbridled_spells:contains(buff_spell_lists[state.AutoBuffMode.Value][i].Name) or unbridled_ready() then
+		--			windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
+		--			tickdelay = os.clock() + 2
+		--			return true
+		--		end
+		--	end
+		--end
 		if player.sub_job == 'WAR' then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
 			if not buffactive.Berserk and abil_recasts[1] < latency then
@@ -584,7 +586,7 @@ buff_spell_lists = {
 		--{Name='Battery Charge',		Buff='Refresh',			SpellID=662,	When='Idle'},
 		--{Name='Refresh',			Buff='Refresh',			SpellID=109,	When='Idle'},
 		{Name='Erratic Flutter',	Buff='Haste',			SpellID=710,	When='Always'},
-		{Name='Occultation',		Buff='Blink',			SpellID=679,	When='Always'},
+		--{Name='Occultation',		Buff='Blink',			SpellID=679,	When='Always'},
 		{Name='Nat. Meditation',	Buff='Attack Boost',	SpellID=700,	When='Always'},
 		{Name='Mighty Guard',		Buff='Mighty Guard',	SpellID=750,	When='Always'},
 	},

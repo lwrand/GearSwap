@@ -8,35 +8,38 @@ gear.grioavolr_fc_staff = {name="Grioavolr",augments={'"Fast Cast"+7','MP+20','M
 gear.grioavolr_pet_staff = {name="Grioavolr", augments={'Blood Pact Dmg.+7','Pet: INT+1','Pet: Mag. Acc.+6','Pet: "Mag.Atk.Bns."+29','DMG:+2',}}
 
 gear.chironic_enfeeble_hands = {name="Chironic Gloves",augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','MND+10','Mag. Acc.+15',}}
-gear.chironic_refresh_hands = {name="Chironic Gloves",augments={'"Counter"+4','DEX+4','"Refresh"+2','Accuracy+19 Attack+19','Mag. Acc.+13 "Mag.Atk.Bns."+13',}}
-gear.chironic_treasure_feet = {name="Chironic Slippers",augments={'"Occult Acumen"+8','MND+7','"Treasure Hunter"+2',}}
-gear.chironic_nuke_feet = {name="Chironic Slippers",augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','"Drain" and "Aspir" potency +10','CHR+6','"Mag.Atk.Bns."+15',}}
-gear.chironic_refresh_feet = {name="Chironic Slippers",augments={'Pet: Mag. Acc.+18 Pet: "Mag.Atk.Bns."+18','Pet: Mag. Acc.+3','"Refresh"+1','Accuracy+13 Attack+13','Mag. Acc.+8 "Mag.Atk.Bns."+8',}}
+gear.chironic_refresh_hands = {name="Chironic Gloves", augments={'Attack+23','Pet: INT+11','"Refresh"+2','Mag. Acc.+4 "Mag.Atk.Bns."+4',}}
+--gear.chironic_treasure_feet = {name="Chironic Slippers",augments={'"Occult Acumen"+8','MND+7','"Treasure Hunter"+2',}}
+--gear.chironic_nuke_feet = {name="Chironic Slippers",augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','"Drain" and "Aspir" potency +10','CHR+6','"Mag.Atk.Bns."+15',}}
+--gear.chironic_refresh_feet = {name="Chironic Slippers",augments={'Pet: Mag. Acc.+18 Pet: "Mag.Atk.Bns."+18','Pet: Mag. Acc.+3','"Refresh"+1','Accuracy+13 Attack+13','Mag. Acc.+8 "Mag.Atk.Bns."+8',}}
 
 gear.herculean_fc_head = {name="Herculean Helm", augments={'Mag. Acc.+12','"Fast Cast"+5','INT+7','"Mag.Atk.Bns."+4',}}
 gear.herculean_nuke_head = {name="Herculean Helm",augments={'Mag. Acc.+16 "Mag.Atk.Bns."+16','Enmity-3','INT+9','"Mag.Atk.Bns."+13',}}
 gear.herculean_wsd_head = {name="Herculean Helm", augments={'Accuracy+3','Weapon skill damage +5%',}}
 gear.herculean_dt_hands = {name="Herculean Gloves",augments={'Attack+4','Damage taken-4%',}}
-gear.herculean_refresh_hands = {name="Herculean Gloves",augments={'Enmity+2','Pet: "Store TP"+4','"Refresh"+1',}}
+--gear.herculean_refresh_hands = {name="Herculean Gloves",augments={'Enmity+2','Pet: "Store TP"+4','"Refresh"+1',}}
 gear.herculean_waltz_body = {name="Herculean Vest",augments={'Attack+26','"Waltz" potency +11%','AGI+4','Accuracy+5',}}
 gear.herculean_wsd_body = {name="Herculean Vest",augments={'Accuracy+11','Weapon skill damage +5%','DEX+7',}}
 gear.herculean_waltz_hands = {name="Herculean Gloves",augments={'Rng.Acc.+16','"Waltz" potency +11%','AGI+1',}}
-gear.herculean_dt_legs = {name="Herculean Trousers",augments={'Attack+15','Damage taken-4%','STR+3','Accuracy+12',}}
-gear.herculean_wsd_legs = {name="Herculean Trousers", augments={'Accuracy+24 Attack+24','Weapon skill damage +3%','AGI+6','Attack+12',}}
+--gear.herculean_dt_legs = {name="Herculean Trousers",augments={'Attack+15','Damage taken-4%','STR+3','Accuracy+12',}}
+--gear.herculean_wsd_legs = {name="Herculean Trousers", augments={'Accuracy+24 Attack+24','Weapon skill damage +3%','AGI+6','Attack+12',}}
 gear.herculean_nuke_legs = {name="Herculean Trousers",augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','Damage taken-2%','"Mag.Atk.Bns."+14',}}
-gear.herculean_acc_feet = {name="Herculean Boots", augments={'Accuracy+28','Weapon skill damage +4%','Attack+14',}}
+gear.herculean_acc_feet = {name="Herculean Boots", augments={'Accuracy+18 Attack+18','"Triple Atk."+3',}}
 gear.herculean_ta_feet = {name="Herculean Boots", augments={'Accuracy+18 Attack+18','"Triple Atk."+3',}}
-gear.herculean_dt_feet = {name="Herculean Boots",augments={'Damage taken-4%','MND+7','Attack+6',}}
-gear.herculean_wsd_feet = {name="Herculean Boots", augments={'Accuracy+28','Weapon skill damage +4%','Attack+14',}}
+--gear.herculean_dt_feet = {name="Herculean Boots",augments={'Damage taken-4%','MND+7','Attack+6',}}
+gear.herculean_wsd_feet = {name="Herculean Boots", augments={'CHR+5','Weapon skill damage +9%','Accuracy+15 Attack+15','Mag. Acc.+5 "Mag.Atk.Bns."+5',}}
 gear.herculean_waltz_feet = {name="Herculean Boots",augments={'Attack+10','"Waltz" potency +10%','AGI+4','Accuracy+9',}}
 gear.herculean_nuke_feet = {name="Herculean Boots",augments={'"Mag.Atk.Bns."+23','Rng.Acc.+14','Phalanx +1','Mag. Acc.+15 "Mag.Atk.Bns."+15',}}
-gear.herculean_refresh_feet = {name="Herculean Boots",augments={'CHR+8','Rng.Acc.+7','"Refresh"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
+--gear.herculean_refresh_feet = {name="Herculean Boots",augments={'CHR+8','Rng.Acc.+7','"Refresh"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
 gear.herculean_ch_feet = {name="Herculean Boots", augments={'Attack+23','Crit.hit rate+4','STR+12','Accuracy+13',}}
-gear.herculean_cd_feet = {name="Herculean Boots", augments={'Accuracy+21','Crit. hit damage +4%','Attack+3',}}
+gear.herculean_cdc_feet = {name="Herculean Boots", augments={'Accuracy+11','Crit. hit damage +4%','Attack+12',}}
+
 gear.herculean_pet_melee_ws_head = {name="Herculean Helm", augments={'Pet: Accuracy+8 Pet: Rng. Acc.+8','Pet: "Dbl.Atk."+4 Pet: Crit.hit rate +4','Pet: DEX+6','Pet: Attack+2 Pet: Rng.Atk.+2',}}
 gear.herculean_pet_melee_ws_hand = {name="Herculean Gloves", augments={'Pet: "Dbl.Atk."+4 Pet: Crit.hit rate +4','Pet: INT+3','Pet: Attack+10 Pet: Rng.Atk.+10',}}
 gear.herculean_pet_melee_ws_legs = {name="Herculean Trousers", augments={'Pet: Mag. Acc.+19','Pet: "Dbl.Atk."+4 Pet: Crit.hit rate +4','Pet: Attack+12 Pet: Rng.Atk.+12',}}
 gear.herculean_pet_melee_ws_feet = {name="Herculean Boots", augments={'Pet: Attack+21 Pet: Rng.Atk.+21','Pet: "Dbl.Atk."+3 Pet: Crit.hit rate +3','Pet: "Mag.Atk.Bns."+3',}}
+gear.blu_wsd_jse_back = {name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+gear.blu_macc_jse_back = {name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
 
 gear.herculean_pet_stp_feet = {name="Herculean Boots", augments={'Pet: Mag. Acc.+4','Pet: "Store TP"+10','Pet: DEX+1',}}
 gear.herculean_pet_stp_legs = {name="Herculean Trousers", augments={'Pet: Mag. Acc.+10','Pet: "Store TP"+10','Pet: INT+1','Pet: "Mag.Atk.Bns."+4',}}
@@ -101,7 +104,11 @@ sets.precast.FC.Trust =  {
 		body="Yoran Unity Shirt"
 }
 
-sets.buff.Doom = {waist="Gishdubar Sash",ring1="Eshmun's Ring",ring2="Eshmun's Ring"}
+sets.buff.Doom = {
+	waist = "Gishdubar Sash",
+	--ring1 = "Eshmun's Ring",
+	--ring2 = "Eshmun's Ring"
+}
 sets.TreasureHunter = {
 	head="Wh. Rarab Cap +1",
 	waist="Chaac Belt" 

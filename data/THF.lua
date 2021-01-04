@@ -70,7 +70,8 @@ function job_setup()
     state.Buff['Feint'] = buffactive['Feint'] or false
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	
-	autows = "Rudra's Storm"
+	--autows = "Rudra's Storm"
+	autows = "Evisceration"
 	rangedautows = "Last Stand"
 	autofood = 'Soy Ramen'
 	
