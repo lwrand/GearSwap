@@ -183,7 +183,7 @@ function init_gear_sets()
 	sets.precast.WS = {}
 		
 	sets.precast.WS["Savage Blade"] = set_combine(sets.precast.WS, {
-		range="Linos",
+		range=gear.linos_wsd,
 		head="Lustratio Cap +1",
 		hands="Lustratio Mittens +1",
 		legs="Lustratio Subligar +1",
@@ -199,7 +199,7 @@ function init_gear_sets()
 	})
 	
 	sets.precast.WS["Mordant Rime"] = set_combine(sets.precast.WS, {
-		range="Linos",
+		range=gear.linos_wsd,
 		head="Bihu Roundlet +3",
 		hands="Bihu Cuffs +3",
 		legs="Bihu Cannions +3",
@@ -585,7 +585,7 @@ function init_gear_sets()
 	
 	sets.engaged = {
 		--ammo = "Ginsen",
-		range={ name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','Quadruple Attack +3',}},
+		range=gear.linos_tp,
 		head = "Blistering Sallet +1",
 		body = "Ayanmo Corazza +2",
 		hands = "Ayanmo Manopolas +2",

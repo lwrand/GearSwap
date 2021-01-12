@@ -58,7 +58,7 @@ gear.merlinic_nuke_legs = {name="Merlinic Shalwar", augments={'Mag. Acc.+21 "Mag
 gear.merlinic_nuke_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','"Occult Acumen"+4','INT+10','Mag. Acc.+2','"Mag.Atk.Bns."+15'}}
 gear.merlinic_occult_body = {name="Merlinic Jubbah",augments={'Mag. Acc.+14','"Occult Acumen"+11','MND+6',}}
 --gear.merlinic_refresh_hands = {name="Merlinic Dastanas",augments={'Attack+17','Pet: INT+5','"Refresh"+2','Accuracy+11 Attack+11',}}
-gear.merlinic_magpact_hands = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+24 Pet: "Mag.Atk.Bns."+24','Pet: "Dbl. Atk."+3','Pet: Mag. Acc.+8','Pet: "Mag.Atk.Bns."+15',}}
+gear.merlinic_magpact_hands = {name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+24 Pet: "Mag.Atk.Bns."+24','Pet: "Dbl. Atk."+3','Pet: Mag. Acc.+8','Pet: "Mag.Atk.Bns."+15',}}
 gear.merlinic_physpact_hands = {name="Merlinic Dastanas", augments={'Pet: Accuracy+25 Pet: Rng. Acc.+25','Blood Pact Dmg.+9','Pet: DEX+5','Pet: "Mag.Atk.Bns."+11',}}
 --gear.merlinic_nuke_feet = {name="Merlinic Crackows",augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','"Conserve MP"+1','INT+11','Mag. Acc.+3','"Mag.Atk.Bns."+15',}}
 --gear.merlinic_aspir_feet = {name="Merlinic Crackows",augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','"Drain" and "Aspir" potency +10','Mag. Acc.+15',}}
@@ -66,7 +66,7 @@ gear.merlinic_physpact_hands = {name="Merlinic Dastanas", augments={'Pet: Accura
 --gear.merlinic_refresh_feet = {name="Merlinic Crackows",augments={'Pet: DEX+7','Pet: Mag. Acc.+7','"Refresh"+2','Accuracy+20 Attack+20',}}
 --gear.merlinic_occult_feet = {name="Merlinic Crackows",augments={'"Occult Acumen"+11','INT+8','Mag. Acc.+4',}}
 gear.merlinic_hybpact_hands = {name="Merlinic Dastanas", augments={'Pet: Accuracy+25 Pet: Rng. Acc.+25','Blood Pact Dmg.+9','Pet: DEX+5','Pet: "Mag.Atk.Bns."+11',}}
-gear.merlinic_fc_hands = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','CHR+10','Mag. Acc.+15',}}
+gear.merlinic_fc_hands = {name="Merlinic Dastanas", augments={'"Fast Cast"+6','CHR+10','Mag. Acc.+15',}}
 
 gear.odyssean_wsd_hands = { name="Odyssean Gauntlets",augments={'Accuracy+26','Weapon skill damage +4%','STR+6','Attack+14',}}
 gear.odyssean_stp_legs = {name="Odyssean Cuisses",augments={'Accuracy+28','"Store TP"+6','DEX+9',}}
@@ -95,6 +95,8 @@ gear.helios_physpact_boots = {name="Helios Boots"}
 gear.camp_physpact_back = {name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Accuracy+20 Attack+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10',}}
 gear.camp_magpact_back = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Magic Damage+10','"Fast Cast"+10',}}
 
+gear.linos_tp = {name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+3','Quadruple Attack +3',}}
+gear.linos_wsd = {name="Linos", augments={'Accuracy+15','Weapon skill damage +2%','STR+4 DEX+4',}}
 
 --Gearsets your character will use among multiple jobs.
 
