@@ -98,6 +98,9 @@ gear.camp_magpact_back = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pe
 gear.linos_tp = {name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+3','Quadruple Attack +3',}}
 gear.linos_wsd = {name="Linos", augments={'Accuracy+15','Weapon skill damage +2%','STR+4 DEX+4',}}
 
+gear.fastcast_jse_back = {name="Rudianos's Mantle", augments={'HP+42','"Fast Cast"+10',}}
+gear.enmity_jse_back = {name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
+
 --Gearsets your character will use among multiple jobs.
 
 sets.Sheltered = {ring2="Sheltered Ring"}

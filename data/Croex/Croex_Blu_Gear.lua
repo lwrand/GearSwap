@@ -806,22 +806,20 @@ sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].M
 	sets.midcast['Blue Magic'].MagicalDex = set_combine(sets.midcast['Blue Magic'].Magical, {})
 
 	sets.midcast['Blue Magic'].MagicAccuracy = {
-	--main = "Iris",
-	--sub = "Iris",
-	ammo = "Pemphredo Tathlum",
-	head = "Jhakri Coronal +2",
-	neck = "Erra Pendant",
-	ear1 = "Regal Earring",
-	ear2 = "Dignitary's Earring",
-	body = "Jhakri Robe +2",
-	--hands = "Regal Cuffs",
-	ring1 = "Stikini Ring",
-	ring1 = "Stikini Ring",
-	back = "Cornflower Cape",
-	waist = "Luminary Sash",
-	legs = "Jhakri Slops +2",
-	feet = "Jhakri Pigaches +2"
-}
+		ammo = "Falcon Eye",
+		head = "Malignance Chapeau",
+		neck = "Mirage Stole +2",
+		ear1 = "Regal Earring",
+		ear2 = "Dignitary's Earring",
+		body = "Malignance Tabard",
+		hands = "Malignance Gloves",
+		ring1 = "Stikini Ring",
+		ring2 = "Stikini Ring",
+		back = "Cornflower Cape",
+		waist = "Luminary Sash",
+		legs = "Malignance Tights",
+		feet = "Malignance Boots"
+	}
 
 sets.midcast['Enfeebling Magic'] = {
 	--main = "Nibiru Cudgel",
