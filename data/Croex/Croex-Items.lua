@@ -68,15 +68,20 @@ gear.merlinic_physpact_hands = {name="Merlinic Dastanas", augments={'Pet: Accura
 gear.merlinic_hybpact_hands = {name="Merlinic Dastanas", augments={'Pet: Accuracy+25 Pet: Rng. Acc.+25','Blood Pact Dmg.+9','Pet: DEX+5','Pet: "Mag.Atk.Bns."+11',}}
 gear.merlinic_fc_hands = {name="Merlinic Dastanas", augments={'"Fast Cast"+6','CHR+10','Mag. Acc.+15',}}
 
-gear.odyssean_wsd_hands = { name="Odyssean Gauntlets",augments={'Accuracy+26','Weapon skill damage +4%','STR+6','Attack+14',}}
+gear.odyssean_wsd_head = {name="Odyssean Helm", augments={'Attack+25','Weapon skill damage +2%','INT+3','Accuracy+11',}}
+gear.odyssean_wsd_hands = {name="Odyssean Gauntlets", augments={'"Mag.Atk.Bns."+12','Weapon skill damage +4%','STR+5','Accuracy+2','Attack+3',}}
+gear.odyssean_wsd_legs = {name="Odyssean Cuisses", augments={'CHR+12','"Mag.Atk.Bns."+1','Weapon skill damage +6%','Accuracy+10 Attack+10',}}
 gear.odyssean_stp_legs = {name="Odyssean Cuisses",augments={'Accuracy+28','"Store TP"+6','DEX+9',}}
 gear.odyssean_fc_legs = {name="Odyssean Cuisses",augments={'"Fast Cast"+6','"Mag.Atk.Bns."+12',}}
+gear.odyssean_fc_body = {name="Odyss. Chestplate", augments={'"Fast Cast"+4','DEX+9','Accuracy+11','Attack+9',}}
+gear.odyssean_phalanx_body ={ name="Odyss. Chestplate", augments={'"Store TP"+1','Pet: INT+10','Phalanx +3','Accuracy+19 Attack+19','Mag. Acc.+10 "Mag.Atk.Bns."+10',}}
 
+gear.valorous_wsd_legs = {name="Valorous Hose", augments={'"Mag.Atk.Bns."+24','Weapon skill damage +4%','STR+1','Accuracy+14','Attack+13',}}
 gear.valorous_magical_wsd_head = {name="Valorous Mask",augments={'"Mag.Atk.Bns."+17','Weapon skill damage +5%','Attack+10',}}
 gear.valorous_wsd_head = {name="Valorous Mask",augments={'Attack+23','Weapon skill damage +4%','Accuracy+15',}}
 gear.valorous_pet_head = {name="Valorous Mask",augments={'Pet: "Mag.Atk.Bns."+25','Pet: "Regen"+3','Pet: INT+14','Pet: Accuracy+2 Pet: Rng. Acc.+2',}}
 gear.valorous_pet_body = {name="Valorous Mail",augments={'Pet: "Mag.Atk.Bns."+26','"Dbl.Atk."+3','Pet: INT+8','Pet: Accuracy+13 Pet: Rng. Acc.+13','Pet: Attack+12 Pet: Rng.Atk.+12',}}
-gear.valorous_wsd_body = {name="Valorous Mail",augments={'Accuracy+25 Attack+25','Weapon skill damage +4%','Accuracy+10','Attack+12',}}
+gear.valorous_wsd_body = {name="Valorous Mail", augments={'Weapon skill damage +4%','MND+6','Accuracy+12','Attack+5',}}
 gear.valorous_wsd_hands = {name="Valorous Mitts",augments={'Accuracy+30','Weapon skill damage +2%','STR+10','Attack+10',}}
 gear.valorous_acc_hands = {name="Valorous Mitts",augments={'Accuracy+21 Attack+21','"Store TP"+4','Accuracy+15','Attack+9',}}
 gear.valorous_physical_pet_legs = {name="Valor. Hose",augments={'Pet: Attack+29 Pet: Rng.Atk.+29','Pet: "Dbl.Atk."+3 Pet: Crit.hit rate +3','Pet: STR+8','Pet: Accuracy+8 Pet: Rng. Acc.+8',}}
@@ -98,8 +103,10 @@ gear.camp_magpact_back = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pe
 gear.linos_tp = {name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+3','Quadruple Attack +3',}}
 gear.linos_wsd = {name="Linos", augments={'Accuracy+15','Weapon skill damage +2%','STR+4 DEX+4',}}
 
-gear.fastcast_jse_back = {name="Rudianos's Mantle", augments={'HP+42','"Fast Cast"+10',}}
-gear.enmity_jse_back = {name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
+gear.pld_fc_jse_back = {name="Rudianos's Mantle", augments={'HP+42','"Fast Cast"+10',}}
+gear.pld_enmity_jse_back = {name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
+gear.pld_wsd_jse_back = {name="Rudianos's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
+gear.pld_phalanx_jse_back = {name="Weard Mantle", augments={'VIT+3','DEX+2','Enmity+2','Phalanx +5',}}
 
 --Gearsets your character will use among multiple jobs.
 
